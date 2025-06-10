@@ -24,6 +24,12 @@ qt_add_executable(EMProj_CMake
         # UIs
         src/ui/introwidget.ui
         src/ui/rulewidget.ui
+
+        # CSSs
+        src/css/intro.css
+
+        # Resources
+        resources.qrc
 )
 
 set_target_properties(EMProj_CMake PROPERTIES
