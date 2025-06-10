@@ -1,0 +1,29 @@
+QWidget#background{
+    background-position: center;
+}
+
+QPushButton#navigator{
+    background-color: #f0f0f0;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+QPushButton#navigator:hover{
+    background-color: lightgray;
+}
+
+QPushButton#navigator:disabled{
+    background-color: #f0f0f0;
+    color: gray;
+    border-color: gray;
+}
+
+QPushButton#icon{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+QPushButton#icon:hover{
+    background-color: #e8e8e8;
+}
