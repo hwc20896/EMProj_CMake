@@ -5,6 +5,7 @@
 #include <QStackedWidget>
 #include <QSqlQuery>
 #include "introwidget.hpp"
+#include "rulewidget.hpp"
 
 class MainWidget final : public QStackedWidget {
     Q_OBJECT
@@ -16,6 +17,7 @@ class MainWidget final : public QStackedWidget {
 
         //  Subwidgets
         IntroWidget* intro_;
+        RuleWidget* rule_;
 };
 
 #endif
