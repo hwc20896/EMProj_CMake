@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/SoundEffects">
+        <file>sounds/bingo.wav</file>
+        <file>sounds/ohno.wav</file>
+    </qresource>
+    <qresource prefix="/Drawables">
+        <file>drawables/arrow_down.png</file>
+        <file>drawables/mute.png</file>
+        <file>drawables/unmute.png</file>
+    </qresource>
+    <qresource prefix="/BackgroundImages"/>
+    <qresource prefix="/BGM">
+        <file>sounds/OMFG_Pizza.mp3</file>
+    </qresource>
+</RCC>
