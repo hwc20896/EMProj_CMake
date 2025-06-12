@@ -1,4 +1,5 @@
 QWidget#background{
+    background-image: url(:/BackgroundImages/backgrounds/firstpagebg.jpg);
     background-position: center;
 }
 
