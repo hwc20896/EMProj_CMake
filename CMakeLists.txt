@@ -15,11 +15,13 @@ qt_add_executable(EMProj_CMake
         src/cpp/mainwidget.cpp
         src/cpp/introwidget.cpp
         src/cpp/rulewidget.cpp
+        src/cpp/managementwidget.cpp
 
         # Headers
         src/headers/mainwidget.hpp
         src/headers/introwidget.hpp
         src/headers/rulewidget.hpp
+        src/headers/managementwidget.hpp
 
         # UIs
         src/ui/introwidget.ui
