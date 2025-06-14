@@ -9,11 +9,14 @@
         <file>drawables/unmute.png</file>
     </qresource>
     <qresource prefix="/BackgroundImages">
-        <file>backgrounds/firstpagebg.jpg</file>
         <file>backgrounds/outrobg.jpg</file>
         <file>backgrounds/qnabg.jpg</file>
+        <file>backgrounds/firstpagebg.png</file>
     </qresource>
     <qresource prefix="/BGM">
         <file>sounds/OMFG_Pizza.mp3</file>
+    </qresource>
+    <qresource prefix="/CSS">
+        <file>src/css/intro.css</file>
     </qresource>
 </RCC>

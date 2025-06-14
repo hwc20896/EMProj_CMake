@@ -1,5 +1,8 @@
 #include "introwidget.hpp"
 
+#include <QPixmap>
+#include <memory>
+
 IntroWidget::IntroWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::IntroWidget) {
     ui_->setupUi(this);
     isMuted = false;
@@ -15,6 +18,18 @@ IntroWidget::IntroWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::IntroWi
         ui_->muteSwitch->setIcon(isMuted? muted: unmuted);
     });
     ui_->muteSwitch->setIcon(unmuted);
+
+    //  Widget tags
+    ui_->startButton->setObjectName("navigator");
+    ui_->muteSwitch->setObjectName("icon");
+    ui_->ruleButton->setObjectName("navigator");
+    this->setObjectName("root");
+    this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/intro.css"));
+
+    label_ = new QLabel(this);
+    label_->setPixmap({":/BackgroundImages/backgrounds/firstpagebg.png"});
+    label_->setGeometry(0,0,1000,700);
+    label_->lower();
 }
 
 IntroWidget::~IntroWidget() {

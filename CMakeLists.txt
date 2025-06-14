@@ -16,19 +16,18 @@ qt_add_executable(EMProj_CMake
         src/cpp/introwidget.cpp
         src/cpp/rulewidget.cpp
         src/cpp/managementwidget.cpp
+        src/cpp/templatewidget.cpp
 
         # Headers
         src/headers/mainwidget.hpp
         src/headers/introwidget.hpp
         src/headers/rulewidget.hpp
         src/headers/managementwidget.hpp
+        src/headers/templatewidget.hpp
 
         # UIs
         src/ui/introwidget.ui
         src/ui/rulewidget.ui
-
-        # CSSs
-        src/css/intro.css
 
         # Resources
         resources.qrc

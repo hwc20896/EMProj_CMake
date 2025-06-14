@@ -1,7 +1,6 @@
 #include "mainwidget.hpp"
 #include <QApplication>
 #include <QSqlDatabase>
-#include <QMessageBox>
 
 int main(int argc, char** argv) {
     QApplication app(argc, argv);

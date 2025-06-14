@@ -1,8 +1,3 @@
-QWidget#background{
-    background-image: url(:/BackgroundImages/backgrounds/firstpagebg.jpg);
-    background-position: center;
-}
-
 QPushButton#navigator{
     background-color: #f0f0f0;
     color: black;
@@ -21,6 +16,7 @@ QPushButton#navigator:disabled{
 }
 
 QPushButton#icon{
+    background-color: #f0f0f0;
     border: 1px solid black;
     border-radius: 5px;
 }

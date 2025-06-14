@@ -1,4 +1,5 @@
 #include "rulewidget.hpp"
+#include "templatewidget.hpp"
 
 RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidget) {
     ui_->setupUi(this);
@@ -15,6 +16,12 @@ RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidge
     connect(ui_->incorrSoundPreview, &QPushButton::clicked, this, [this]{incorrSound_->play();});
 
     connect(ui_->returnButton, &QPushButton::clicked, this, &RuleWidget::returnToIntro);
+
+    //  Widget tags
+    ui_->corrSoundPreview->setObjectName("navigator");
+    ui_->incorrSoundPreview->setObjectName("navigator");
+    ui_->returnButton->setObjectName("navigator");
+    this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/intro.css"));
 }
 
 RuleWidget::~RuleWidget() {

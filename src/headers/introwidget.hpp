@@ -3,6 +3,8 @@
 #define INTROWIDGET_H
 #include "ui_introwidget.h"
 #include <QIcon>
+#include "managementwidget.hpp"
+#include <QLabel>
 
 class IntroWidget final : public QWidget {
     Q_OBJECT
@@ -13,6 +15,8 @@ class IntroWidget final : public QWidget {
         Ui::IntroWidget* ui_;
         QIcon muted, unmuted;
         bool isMuted;
+        QLabel* label_;
+
     signals:
         void toRulePage();
         void start();

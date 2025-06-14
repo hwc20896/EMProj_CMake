@@ -6,7 +6,6 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
 
     this->addWidget(intro_);
     this->addWidget(rule_);
-
     this->setCurrentIndex(0);
 
     connect(intro_, &IntroWidget::toRulePage, this, [this] {
