@@ -28,10 +28,11 @@ qt_add_executable(EMProj_CMake
         # UIs
         src/ui/introwidget.ui
         src/ui/rulewidget.ui
+        src/ui/managementwidget.ui
+        src/ui/template.ui
 
         # Resources
         resources.qrc
-        src/ui/managementwidget.ui
 )
 
 set_target_properties(EMProj_CMake PROPERTIES
