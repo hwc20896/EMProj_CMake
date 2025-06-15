@@ -2,8 +2,6 @@
 #include <random>
 #include <ranges>
 
-#define RANDOM_ALGORITHM std::mt19937(std::random_device()())
-
 ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocument& json, QWidget* parent)
 : QWidget(parent), ui_(new Ui::ManagementWidget), json_(json), database_(database) {
     ui_->setupUi(this);
