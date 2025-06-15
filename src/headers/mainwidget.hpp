@@ -1,9 +1,9 @@
 #pragma once
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
-
+#include <QFile>
 #include <QStackedWidget>
-#include <QSqlQuery>
+
 #include "introwidget.hpp"
 #include "rulewidget.hpp"
 
@@ -14,10 +14,15 @@ class MainWidget final : public QStackedWidget {
         ~MainWidget() override;
     private:
         QSqlDatabase database_;
+        QSqlQuery query_;
+        QJsonDocument json_;
 
         //  Subwidgets
         IntroWidget* intro_;
         RuleWidget* rule_;
+
+        //  App information
+        int totalQuantity, displayQuantity;
 };
 
 #endif

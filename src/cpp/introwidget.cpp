@@ -35,3 +35,9 @@ IntroWidget::IntroWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::IntroWi
 IntroWidget::~IntroWidget() {
     delete ui_;
 }
+
+void IntroWidget::blockStart() const {
+    ui_->startButton->setDisabled(true);
+    ui_->startButton->setToolTip("由於配置文件缺失，無法開始游戲。請到下載處Issue頁回報此問題。");
+}
+

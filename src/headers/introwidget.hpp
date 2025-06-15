@@ -11,6 +11,8 @@ class IntroWidget final : public QWidget {
     public:
         explicit IntroWidget(QWidget* parent = nullptr);
         ~IntroWidget() override;
+
+        void blockStart() const;
     private:
         Ui::IntroWidget* ui_;
         QIcon muted, unmuted;
