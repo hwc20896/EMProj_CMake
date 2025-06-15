@@ -4,6 +4,8 @@
 
 int main(int argc, char** argv) {
     QApplication app(argc, argv);
+
+    //  Database initialization
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName("data.db");
     if (database.open()) {
