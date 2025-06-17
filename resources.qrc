@@ -18,5 +18,6 @@
     </qresource>
     <qresource prefix="/CSS">
         <file>src/css/intro.css</file>
+        <file>src/css/questioning.css</file>
     </qresource>
 </RCC>

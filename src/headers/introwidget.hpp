@@ -12,6 +12,9 @@ class IntroWidget final : public QWidget {
         explicit IntroWidget(QWidget* parent = nullptr);
         ~IntroWidget() override;
 
+        /**
+         * @brief Disables the start button, preventing the game from starting.
+         */
         void blockStart() const;
     private:
         Ui::IntroWidget* ui_;
