@@ -1,23 +1,17 @@
 #include "introwidget.hpp"
 
 #include <QPixmap>
-#include <memory>
 
 IntroWidget::IntroWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::IntroWidget) {
     ui_->setupUi(this);
-    isMuted = false;
 
-    muted.addFile(":/Drawables/drawables/mute.png");
-    unmuted.addFile(":/Drawables/drawables/unmute.png");
+    //  Mute switch
+    muteSwitch_ = new MuteSwitch({50,50}, false, this);
+    muteSwitch_->setGeometry(580,20,60,60);
 
     //  Connections
     connect(ui_->ruleButton, &QPushButton::clicked, this, &IntroWidget::toRulePage);
     connect(ui_->startButton, &QPushButton::clicked, this, &IntroWidget::start);
-    connect(ui_->muteSwitch, &QPushButton::clicked, this, [this] {
-        isMuted = !isMuted;
-        ui_->muteSwitch->setIcon(isMuted? muted: unmuted);
-    });
-    ui_->muteSwitch->setIcon(unmuted);
 
     //  Widget tags
     ui_->startButton->setObjectName("navigator");
@@ -34,6 +28,7 @@ IntroWidget::IntroWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::IntroWi
 
 IntroWidget::~IntroWidget() {
     delete ui_;
+    delete muteSwitch_;
 }
 
 void IntroWidget::blockStart() const {
@@ -41,3 +36,6 @@ void IntroWidget::blockStart() const {
     ui_->startButton->setToolTip("由於配置文件缺失，無法開始游戲。請到下載處Issue頁回報此問題。");
 }
 
+bool IntroWidget::getMutedState() const {
+    return muteSwitch_->getMutedState();
+}

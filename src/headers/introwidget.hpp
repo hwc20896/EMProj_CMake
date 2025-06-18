@@ -1,10 +1,9 @@
 #pragma once
 #ifndef INTROWIDGET_H
 #define INTROWIDGET_H
-#include "ui_introwidget.h"
-#include <QIcon>
 #include "managementwidget.hpp"
-#include <QLabel>
+#include "muteswitch.hpp"
+#include "ui_introwidget.h"
 
 class IntroWidget final : public QWidget {
     Q_OBJECT
@@ -16,10 +15,11 @@ class IntroWidget final : public QWidget {
          * @brief Disables the start button, preventing the game from starting.
          */
         void blockStart() const;
+        bool getMutedState() const;
     private:
         Ui::IntroWidget* ui_;
-        QIcon muted, unmuted;
-        bool isMuted;
+        MuteSwitch* muteSwitch_;
+
         QLabel* label_;
 
     signals:
