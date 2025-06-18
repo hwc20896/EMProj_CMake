@@ -6,6 +6,7 @@
 
 #include "introwidget.hpp"
 #include "rulewidget.hpp"
+#include "managementwidget.hpp"
 
 class MainWidget final : public QStackedWidget {
     Q_OBJECT
@@ -23,6 +24,11 @@ class MainWidget final : public QStackedWidget {
 
         //  App information
         int totalQuantity, displayQuantity;
+
+        //  Main
+        ManagementWidget* management_;
+    private slots:
+        void outroCall(int correctCount, bool currentMuted, const std::vector<int64_t>& timestamps);
 };
 
 #endif

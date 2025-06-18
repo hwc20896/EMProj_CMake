@@ -10,6 +10,8 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     rule_ = new RuleWidget;
     displayQuantity = 0;
 
+    management_ = nullptr;
+
     if (QFile file("config.json");
         file.open(QFile::ReadOnly | QFile::Text)
     ) {
@@ -32,11 +34,19 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     });
 
     connect(intro_, &IntroWidget::start, this, [this] {
-        //  ...
+        management_ = new ManagementWidget(database_, json_, intro_->getMutedState());
+        this->close();
+        management_->show();
+        management_->setFixedSize(this->size());
+        connect(management_, &ManagementWidget::finish, this, &MainWidget::outroCall);
     });
 }
 
 MainWidget::~MainWidget() {
     delete intro_;
     delete rule_;
+}
+
+void MainWidget::outroCall(const int correctCount, const bool currentMuted, const std::vector<int64_t>& timestamps) {
+    //  TODO: outro
 }
