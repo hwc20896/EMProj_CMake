@@ -92,25 +92,6 @@
     <string>TextLabel</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="muteSwitch">
-   <property name="geometry">
-    <rect>
-     <x>570</x>
-     <y>10</y>
-     <width>60</width>
-     <height>60</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>60</width>
-     <height>60</height>
-    </size>
-   </property>
-  </widget>
   <widget class="QWidget" name="optionWidget" native="true">
    <property name="geometry">
     <rect>
