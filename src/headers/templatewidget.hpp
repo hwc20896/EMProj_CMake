@@ -11,6 +11,7 @@
 #include "ui_template.h"
 
 #define RANDOM_ALGORITHM std::mt19937(std::random_device()())
+#define COLOR(target,color) "<font color="#color">"#target"</font>"
 
 struct QuestionData {
     QString questionTitle_;
@@ -51,7 +52,7 @@ class QuestionWidget final : public QWidget {
 
         //  Button binder
         std::map<QString, QPushButton*> bindToButton;
-        std::array<QPushButton*, 4> optionButtons;
+        std::array<QPushButton*, 4> optionButtons{ui_->optionA, ui_->optionB, ui_->optionC, ui_->optionD};
 
         //  Answer checker
         void answerButtonClicked(QPushButton* button);

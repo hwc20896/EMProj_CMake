@@ -19,7 +19,6 @@ QuestionWidget::QuestionWidget(QuestionData&& question, const int index, QWidget
     //  Title
     ui_->questionTitle->setText(QString("%1: %2").arg(QString::number(index), question_.questionTitle_));
 
-    optionButtons = {ui_->optionA, ui_->optionB, ui_->optionC, ui_->optionD};
     for (const auto& button : optionButtons) button->setVisible(false);
     for (const auto& [text, button] : std::views::zip(question_.options_, optionButtons)) {
         button->setObjectName("option");
@@ -27,6 +26,7 @@ QuestionWidget::QuestionWidget(QuestionData&& question, const int index, QWidget
         bindToButton.emplace(text, button);
         button->setText(text);
         button->setVisible(true);
+        connect(button, &QPushButton::clicked, this, [this, &button]{this->answerButtonClicked(button);});
     }
     hasAnswered = false;
 
@@ -56,7 +56,7 @@ QString QuestionWidget::getStyleFromURI(const QString& uri) {
 void QuestionWidget::answerButtonClicked(QPushButton* button) {
     if (!hasAnswered) {
         hasAnswered = true;
-        for (const auto& __button : optionButtons) __button->setProperty("has_answered", "true");
+        for (const auto& _button : optionButtons) _button->setProperty("has_answered", "true");
         emit timeTap();
         SET_OPTION_PROPERTY(button, "chosen");
         const bool isCorrect = button->text() == this->correctText;
