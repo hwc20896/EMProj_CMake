@@ -93,6 +93,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
 }
 
 ManagementWidget::~ManagementWidget() {
+    database_.close();
     delete ui_;
     delete muteSwitch_;
 }
