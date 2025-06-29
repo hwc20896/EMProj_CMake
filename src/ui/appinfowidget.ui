@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AppInfoWidget</class>
+ <widget class="QWidget" name="AppInfoWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>AppInfoWidget</string>
+  </property>
+  <widget class="QLabel" name="title">
+   <property name="geometry">
+    <rect>
+     <x>384</x>
+     <y>86</y>
+     <width>233</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Microsoft JhengHei</family>
+     <pointsize>37</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>資訊頁</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="info">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>130</y>
+     <width>510</width>
+     <height>430</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>23</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>分工：
+    洪偉晴：程序製作，背景音樂
+    古藝軒：繪圖
+    譚瑤琦：問題收集
+    葉鈺文：配音
+
+
+背景音樂：OMFG - Pizza
+
+使用程式語言：C++</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="returnButton">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>580</y>
+     <width>180</width>
+     <height>65</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>21</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>返回</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
