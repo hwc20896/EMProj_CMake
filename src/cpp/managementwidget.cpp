@@ -128,5 +128,5 @@ void ManagementWidget::setScore(const int correct, const int incorrect) const {
 }
 
 void ManagementWidget::setProgress(const int current, const int total) const {
-    ui_->progress->setText(QString("進度：%1 / %2 - %3%").arg(QString::number(current), QString::number(total), QString::number(current*100.0/total,'g',1)));
+    ui_->progress->setText(QString("進度：%1 / %2 - %3%").arg(QString::number(current), QString::number(total), QString::number(current*100.0/total)));
 }
