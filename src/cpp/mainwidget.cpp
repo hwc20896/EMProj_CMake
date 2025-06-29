@@ -9,6 +9,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     totalQuantity = query_.value(0).toInt();
 
     displayQuantity = 0;
+    appName = "EMProj_CMake";
 
     management_ = nullptr;
 
@@ -19,6 +20,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     ) {
         json_ = QJsonDocument::fromJson(file.readAll());
         displayQuantity = json_["display_quantity"].toInt();
+        appName = json_["app_name"].toString();
         defaultMuted = json_["toggle_default_mute_background"].toBool();
         jsonFileAccessed = true;
     }
@@ -29,6 +31,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     this->addWidget(intro_);
     this->addWidget(rule_);
     this->setCurrentIndex(0);
+    this->setWindowTitle(appName);
 
     if (!jsonFileAccessed) intro_->blockStart();
 
@@ -41,6 +44,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
 
     connect(intro_, &IntroWidget::start, this, [this] {
         management_ = new ManagementWidget(database_, json_, intro_->getMutedState());
+        management_->setWindowTitle(appName);
         this->close();
         management_->show();
         management_->setFixedSize(this->size());
@@ -55,6 +59,7 @@ MainWidget::~MainWidget() {
 
 void MainWidget::outroCall(const Result result, const bool currentMuted, const std::vector<int64_t>& timestamps) {
     const auto outro_ = new OutroWidget(result, currentMuted, timestamps);
+    outro_->setWindowTitle(appName);
     outro_->resize(management_->size());
     management_->close();
 

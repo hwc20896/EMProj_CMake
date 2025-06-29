@@ -24,6 +24,7 @@ class MainWidget final : public QStackedWidget {
 
         //  App information
         int totalQuantity, displayQuantity;
+        QString appName;
 
         //  Main
         ManagementWidget* management_;
