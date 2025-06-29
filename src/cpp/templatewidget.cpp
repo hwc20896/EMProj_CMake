@@ -58,7 +58,10 @@ QString QuestionWidget::getStyleFromURI(const QString& uri) {
 void QuestionWidget::answerButtonClicked(QPushButton* button) {
     if (!hasAnswered) {
         hasAnswered = true;
-        for (const auto& _button : optionButtons) _button->setProperty("has_answered", "true");
+        for (const auto& _button : optionButtons) {
+            _button->setProperty("has_answered", "true");
+            _button->setStyle({});
+        }
         emit timeTap();
         SET_OPTION_PROPERTY(button, "chosen");
         const bool isCorrect = button->text() == this->correctText;
