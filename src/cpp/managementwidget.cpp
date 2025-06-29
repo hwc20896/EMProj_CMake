@@ -68,7 +68,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
 
     //  Mute switch
     currentMuted_ = currentMuted;
-    muteSwitch_ = new MuteSwitch({50,50}, currentMuted_);
+    muteSwitch_ = new MuteSwitch({50,50}, currentMuted_, this);
     muteSwitch_->setGeometry(570,10,60,60);
     connect(muteSwitch_, &MuteSwitch::mutedStateChanged, this, [this] (const bool currentState) {
         currentMuted_ = currentState;
