@@ -1,4 +1,6 @@
 #include "mainwidget.hpp"
+#include "outrowidget.hpp"
+#include <QJsonObject>
 
 MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStackedWidget(parent), database_(database){
     query_ = QSqlQuery(database_);
@@ -51,6 +53,20 @@ MainWidget::~MainWidget() {
     delete rule_;
 }
 
-void MainWidget::outroCall(const int correctCount, const bool currentMuted, const std::vector<int64_t>& timestamps) {
-    //  TODO: outro
+void MainWidget::outroCall(const Result result, const bool currentMuted, const std::vector<int64_t>& timestamps) {
+    const auto outro_ = new OutroWidget(result, currentMuted, timestamps);
+    outro_->resize(management_->size());
+    management_->close();
+
+    connect(outro_, &OutroWidget::replay, this, [this, outro_] (const bool isMuted) {
+        management_ = new ManagementWidget(database_, json_, isMuted);
+        outro_->close();
+        management_->show();
+        management_->setFixedSize(outro_->size());
+        connect(management_, &ManagementWidget::finish, this, &MainWidget::outroCall);
+    });
+
+    delete management_;
+    management_ = nullptr;
+    outro_->show();
 }

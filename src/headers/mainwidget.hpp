@@ -28,7 +28,7 @@ class MainWidget final : public QStackedWidget {
         //  Main
         ManagementWidget* management_;
     private slots:
-        void outroCall(int correctCount, bool currentMuted, const std::vector<int64_t>& timestamps);
+        void outroCall(Result result, bool currentMuted, const std::vector<int64_t>& timestamps);
 };
 
 #endif
