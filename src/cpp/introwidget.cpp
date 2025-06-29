@@ -15,7 +15,6 @@ IntroWidget::IntroWidget(const bool defaultMuted, QWidget* parent) : QWidget(par
 
     //  Widget tags
     ui_->startButton->setObjectName("navigator");
-    ui_->muteSwitch->setObjectName("icon");
     ui_->ruleButton->setObjectName("navigator");
     this->setObjectName("root");
     this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/intro.css"));
