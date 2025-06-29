@@ -55,6 +55,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
         else emit finish(result_, muteSwitch_->getMutedState(), timeStamps);
     });
     ui_->prevQuestion->hide();
+    start_ = std::chrono::high_resolution_clock::now();
 
     //  BGM
     audioOutput_ = new QAudioOutput(this);
