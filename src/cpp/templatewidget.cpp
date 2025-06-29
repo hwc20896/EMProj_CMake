@@ -19,6 +19,8 @@ QuestionWidget::QuestionWidget(QuestionData&& question, const int index, QWidget
     //  Title
     ui_->questionTitle->setText(QString("%1: %2").arg(QString::number(index), question_.questionTitle_));
 
+    optionButtons = {ui_->optionA, ui_->optionB, ui_->optionC, ui_->optionD};
+
     for (const auto& button : optionButtons) button->setVisible(false);
     for (const auto& [text, button] : std::views::zip(question_.options_, optionButtons)) {
         button->setObjectName("option");

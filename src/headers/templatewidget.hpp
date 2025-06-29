@@ -52,7 +52,7 @@ class QuestionWidget final : public QWidget {
 
         //  Button binder
         std::map<QString, QPushButton*> bindToButton;
-        std::array<QPushButton*, 4> optionButtons{ui_->optionA, ui_->optionB, ui_->optionC, ui_->optionD};
+        std::array<QPushButton*, 4> optionButtons;
 
         //  Answer checker
         void answerButtonClicked(QPushButton* button);
