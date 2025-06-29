@@ -15,7 +15,7 @@ class IntroWidget final : public QWidget {
          * @brief Disables the start button, preventing the game from starting.
          */
         void blockStart() const;
-        bool getMutedState() const;
+        [[nodiscard]] bool getMutedState() const;
     private:
         Ui::IntroWidget* ui_;
         MuteSwitch* muteSwitch_;
