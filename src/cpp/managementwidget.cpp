@@ -65,6 +65,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
     player_->setAudioOutput(audioOutput_);
     player_->setSource({"qrc:/BGM/sounds/OMFG_Pizza.mp3"});
     player_->setLoops(QMediaPlayer::Infinite);
+    player_->play();
 
     //  Mute switch
     currentMuted_ = currentMuted;
