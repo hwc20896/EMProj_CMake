@@ -101,17 +101,6 @@ void ManagementWidget::getQuestions() {
     }
 }
 
-template<class T> requires std::is_arithmetic_v<T>
-QString ManagementWidget::timeDisplay(const T duration) {
-    if (duration > 60000LL) {
-        const double remain = remainder(duration,60.0);
-        return QString("%1分%2秒").arg(QString::number(std::floor(duration/60000LL)), QString::number(remain<0?remain+60:remain,'g',3));
-    }
-    if (duration == 60000LL) return "1分鐘";
-    if (duration >= 0) return QString("%1秒").arg(QString::number(duration/1000,'g',3));
-    throw std::range_error("Invalid duration");
-}
-
 void ManagementWidget::updatePages() const {
     setScore(correctCount, incorrectCount);
     setProgress(correctCount + incorrectCount, totalQuantity);

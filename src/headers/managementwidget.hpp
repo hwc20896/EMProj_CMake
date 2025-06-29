@@ -19,14 +19,6 @@ class ManagementWidget final : public QWidget {
         explicit ManagementWidget(const QSqlDatabase& database, const QJsonDocument& json, bool currentMuted, QWidget* parent = nullptr);
         ~ManagementWidget() override;
 
-        /**
-         * @brief Converts the duration (second) to time format.
-         * @tparam T Supports types that are arithmetic.
-         * @param duration The duration to be formatted.
-         * @return The formatted time.
-         */
-        template <class T> requires std::is_arithmetic_v<T>
-        static QString timeDisplay(T duration);
     private:
         Ui::ManagementWidget* ui_;
         MuteSwitch* muteSwitch_;
