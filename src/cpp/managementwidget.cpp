@@ -19,7 +19,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
     this->getQuestions();
 
     pageFinished = std::vector(questions_.size(), false);
-    for (auto&& [index, data] : std::views::enumerate(questions_)) {
+    for (const auto& [index, data] : std::views::enumerate(questions_)) {
         const auto widget = new QuestionWidget(std::move(data), index + 1);
         stackLayout_->addWidget(widget);
 
