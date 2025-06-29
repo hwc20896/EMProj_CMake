@@ -25,6 +25,7 @@ class MainWidget final : public QStackedWidget {
         //  App information
         int totalQuantity, displayQuantity;
         QString appName;
+        bool defaultBackgroundMuted, defaultEffectMuted;
 
         //  Main
         ManagementWidget* management_;

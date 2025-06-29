@@ -24,11 +24,12 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
         json_ = QJsonDocument::fromJson(file.readAll());
         displayQuantity = json_["display_quantity"].toInt();
         appName = json_["app_name"].toString();
-        defaultMuted = json_["toggle_default_mute_background"].toBool();
+        defaultBackgroundMuted = json_["toggle_default_mute_background"].toBool();
+        defaultEffectMuted = json_["toggle_default_mute_effect"].toBool();
         jsonFileAccessed = true;
     }
 
-    intro_ = new IntroWidget(defaultMuted);
+    intro_ = new IntroWidget(defaultBackgroundMuted);
     rule_ = new RuleWidget;
 
     this->addWidget(intro_);
