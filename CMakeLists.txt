@@ -17,6 +17,9 @@ qt_add_executable(EMProj_CMake
         src/cpp/rulewidget.cpp
         src/cpp/managementwidget.cpp
         src/cpp/templatewidget.cpp
+        src/cpp/outrowidget.cpp
+        src/cpp/appinfowidget.cpp
+        src/cpp/endwidget.cpp
 
         # Headers
         src/headers/mainwidget.hpp
@@ -24,12 +27,18 @@ qt_add_executable(EMProj_CMake
         src/headers/rulewidget.hpp
         src/headers/managementwidget.hpp
         src/headers/templatewidget.hpp
+        src/headers/outrowidget.hpp
+        src/headers/appinfowidget.hpp
+        src/headers/endwidget.hpp
+        src/headers/result.hpp
 
         # UIs
         src/ui/introwidget.ui
         src/ui/rulewidget.ui
         src/ui/managementwidget.ui
         src/ui/template.ui
+        src/ui/appinfowidget.ui
+        src/ui/endwidget.ui
 
         # Resources
         resources.qrc
