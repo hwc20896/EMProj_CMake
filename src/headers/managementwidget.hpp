@@ -24,6 +24,7 @@ class ManagementWidget final : public QWidget {
         Ui::ManagementWidget* ui_;
         MuteSwitch* muteSwitch_;
         QStackedLayout* stackLayout_;
+        QLabel* backgroundImage_;
 
         //  Query engine
         QJsonDocument json_;
@@ -44,7 +45,7 @@ class ManagementWidget final : public QWidget {
         void setProgress(int current, int total) const;
 
         //  Configs
-        int totalQuantity, displayQuantity;
+        int totalQuantity;
 
         //  Timers
         std::vector<int64_t> timeStamps;
