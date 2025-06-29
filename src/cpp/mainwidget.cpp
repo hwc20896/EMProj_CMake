@@ -49,6 +49,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     connect(intro_, &IntroWidget::start, this, [this] {
         management_ = new ManagementWidget(database_, json_, intro_->getMutedState());
         management_->setWindowTitle(appName);
+        management_->setSoundEffectMuted(defaultEffectMuted);
         this->close();
         management_->show();
         management_->setFixedSize(this->size());

@@ -42,6 +42,8 @@ class QuestionWidget final : public QWidget {
          *   @param msec Milliseconds you want to suspend.
          */
         static void cooldown(int msec);
+
+        void setEffectMuted(bool muted) const;
     private:
         Ui::TemplateWidget* ui_;
 

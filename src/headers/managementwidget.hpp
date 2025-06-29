@@ -20,6 +20,7 @@ class ManagementWidget final : public QWidget {
         explicit ManagementWidget(const QSqlDatabase& database, const QJsonDocument& json, bool currentMuted, QWidget* parent = nullptr);
         ~ManagementWidget() override;
 
+        void setSoundEffectMuted(bool muted) const;
     private:
         Ui::ManagementWidget* ui_;
         MuteSwitch* muteSwitch_;
@@ -34,7 +35,7 @@ class ManagementWidget final : public QWidget {
         //  Question Data
         void getQuestions();
         std::vector<QuestionData> questions_;
-        std::vector<QuestionWidget> pages_;
+        std::vector<QuestionWidget*> pages_;
         Result result_;
         int incorrectCount = 0;
 

@@ -87,3 +87,8 @@ void QuestionWidget::cooldown(const int msec) {
     QTimer::singleShot(msec, &lp, &QEventLoop::quit);
     lp.exec();
 }
+
+void QuestionWidget::setEffectMuted(const bool muted) const {
+    correctSound_->setMuted(muted);
+    incorrectSound_->setMuted(muted);
+}
