@@ -11,6 +11,8 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
     //  Get Question Data
     if (!database_.isOpen()) database_.open();
     query_ = QSqlQuery(database);
+    query_.exec("SELECT COUNT(*) FROM QuestionData");
+    query_.next();
     totalQuantity = query_.value(0).toInt();
     displayQuantity = json_["display_quantity"].toInt();
     this->getQuestions();
