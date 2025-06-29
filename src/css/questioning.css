@@ -30,5 +30,32 @@ QPushButton#option[answer_status="incorrect"]{
 QLabel#questionTitle{
     border: 1px solid #333333;
     border-radius: 2px;
-    background-color: rgba(211,211,211,0.3)
+    background-color: rgba(211,211,211,50%)
+}
+
+QPushButton#navigator{
+    background-color: #f0f0f0;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+QPushButton#navigator:hover{
+    background-color: lightgray;
+}
+
+QPushButton#navigator:disabled{
+    background-color: #f0f0f0;
+    color: gray;
+    border-color: gray;
+}
+
+QPushButton#icon{
+    background-color: #f0f0f0;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+QPushButton#icon:hover{
+    background-color: lightgray;
 }
