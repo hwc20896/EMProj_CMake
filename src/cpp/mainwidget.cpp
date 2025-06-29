@@ -8,12 +8,15 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     query_.next();
     totalQuantity = query_.value(0).toInt();
 
+    //  Json Configs
     displayQuantity = 0;
     appName = "EMProj_CMake";
+    defaultBackgroundMuted = false;
+    defaultEffectMuted = false;
 
     management_ = nullptr;
 
-    bool defaultMuted = false, jsonFileAccessed = false;
+    bool jsonFileAccessed = false;
 
     if (QFile file("config.json");
         file.open(QFile::ReadOnly | QFile::Text)
