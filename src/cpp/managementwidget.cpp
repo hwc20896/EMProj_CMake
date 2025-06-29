@@ -95,6 +95,9 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
 
 ManagementWidget::~ManagementWidget() {
     database_.close();
+    for (const auto& page : pages_) {
+        delete page;
+    }
     delete ui_;
     delete muteSwitch_;
 }
