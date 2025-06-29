@@ -100,7 +100,7 @@ void ManagementWidget::getQuestions() {
     query_.exec("SELECT ID FROM QuestionData");
     while (query_.next()) idPool.push_back(query_.value(0).toInt());
 
-    std::ranges::sample(idPool, std::back_inserter(sampled), displayQuantity, RANDOM_ALGORITHM);
+    std::ranges::sample(idPool, std::back_inserter(sampled), result_.total, RANDOM_ALGORITHM);
     for (const auto& id : sampled) {
         query_.prepare("SELECT * FROM QuestionData WHERE ID = ?");
         query_.addBindValue(id);
