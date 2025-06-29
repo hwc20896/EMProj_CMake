@@ -22,6 +22,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
     for (const auto& [index, data] : std::views::enumerate(questions_)) {
         const auto widget = new QuestionWidget(std::move(data), index + 1);
         stackLayout_->addWidget(widget);
+        pages_.push_back(widget);
 
         //  Time recorder for total time and time per question use
         connect(widget, &QuestionWidget::timeTap, this, [this] {
