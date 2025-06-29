@@ -48,7 +48,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
     });
     connect(ui_->prevQuestion, &QPushButton::clicked, this, [this] {stackLayout_->setCurrentIndex(stackLayout_->currentIndex() - 1);});
     connect(ui_->nextQuestion, &QPushButton::clicked, this, [this] {
-        if (const auto current = stackLayout_->currentIndex(); current < displayQuantity-1 ) {
+        if (const auto current = stackLayout_->currentIndex(); current < result_.total - 1) {
             stackLayout_->setCurrentIndex(current + 1);
             start_ = std::chrono::high_resolution_clock::now();
         }
