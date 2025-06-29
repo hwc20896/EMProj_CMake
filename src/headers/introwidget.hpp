@@ -8,7 +8,7 @@
 class IntroWidget final : public QWidget {
     Q_OBJECT
     public:
-        explicit IntroWidget(QWidget* parent = nullptr);
+        explicit IntroWidget(bool defaultMuted, QWidget* parent = nullptr);
         ~IntroWidget() override;
 
         /**

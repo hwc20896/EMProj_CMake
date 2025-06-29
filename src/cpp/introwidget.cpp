@@ -2,11 +2,11 @@
 
 #include <QPixmap>
 
-IntroWidget::IntroWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::IntroWidget) {
+IntroWidget::IntroWidget(const bool defaultMuted, QWidget* parent) : QWidget(parent), ui_(new Ui::IntroWidget) {
     ui_->setupUi(this);
 
     //  Mute switch
-    muteSwitch_ = new MuteSwitch({50,50}, false, this);
+    muteSwitch_ = new MuteSwitch({50,50}, defaultMuted, this);
     muteSwitch_->setGeometry(580,20,60,60);
 
     //  Connections
