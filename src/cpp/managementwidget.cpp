@@ -76,6 +76,17 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
 
     //  Question layout
     ui_->optionWidget->setLayout(stackLayout_);
+
+    //  Background image
+    backgroundImage_ = new QLabel(this);
+    backgroundImage_->setPixmap({":/BackgroundImages/backgrounds/qnabg.png"});
+    backgroundImage_->setGeometry(0,0,1000,700);
+    backgroundImage_->lower();
+
+    //  Styles
+    ui_->prevQuestion->setObjectName("navigator");
+    ui_->nextQuestion->setObjectName("navigator");
+    this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/questioning.css"));
 }
 
 ManagementWidget::~ManagementWidget() {
