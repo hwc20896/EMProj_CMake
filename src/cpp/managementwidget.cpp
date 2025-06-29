@@ -14,7 +14,8 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
     query_.exec("SELECT COUNT(*) FROM QuestionData");
     query_.next();
     totalQuantity = query_.value(0).toInt();
-    displayQuantity = json_["display_quantity"].toInt();
+    result_ = {.total = json_["display_quantity"].toInt()};
+
     this->getQuestions();
 
     pageFinished = std::vector(questions_.size(), false);
@@ -31,7 +32,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
         //  Score recorder
         connect(widget, &QuestionWidget::score, this, [this, index](const bool isCorrect) {
             pageFinished[index] = true;
-            isCorrect? correctCount++ : incorrectCount++;
+            isCorrect? result_.correct++ : incorrectCount++;
             ui_->nextQuestion->setEnabled(true);
             this->updatePages();
         });
@@ -42,7 +43,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
     this->updatePages();
     connect(stackLayout_, &QStackedLayout::currentChanged, this, [this] (const int index) {
         ui_->prevQuestion->setVisible(index != 0);
-        ui_->nextQuestion->setText(index < displayQuantity-1? "下一頁 →": "完成");
+        ui_->nextQuestion->setText(index < result_.total-1? "下一頁 →": "完成");
         ui_->nextQuestion->setEnabled(pageFinished[index]);
     });
     connect(ui_->prevQuestion, &QPushButton::clicked, this, [this] {stackLayout_->setCurrentIndex(stackLayout_->currentIndex() - 1);});
@@ -51,7 +52,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
             stackLayout_->setCurrentIndex(current + 1);
             start_ = std::chrono::high_resolution_clock::now();
         }
-        else emit finish(correctCount, muteSwitch_->getMutedState(), timeStamps);
+        else emit finish(result_, muteSwitch_->getMutedState(), timeStamps);
     });
     ui_->prevQuestion->hide();
 
@@ -115,8 +116,8 @@ void ManagementWidget::getQuestions() {
 }
 
 void ManagementWidget::updatePages() const {
-    setScore(correctCount, incorrectCount);
-    setProgress(correctCount + incorrectCount, totalQuantity);
+    setScore(result_.correct, incorrectCount);
+    setProgress(result_.correct + incorrectCount, result_.total);
 }
 
 void ManagementWidget::setScore(const int correct, const int incorrect) const {

@@ -11,6 +11,7 @@
 
 #include "muteswitch.hpp"
 #include "templatewidget.hpp"
+#include "result.hpp"
 #include "ui_managementwidget.h"
 
 class ManagementWidget final : public QWidget {
@@ -33,7 +34,8 @@ class ManagementWidget final : public QWidget {
         void getQuestions();
         std::vector<QuestionData> questions_;
         std::vector<QuestionWidget> pages_;
-        int correctCount=0, incorrectCount=0;
+        Result result_;
+        int incorrectCount = 0;
 
         //  Navigation use
         std::vector<bool> pageFinished;
@@ -53,7 +55,7 @@ class ManagementWidget final : public QWidget {
         QAudioOutput* audioOutput_;
         QMediaPlayer* player_;
     signals:
-        void finish(int correctCount, bool currentMuted, const std::vector<int64_t>& timestamps);
+        void finish(Result result, bool currentMuted, const std::vector<int64_t>& timestamps);
 };
 
 #endif
