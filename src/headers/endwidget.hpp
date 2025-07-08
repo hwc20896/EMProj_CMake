@@ -1,7 +1,7 @@
 #pragma once
 #ifndef ENDWIDGET_HPP
 #define ENDWIDGET_HPP
-#include "muteswitch.hpp"
+#include "elements/muteswitch.hpp"
 #include "result.hpp"
 #include "ui_endwidget.h"
 #include <vector>

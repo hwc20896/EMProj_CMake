@@ -44,8 +44,8 @@ qt_add_executable(EMProj_CMake
         resources.qrc
 
         # Element pairs
-        src/headers/muteswitch.hpp
-        src/cpp/muteswitch.cpp
+        src/headers/elements/muteswitch.hpp
+        src/cpp/elements/muteswitch.cpp
 )
 
 set_target_properties(EMProj_CMake PROPERTIES

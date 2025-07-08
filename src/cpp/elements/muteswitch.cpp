@@ -1,4 +1,4 @@
-#include "muteswitch.hpp"
+#include "elements/muteswitch.hpp"
 
 MuteSwitch::MuteSwitch(const QSize iconSize, const bool currentState, QWidget* parent) : QPushButton(parent), isMuted(currentState) {
     this->setIconSize(iconSize);

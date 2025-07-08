@@ -9,7 +9,7 @@
 #include <QTimer>
 #include <vector>
 
-#include "muteswitch.hpp"
+#include "elements/muteswitch.hpp"
 #include "templatewidget.hpp"
 #include "result.hpp"
 #include "ui_managementwidget.h"

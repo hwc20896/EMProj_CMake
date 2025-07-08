@@ -2,7 +2,7 @@
 #ifndef INTROWIDGET_H
 #define INTROWIDGET_H
 #include "managementwidget.hpp"
-#include "muteswitch.hpp"
+#include "elements/muteswitch.hpp"
 #include "ui_introwidget.h"
 
 class IntroWidget final : public QWidget {
