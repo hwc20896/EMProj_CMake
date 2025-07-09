@@ -1,31 +1,3 @@
-QPushButton#option{
-    background-color: #f0f0f0;
-    color: black;
-    border: 1px solid black;
-    border-radius: 5px;
-}
-
-QPushButton#option:hover[has_answered="false"]{
-    background-color: #6161ff;
-    color: white;
-}
-
-/*  Pressed  */
-QPushButton#option[answer_status="chosen"]{
-    background-color: #6161ff;
-    color: white;
-}
-
-/*  Option: Correct */
-QPushButton#option[answer_status="correct"]{
-    background-color: chartreuse;
-}
-
-/*  Option: Incorrect  */
-QPushButton#option[answer_status="incorrect"]{
-    background-color: red;
-}
-
 /*  Question title  */
 QLabel#questionTitle{
     border: 1px solid #333333;

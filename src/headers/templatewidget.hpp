@@ -9,6 +9,7 @@
 #include <QSoundEffect>
 
 #include "ui_template.h"
+#include "elements/optionbutton.hpp"
 
 #define RANDOM_ALGORITHM std::mt19937(std::random_device()())
 #define COLOR(target,color) "<font color="#color">"#target"</font>"
@@ -53,11 +54,11 @@ class QuestionWidget final : public QWidget {
         bool hasAnswered;
 
         //  Button binder
-        std::map<QString, QPushButton*> bindToButton;
-        std::array<QPushButton*, 4> optionButtons;
+        std::map<QString, OptionButton*> bindToButton;
+        std::vector<OptionButton*> options_;
 
         //  Answer checker
-        void answerButtonClicked(QPushButton* button);
+        void answerButtonClicked(OptionButton* button);
 
         //  Sound Effects
         QSoundEffect* correctSound_, * incorrectSound_;
