@@ -51,6 +51,10 @@ qt_add_executable(EMProj_CMake
             # Option Button
             src/headers/elements/optionbutton.hpp
             src/cpp/elements/optionbutton.cpp
+
+            # Gamemode Chooser
+            src/headers/elements/gamemodechooser.hpp
+            src/cpp/elements/gamemodechooser.cpp
 )
 
 set_target_properties(EMProj_CMake PROPERTIES
