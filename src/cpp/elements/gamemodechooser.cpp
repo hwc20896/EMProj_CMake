@@ -6,7 +6,7 @@ GamemodeChooser::GamemodeChooser(const int currentMode, QWidget* parent) : QComb
     this->addItems(this->gamemodeList_);
     this->setCurrentIndex(currentMode);
 
-    this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/gamemodechooser.css"));
+    this->setStyleSheet(_STYLESHEET);
 }
 
 int GamemodeChooser::getCurrentMode() const {
