@@ -23,7 +23,6 @@ struct QuestionData {
         : questionTitle_(std::move(questionTitle)), options_(std::move(options)), correctOption_(correctOption), questionType_(questionType) {}
     explicit QuestionData(const QString& questionTitle, const QString& optionText, const int correctOption, const int questionType = -1)
         : QuestionData(questionTitle, QJsonValue::fromJson(optionText.toUtf8()).toVariant().toStringList(), correctOption, questionType) {}
-    QuestionData(QuestionData&&) = default;
 };
 
 class QuestionWidget final : public QWidget {
