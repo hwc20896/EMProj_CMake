@@ -1,5 +1,6 @@
 #include "rulewidget.hpp"
 #include "templatewidget.hpp"
+#include "utilities/fileread.hpp"
 
 RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidget) {
     ui_->setupUi(this);
@@ -21,7 +22,7 @@ RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidge
     ui_->corrSoundPreview->setObjectName("navigator");
     ui_->incorrSoundPreview->setObjectName("navigator");
     ui_->returnButton->setObjectName("navigator");
-    this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/intro.css"));
+    this->setStyleSheet(FileRead::getStyleFromURI(":/CSS/src/css/intro.css").value_or(""));
 }
 
 RuleWidget::~RuleWidget() {

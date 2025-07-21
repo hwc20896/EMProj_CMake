@@ -2,6 +2,7 @@
 
 #include <random>
 #include <ranges>
+#include "utilities/fileread.hpp"
 
 ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocument& json, const bool currentMuted, QWidget* parent)
 : QWidget(parent), ui_(new Ui::ManagementWidget), json_(json), database_(database) {
@@ -90,7 +91,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
     //  Styles
     ui_->prevQuestion->setObjectName("navigator");
     ui_->nextQuestion->setObjectName("navigator");
-    this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/questioning.css"));
+    this->setStyleSheet(FileRead::getStyleFromURI(":/CSS/src/css/questioning.css").value_or(""));
 }
 
 ManagementWidget::~ManagementWidget() {

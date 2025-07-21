@@ -4,6 +4,7 @@
 #include <QEventLoop>
 #include <QTimer>
 #include <QDebug>
+#include "utilities/fileread.hpp"
 
 QuestionWidget::QuestionWidget(QuestionData&& question, const int index, QWidget* parent)
 : QWidget(parent), ui_(new Ui::TemplateWidget), question_(std::move(question)) {
@@ -53,20 +54,11 @@ QuestionWidget::QuestionWidget(QuestionData&& question, const int index, QWidget
     incorrectSound_ = new QSoundEffect;
     incorrectSound_->setSource({"qrc:/SoundEffects/sounds/ohno.wav"});
 
-    this->setStyleSheet(getStyleFromURI(":/CSS/src/css/questioning.css"));
+    this->setStyleSheet(FileRead::getStyleFromURI(":/CSS/src/css/questioning.css").value_or(""));
 }
 
 QuestionWidget::~QuestionWidget() {
     delete ui_;
-}
-
-QString QuestionWidget::getStyleFromURI(const QString& uri) {
-    if (QFile file(uri); file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QString result = file.readAll();
-        file.close();
-        return result;
-    }
-    return "";
 }
 
 void QuestionWidget::cooldown(const int msec) {

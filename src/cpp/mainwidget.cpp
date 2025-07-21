@@ -9,35 +9,21 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     totalQuantity = query_.value(0).toInt();
 
     //  Json Configs
-    displayQuantity = 0;
-    appName = "EMProj_CMake";
-    defaultBackgroundMuted = false;
-    defaultEffectMuted = false;
+    const auto fileConfig = FileRead::readGameConfig(":/Configs/config.json").or_else([this]{
+        intro_->blockStart();
+        return std::expected<GameConfig, FileRead::FileReadError>(GameConfig());
+    });
+    config_ = fileConfig.value();
 
     management_ = nullptr;
 
-    bool jsonFileAccessed = false;
-
-    if (QFile file("config.json");
-        file.open(QFile::ReadOnly | QFile::Text)
-    ) {
-        json_ = QJsonDocument::fromJson(file.readAll());
-        displayQuantity = json_["display_quantity"].toInt();
-        appName = json_["app_name"].toString();
-        defaultBackgroundMuted = json_["toggle_default_mute_background"].toBool();
-        defaultEffectMuted = json_["toggle_default_mute_effect"].toBool();
-        jsonFileAccessed = true;
-    }
-
-    intro_ = new IntroWidget(defaultBackgroundMuted);
+    intro_ = new IntroWidget(config_.defaultBackgroundMuted);
     rule_ = new RuleWidget;
 
     this->addWidget(intro_);
     this->addWidget(rule_);
     this->setCurrentIndex(0);
-    this->setWindowTitle(appName);
-
-    if (!jsonFileAccessed) intro_->blockStart();
+    this->setWindowTitle(config_.appName);
 
     connect(intro_, &IntroWidget::toRulePage, this, [this] {
         this->setCurrentIndex(1);
@@ -48,8 +34,8 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
 
     connect(intro_, &IntroWidget::start, this, [this] {
         management_ = new ManagementWidget(database_, json_, intro_->getMutedState());
-        management_->setWindowTitle(appName);
-        management_->setSoundEffectMuted(defaultEffectMuted);
+        management_->setWindowTitle(config_.appName);
+        management_->setSoundEffectMuted(config_.defaultEffectMuted);
         this->close();
         management_->show();
         management_->setFixedSize(this->size());
@@ -64,7 +50,7 @@ MainWidget::~MainWidget() {
 
 void MainWidget::outroCall(const Result result, const bool currentMuted, const std::vector<int64_t>& timestamps) {
     const auto outro_ = new OutroWidget(result, currentMuted, timestamps);
-    outro_->setWindowTitle(appName);
+    outro_->setWindowTitle(config_.appName);
     outro_->resize(management_->size());
     management_->close();
 

@@ -7,6 +7,7 @@
 #include "introwidget.hpp"
 #include "rulewidget.hpp"
 #include "managementwidget.hpp"
+#include "utilities/fileread.hpp"
 
 class MainWidget final : public QStackedWidget {
     Q_OBJECT
@@ -23,9 +24,8 @@ class MainWidget final : public QStackedWidget {
         RuleWidget* rule_;
 
         //  App information
-        int totalQuantity, displayQuantity;
-        QString appName;
-        bool defaultBackgroundMuted, defaultEffectMuted;
+        GameConfig config_;
+        int totalQuantity;
 
         //  Main
         ManagementWidget* management_;

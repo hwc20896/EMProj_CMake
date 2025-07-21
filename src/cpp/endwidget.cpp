@@ -2,6 +2,7 @@
 #include <QApplication>
 #include "templatewidget.hpp"
 #include <numeric>
+#include "utilities/fileread.hpp"
 
 #define NUM(num) QString::number(num)
 
@@ -47,7 +48,7 @@ EndWidget::EndWidget(const Result& result, const bool isMuted, const std::vector
     ui_->result->setObjectName("result");
     ui_->toAppInfo->setObjectName("navigator");
 
-    this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/outro.css"));
+    this->setStyleSheet(FileRead::getStyleFromURI(":/CSS/src/css/outro.css").value_or(""));
 }
 
 EndWidget::~EndWidget() {

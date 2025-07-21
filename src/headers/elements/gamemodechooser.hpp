@@ -13,7 +13,7 @@ class GamemodeChooser final : public QComboBox {
         QStringList gamemodeList_;
 
         // Stylesheet
-        static constexpr QString STYLESHEET = R"(
+        const char* STYLESHEET = R"(
             QComboBox {
                 background-color: #f0f0f0;
                 border: 1px solid #ccc;

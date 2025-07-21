@@ -1,6 +1,7 @@
 #include "introwidget.hpp"
 
 #include <QPixmap>
+#include "utilities/fileread.hpp"
 
 IntroWidget::IntroWidget(const bool defaultMuted, QWidget* parent) : QWidget(parent), ui_(new Ui::IntroWidget) {
     ui_->setupUi(this);
@@ -17,7 +18,7 @@ IntroWidget::IntroWidget(const bool defaultMuted, QWidget* parent) : QWidget(par
     ui_->startButton->setObjectName("navigator");
     ui_->ruleButton->setObjectName("navigator");
     this->setObjectName("root");
-    this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/intro.css"));
+
 
     label_ = new QLabel(this);
     label_->setPixmap({":/BackgroundImages/backgrounds/firstpagebg.png"});

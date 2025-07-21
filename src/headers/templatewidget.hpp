@@ -32,13 +32,6 @@ class QuestionWidget final : public QWidget {
         ~QuestionWidget() override;
 
         /**
-         *   @brief Style retrieval from file (css).
-         *   @param uri File address.
-         *   @return The content form the file.
-         */
-        static QString getStyleFromURI(const QString& uri);
-
-        /**
          *   @brief Suspend (msec) milliseconds, on another thread.
          *   @param msec Milliseconds you want to suspend.
          */
