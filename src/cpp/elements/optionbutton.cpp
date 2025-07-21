@@ -5,7 +5,7 @@
 
 OptionButton::OptionButton(const QString& optionText, QWidget* parent) : QPushButton(optionText, parent) {
     this->setProperty("has_answered", false);
-    this->setStyleSheet(QuestionWidget::getStyleFromURI(":/CSS/src/css/option.css"));
+    this->setStyleSheet(STYLESHEET);
 
     this->setObjectName("option");
     this->setFont({"Microsoft JhengHei", 15});
