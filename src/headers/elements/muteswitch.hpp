@@ -8,7 +8,7 @@ class MuteSwitch final : public QPushButton {
     Q_OBJECT
     public:
         explicit MuteSwitch(QSize iconSize, bool currentState, QWidget* parent = nullptr);
-        bool getMutedState() const;
+        [[nodiscard]] bool getMutedState() const;
     private:
         QIcon muted_, unmuted_;
         bool isMuted;
