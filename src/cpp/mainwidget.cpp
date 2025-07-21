@@ -8,17 +8,25 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     query_.next();
     totalQuantity = query_.value(0).toInt();
 
+    //  Initializers
+    intro_ = new IntroWidget(false);
+    rule_ = new RuleWidget;
+
     //  Json Configs
-    const auto fileConfig = FileRead::readGameConfig(":/Configs/config.json").or_else([this]{
-        intro_->blockStart();
-        return std::expected<GameConfig, FileRead::FileReadError>(GameConfig());
-    });
+    const auto fileConfig = FileRead::readGameConfig(":/Configs/config.json").and_then(
+        [this](const GameConfig& config) -> std::expected<GameConfig, FileRead::FileReadError> {
+            intro_->setMutedState(config.defaultBackgroundMuted);
+            return config;
+        }
+    ).or_else(
+        [this](FileRead::FileReadError error) -> std::expected<GameConfig, FileRead::FileReadError> {
+            intro_->blockStart();
+            return std::expected<GameConfig, FileRead::FileReadError>(GameConfig());
+        }
+    );
     config_ = fileConfig.value();
 
     management_ = nullptr;
-
-    intro_ = new IntroWidget(config_.defaultBackgroundMuted);
-    rule_ = new RuleWidget;
 
     this->addWidget(intro_);
     this->addWidget(rule_);

@@ -39,3 +39,7 @@ void IntroWidget::blockStart() const {
 bool IntroWidget::getMutedState() const {
     return muteSwitch_->getMutedState();
 }
+
+void IntroWidget::setMutedState(const bool muted) {
+    muteSwitch_->setMutedState(muted);
+}

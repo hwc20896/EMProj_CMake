@@ -19,3 +19,7 @@ bool MuteSwitch::getMutedState() const {
     return isMuted;
 }
 
+void MuteSwitch::setMutedState(const bool muted) {
+    isMuted = muted;
+    this->setIcon(isMuted? muted_ : unmuted_);
+}
