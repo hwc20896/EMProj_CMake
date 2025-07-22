@@ -18,7 +18,7 @@ IntroWidget::IntroWidget(const bool defaultMuted, QWidget* parent) : QWidget(par
     ui_->startButton->setObjectName("navigator");
     ui_->ruleButton->setObjectName("navigator");
     this->setObjectName("root");
-
+    this->setStyleSheet(FileRead::getStyleFromURI(":/CSS/src/css/intro.css").value_or(""));
 
     label_ = new QLabel(this);
     label_->setPixmap({":/BackgroundImages/backgrounds/firstpagebg.png"});
