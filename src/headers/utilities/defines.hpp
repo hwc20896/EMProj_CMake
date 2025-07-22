@@ -1,13 +1,12 @@
 #pragma once
 #ifndef DEFINES_HPP
 #define DEFINES_HPP
+#include <format>
 
 // Log macro
-#define LOG(msg) qDebug() << std::format("\033[32m[LOG]\t {}\033[0m", #msg)
-
-#define ERROR(msg) qDebug() << std::format("\033[31m[ERROR]\t {}\033[0m", #msg)
-
-#define WARNING(msg) qDebug() << std::format("\033[33m[WARNING]\t {}\033[0m", #msg)
+#define LOG(msg) std::cout << std::format("[LOG]\t{}\n", #msg)
+#define ERROR(msg) std::cout << std::format("[ERROR]\t{}\n", #msg)
+#define WARNING(msg) std::cout << std::format("[WARNING]\t{}\n", #msg)
 
 //  Throw critical
 #define THROW_FILE_CRITICAL(code) \
