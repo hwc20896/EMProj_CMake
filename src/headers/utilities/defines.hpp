@@ -3,11 +3,11 @@
 #define DEFINES_HPP
 
 // Log macro
-#define LOG(msg) qDebug() << std::format("\033[32m[LOG]\t {}\033[0m", msg)
+#define LOG(msg) qDebug() << std::format("\033[32m[LOG]\t {}\033[0m", #msg)
 
-#define ERROR(msg) qDebug() << std::format("\033[31m[ERROR]\t {}\033[0m", msg)
+#define ERROR(msg) qDebug() << std::format("\033[31m[ERROR]\t {}\033[0m", #msg)
 
-#define WARNING(msg) qDebug() << std::format("\033[33m[WARNING]\t {}\033[0m", msg)
+#define WARNING(msg) qDebug() << std::format("\033[33m[WARNING]\t {}\033[0m", #msg)
 
 //  Throw critical
 #define THROW_FILE_CRITICAL(code) \
