@@ -45,6 +45,7 @@ qt_add_executable(EMProj_CMake
         # Utility files
         src/cpp/utilities/fileread.cpp
         src/headers/utilities/fileread.hpp
+    src/headers/utilities/defines.hpp
 
         # Element pairs
             # Mute Switch
