@@ -8,57 +8,57 @@ set(CMAKE_CXX_STANDARD 23)
 qt_standard_project_setup()
 
 qt_add_executable(EMProj_CMake
-        main.cpp
+    main.cpp
 
-        # CPPs
-        src/cpp/mainwidget.cpp
-        src/cpp/introwidget.cpp
-        src/cpp/rulewidget.cpp
-        src/cpp/managementwidget.cpp
-        src/cpp/templatewidget.cpp
-        src/cpp/outrowidget.cpp
-        src/cpp/appinfowidget.cpp
-        src/cpp/endwidget.cpp
+    # CPPs
+    src/cpp/mainwidget.cpp
+    src/cpp/introwidget.cpp
+    src/cpp/rulewidget.cpp
+    src/cpp/managementwidget.cpp
+    src/cpp/templatewidget.cpp
+    src/cpp/outrowidget.cpp
+    src/cpp/appinfowidget.cpp
+    src/cpp/endwidget.cpp
 
-        # Headers
-        src/headers/mainwidget.hpp
-        src/headers/introwidget.hpp
-        src/headers/rulewidget.hpp
-        src/headers/managementwidget.hpp
-        src/headers/templatewidget.hpp
-        src/headers/outrowidget.hpp
-        src/headers/appinfowidget.hpp
-        src/headers/endwidget.hpp
-        src/headers/result.hpp
+    # Headers
+    src/headers/mainwidget.hpp
+    src/headers/introwidget.hpp
+    src/headers/rulewidget.hpp
+    src/headers/managementwidget.hpp
+    src/headers/templatewidget.hpp
+    src/headers/outrowidget.hpp
+    src/headers/appinfowidget.hpp
+    src/headers/endwidget.hpp
+    src/headers/result.hpp
 
-        # UIs
-        src/ui/introwidget.ui
-        src/ui/rulewidget.ui
-        src/ui/managementwidget.ui
-        src/ui/template.ui
-        src/ui/appinfowidget.ui
-        src/ui/endwidget.ui
+    # UIs
+    src/ui/introwidget.ui
+    src/ui/rulewidget.ui
+    src/ui/managementwidget.ui
+    src/ui/template.ui
+    src/ui/appinfowidget.ui
+    src/ui/endwidget.ui
 
-        # Resources
-        resources.qrc
+    # Resources
+    resources.qrc
 
-        # Utility files
-        src/cpp/utilities/fileread.cpp
-        src/headers/utilities/fileread.hpp
+    # Utility files
+    src/cpp/utilities/fileread.cpp
+    src/headers/utilities/fileread.hpp
     src/headers/utilities/defines.hpp
 
-        # Element pairs
-            # Mute Switch
-            src/headers/elements/muteswitch.hpp
-            src/cpp/elements/muteswitch.cpp
+    # Element pairs
+        # Mute Switch
+        src/headers/elements/muteswitch.hpp
+        src/cpp/elements/muteswitch.cpp
 
-            # Option Button
-            src/headers/elements/optionbutton.hpp
-            src/cpp/elements/optionbutton.cpp
+        # Option Button
+        src/headers/elements/optionbutton.hpp
+        src/cpp/elements/optionbutton.cpp
 
-            # Gamemode Chooser
-            src/headers/elements/gamemodechooser.hpp
-            src/cpp/elements/gamemodechooser.cpp
+        # Gamemode Chooser
+        src/headers/elements/gamemodechooser.hpp
+        src/cpp/elements/gamemodechooser.cpp
 )
 
 set_target_properties(EMProj_CMake PROPERTIES
