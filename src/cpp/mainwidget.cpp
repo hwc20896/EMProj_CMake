@@ -13,7 +13,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     rule_ = new RuleWidget;
 
     //  Json Configs
-    const auto fileConfig = FileRead::readGameConfig(":/Configs/config.json").and_then(
+    const auto fileConfig = FileRead::readGameConfig("config.json").and_then(
         [this](const GameConfig& config) -> std::expected<GameConfig, FileRead::FileReadError> {
             intro_->setMutedState(config.defaultBackgroundMuted);
             return config;
