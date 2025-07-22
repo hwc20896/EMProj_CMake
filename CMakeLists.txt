@@ -8,7 +8,6 @@ set(CMAKE_CXX_STANDARD 23)
 qt_standard_project_setup()
 
 qt_add_executable(EMProj_CMake
-    WIN32 MACOSX_BUNDLE
         main.cpp
 
         # CPPs
