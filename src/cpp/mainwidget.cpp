@@ -26,6 +26,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     );
     config_ = fileConfig.value();
 
+    rule_->setRuleText(config_.displayQuantity, this->totalQuantity);
     management_ = nullptr;
 
     this->addWidget(intro_);

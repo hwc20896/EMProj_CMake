@@ -28,3 +28,7 @@ RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidge
 RuleWidget::~RuleWidget() {
     delete ui_;
 }
+
+void RuleWidget::setRuleText(int questionCount, int totalQuestions) const {
+    ui_->ruleText->setText(QString::fromStdString(std::format(ruleText, questionCount, totalQuestions)));
+}
