@@ -18,7 +18,7 @@ struct QuestionData {
     QString questionTitle_;
     QStringList options_;
     int correctOption_;
-    int questionType_; // -1 預設, 0 憲法, 1 基本法
+    int questionType_; // -1 預設, 0 所有, 1 憲法, 2 基本法
     explicit QuestionData(QString questionTitle, QStringList options, const int correctOption, const int questionType = -1)
         : questionTitle_(std::move(questionTitle)), options_(std::move(options)), correctOption_(correctOption), questionType_(questionType) {}
     explicit QuestionData(const QString& questionTitle, const QString& optionText, const int correctOption, const int questionType = -1)
