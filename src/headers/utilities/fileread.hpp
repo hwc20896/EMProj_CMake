@@ -7,19 +7,6 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QJsonObject>
-#define THROW_FILE_READ_CRITICAL(code) \
-    switch (code){\
-        case FileRead::FileReadError::FileNotFound: \
-            QMessageBox::critical(nullptr, "File Not Found", "The specified file could not be found."); \
-            break; \
-        case FileRead::FileReadError::ReadError: \
-            QMessageBox::critical(nullptr, "Read Error", "An error occurred while reading the file."); \
-            break; \
-        case FileRead::FileReadError::UnknownError: \
-            QMessageBox::critical(nullptr, "Unknown Error", "An unknown error occurred while accessing the file."); \
-            break; \
-    }\
-    qApp->exit(static_cast<int>(code))
 
 struct GameConfig {
     int displayQuantity;
