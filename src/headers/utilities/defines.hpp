@@ -2,6 +2,7 @@
 #ifndef DEFINES_HPP
 #define DEFINES_HPP
 #include <format>
+#include <iostream>
 
 // Log macro
 #define LOG(msg) std::cout << std::format("[LOG]\t{}\n", #msg)
