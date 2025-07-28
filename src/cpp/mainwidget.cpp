@@ -21,7 +21,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     ).or_else(
         [this](FileRead::FileReadError) -> std::expected<GameConfig, FileRead::FileReadError> {
             intro_->blockStart();
-            return std::expected<GameConfig, FileRead::FileReadError>(GameConfig());
+            ERROR("Unable to read config.json, Start Button disabled.");
             return GameConfig();
         }
     );
@@ -43,7 +43,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     });
 
     connect(intro_, &IntroWidget::start, this, [this] {
-        management_ = new ManagementWidget(database_, json_, intro_->getMutedState());
+        management_ = new ManagementWidget(database_, config_, intro_->getMutedState());
         management_->setWindowTitle(config_.appName);
         management_->setSoundEffectMuted(config_.defaultEffectMuted);
         this->close();
@@ -65,7 +65,7 @@ void MainWidget::outroCall(const Result result, const bool currentMuted, const s
     management_->close();
 
     connect(outro_, &OutroWidget::replay, this, [this, outro_] (const bool isMuted) {
-        management_ = new ManagementWidget(database_, json_, isMuted);
+        management_ = new ManagementWidget(database_, config_, isMuted);
         outro_->close();
         management_->show();
         management_->setFixedSize(outro_->size());
