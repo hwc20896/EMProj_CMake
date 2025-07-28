@@ -18,12 +18,16 @@ struct GameConfig {
 };
 
 namespace FileRead {
-    // Error codes for file reading operations
-    enum class FileReadError: int {
+    enum class Error: int {
         FileNotFound = 6,
         ReadError = 7,
         ContentError = 8,
         UnknownError = -1
+    };
+    // Errors for file reading operations
+    struct FileReadError {
+        Error code;
+        QString message;
     };
 
     /**
