@@ -1,5 +1,4 @@
 #include "templatewidget.hpp"
-#include <QFile>
 #include <ranges>
 #include <QEventLoop>
 #include <QTimer>
