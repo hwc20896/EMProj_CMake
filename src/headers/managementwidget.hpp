@@ -30,7 +30,6 @@ class ManagementWidget final : public QWidget {
         QLabel* backgroundImage_;
 
         //  Query engine
-        GameConfig config_;
         QSqlDatabase database_;
         QSqlQuery query_;
 
@@ -48,6 +47,7 @@ class ManagementWidget final : public QWidget {
         void setProgress(int current, int total) const;
 
         //  Configs
+        GameConfig config_;
         int totalQuantity;
 
         //  Timers
