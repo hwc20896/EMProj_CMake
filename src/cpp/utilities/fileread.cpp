@@ -1,13 +1,16 @@
 #include "utilities/fileread.hpp"
+#include "utilities/defines.hpp"
 
 std::expected<QString, FileRead::FileReadError> FileRead::getStyleFromURI(const QString& uri) {
     QFile file(uri);
     if (!file.exists()) {
-        return std::unexpected(FileReadError::FileNotFound);
+        ERROR("Cannot find file at " << uri.toStdString());
+        return std::unexpected(FileReadError(Error::FileNotFound, "File not found at the specified URI: " + uri));
     }
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return std::unexpected(FileReadError::ReadError);
+        ERROR("Cannot open file at " << uri.toStdString());
+        return std::unexpected(FileReadError(Error::ReadError, "Failed to open file at the specified URI: " + uri));
     }
 
     QString content = file.readAll();
@@ -19,18 +22,24 @@ std::expected<QString, FileRead::FileReadError> FileRead::getStyleFromURI(const 
 std::expected<GameConfig, FileRead::FileReadError> FileRead::readGameConfig(const QString& uri) {
     QFile file(uri);
     if (!file.exists()) {
-        return std::unexpected(FileReadError::FileNotFound);
+        ERROR("Cannot find config JSON file at " << uri.toStdString());
+        return std::unexpected(FileReadError(Error::FileNotFound,
+                                             "Config JSON file not found at the specified URI: " + uri));
     }
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        return std::unexpected(FileReadError::ReadError);
+        ERROR("Cannot open config JSON file at " << uri.toStdString());
+        return std::unexpected(FileReadError(Error::ReadError,
+                                             "Failed to open config JSON file at the specified URI: " + uri));
     }
 
-    QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
+    const QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
     file.close();
 
     if (jsonDoc.isNull() || !jsonDoc.isObject()) {
-        return std::unexpected(FileReadError::ContentError);
+        ERROR("Unable to parse config JSON file at " << uri.toStdString());
+        return std::unexpected(FileReadError(Error::ContentError,
+                                             "Invalid JSON content in the config file at: " + uri));
     }
 
     GameConfig config(
