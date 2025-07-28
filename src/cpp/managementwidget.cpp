@@ -4,8 +4,8 @@
 #include <ranges>
 #include "utilities/fileread.hpp"
 
-ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocument& json, const bool currentMuted, QWidget* parent)
-: QWidget(parent), ui_(new Ui::ManagementWidget), json_(json), database_(database) {
+ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfig& config, const bool currentMuted, QWidget* parent)
+: QWidget(parent), ui_(new Ui::ManagementWidget), config_(config), database_(database) {
     ui_->setupUi(this);
     stackLayout_ = new QStackedLayout(this);
 
@@ -15,7 +15,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const QJsonDocu
     query_.exec("SELECT COUNT(*) FROM QuestionData");
     query_.next();
     totalQuantity = query_.value(0).toInt();
-    result_ = {.total = json_["display_quantity"].toInt()};
+    result_ = {.total = config_.displayQuantity};
 
     this->getQuestions();
 

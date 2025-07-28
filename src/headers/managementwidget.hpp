@@ -17,7 +17,7 @@
 class ManagementWidget final : public QWidget {
     Q_OBJECT
     public:
-        explicit ManagementWidget(const QSqlDatabase& database, const QJsonDocument& json, bool currentMuted, QWidget* parent = nullptr);
+        explicit ManagementWidget(const QSqlDatabase& database, const GameConfig& config, bool currentMuted, QWidget* parent = nullptr);
         ~ManagementWidget() override;
 
         void setSoundEffectMuted(bool muted) const;
@@ -28,7 +28,7 @@ class ManagementWidget final : public QWidget {
         QLabel* backgroundImage_;
 
         //  Query engine
-        QJsonDocument json_;
+        GameConfig config_;
         QSqlDatabase database_;
         QSqlQuery query_;
 
