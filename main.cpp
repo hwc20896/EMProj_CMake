@@ -7,6 +7,10 @@
 int main(int argc, char** argv) {
     QApplication app(argc, argv);
 
+    QObject::connect(&app, &QApplication::aboutToQuit, [] {
+        LOG("Application quitting.");
+    });
+
     //  Database initialization
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName("data.db");
