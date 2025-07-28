@@ -1,6 +1,6 @@
 #include "mainwidget.hpp"
 #include "outrowidget.hpp"
-#include <QJsonObject>
+#include "utilities/defines.hpp"
 
 MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStackedWidget(parent), database_(database){
     query_ = QSqlQuery(database_);
@@ -16,6 +16,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     const auto fileConfig = FileRead::readGameConfig("config.json").and_then(
         [this](const GameConfig& config) -> std::expected<GameConfig, FileRead::FileReadError> {
             intro_->setMutedState(config.defaultBackgroundMuted);
+            LOG("Read config.json successfully.");
             return config;
         }
     ).or_else(
@@ -47,6 +48,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
         management_->setWindowTitle(config_.appName);
         management_->setSoundEffectMuted(config_.defaultEffectMuted);
         this->close();
+        LOG("Game starting!");
         management_->show();
         management_->setFixedSize(this->size());
         connect(management_, &ManagementWidget::finish, this, &MainWidget::outroCall);
