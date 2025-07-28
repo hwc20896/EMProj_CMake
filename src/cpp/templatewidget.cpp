@@ -34,6 +34,8 @@ QuestionWidget::QuestionWidget(QuestionData&& question, const int index, QWidget
             };
             break;
         default:
+            WARNING("Unable to determine option button locations. Layout may cause issues.");
+            optionLocations = {};
             break;
     }
 
