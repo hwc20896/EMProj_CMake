@@ -5,23 +5,24 @@
 #include <iostream>
 
 // Log macro
-#define LOG(msg) std::cout << std::format("[LOG]\t{}\n", #msg)
-#define ERROR(msg) std::cout << std::format("[ERROR]\t{}\n", #msg)
-#define WARNING(msg) std::cout << std::format("[WARNING]\t{}\n", #msg)
+#define LOG(msg) std::cout << "[INFO]\t" << msg << "\n"
+#define ERROR(msg) std::cout << "[ERROR]\t" << msg << "\n"
+#define WARNING(msg) std::cout << "[WARNING]\t" << msg << "\n"
 
 //  Throw critical
-#define THROW_FILE_CRITICAL(code) \
+#define THROW_FILE_CRITICAL(code, msg) \
+    ERROR(msg);\
     switch (code){\
-        case FileRead::FileReadError::FileNotFound: \
+        case FileRead::Error::FileNotFound: \
             QMessageBox::critical(nullptr, "無法找到文件", "所需文件不存在。"); \
             break; \
-        case FileRead::FileReadError::ReadError: \
+        case FileRead::Error::ReadError: \
             QMessageBox::critical(nullptr, "讀取錯誤", "文件不可讀取。"); \
             break; \
-        case FileRead::FileReadError::ContentError: \
+        case FileRead::Error::ContentError: \
             QMessageBox::critical(nullptr, "内容錯誤", "内容無效或文件損壞。"); \
             break; \
-        case FileRead::FileReadError::UnknownError: \
+        case FileRead::Error::UnknownError: \
             QMessageBox::critical(nullptr, "未知錯誤", "讀取文件時出現了錯誤。"); \
             break; \
     }\
