@@ -20,8 +20,6 @@
         <file>src/css/intro.css</file>
         <file>src/css/questioning.css</file>
         <file>src/css/outro.css</file>
-        <file>src/css/option.css</file>
-        <file>src/css/gamemodechooser.css</file>
     </qresource>
     <qresource prefix="/Tier">
         <file>drawables/ARank.png</file>
