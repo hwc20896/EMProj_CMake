@@ -22,6 +22,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
         [this](FileRead::FileReadError) -> std::expected<GameConfig, FileRead::FileReadError> {
             intro_->blockStart();
             return std::expected<GameConfig, FileRead::FileReadError>(GameConfig());
+            return GameConfig();
         }
     );
     config_ = fileConfig.value();
