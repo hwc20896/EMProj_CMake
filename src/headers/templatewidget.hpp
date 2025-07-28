@@ -11,7 +11,6 @@
 #include "ui_template.h"
 #include "elements/optionbutton.hpp"
 
-#define RANDOM_ALGORITHM std::mt19937(std::random_device()())
 #define COLOR(target,color) "<font color="#color">"#target"</font>"
 
 struct QuestionData {
@@ -28,7 +27,7 @@ struct QuestionData {
 class QuestionWidget final : public QWidget {
     Q_OBJECT
     public:
-        explicit QuestionWidget(QuestionData&& question, int index, QWidget* parent = nullptr);
+        explicit QuestionWidget(QuestionData&& question, int index, const std::mt19937& mt, QWidget* parent = nullptr);
         ~QuestionWidget() override;
 
         /**
@@ -55,6 +54,9 @@ class QuestionWidget final : public QWidget {
 
         //  Sound Effects
         QSoundEffect* correctSound_, * incorrectSound_;
+
+        //  Engine
+        std::mt19937 mt_;
     signals:
         void timeTap();
         void score(bool isCorrect);

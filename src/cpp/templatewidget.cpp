@@ -4,13 +4,14 @@
 #include <QTimer>
 #include <QDebug>
 #include "utilities/fileread.hpp"
+#include "utilities/defines.hpp"
 
-QuestionWidget::QuestionWidget(QuestionData&& question, const int index, QWidget* parent)
-: QWidget(parent), ui_(new Ui::TemplateWidget), question_(std::move(question)) {
+QuestionWidget::QuestionWidget(QuestionData&& question, const int index, const std::mt19937& mt, QWidget* parent)
+: QWidget(parent), ui_(new Ui::TemplateWidget), question_(std::move(question)), mt_(mt) {
     ui_->setupUi(this);
 
     correctText = question_.options_[question_.correctOption_];
-    std::ranges::shuffle(question_.options_, RANDOM_ALGORITHM);
+    std::ranges::shuffle(question_.options_, mt_);
 
     //  Title
     ui_->questionTitle->setText(QString("%1: %2").arg(QString::number(index), question_.questionTitle_));

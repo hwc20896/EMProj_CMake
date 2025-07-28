@@ -1,11 +1,10 @@
 #include "managementwidget.hpp"
 
-#include <random>
 #include <ranges>
 #include "utilities/fileread.hpp"
 
 ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfig& config, const bool currentMuted, QWidget* parent)
-: QWidget(parent), ui_(new Ui::ManagementWidget), config_(config), database_(database) {
+: QWidget(parent), ui_(new Ui::ManagementWidget), config_(config), database_(database), mt_(device_()) {
     ui_->setupUi(this);
     stackLayout_ = new QStackedLayout(this);
 
@@ -24,7 +23,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfi
 
     pageFinished = std::vector(questions_.size(), false);
     for (const auto& [index, data] : std::views::enumerate(questions_)) {
-        const auto widget = new QuestionWidget(std::move(data), index + 1);
+        const auto widget = new QuestionWidget(std::move(data), index + 1, mt_, this);
         stackLayout_->addWidget(widget);
         pages_.push_back(widget);
 
@@ -111,7 +110,7 @@ std::expected<void, FileRead::FileReadError> ManagementWidget::getQuestions() {
     query_.exec("SELECT ID FROM QuestionData");
     while (query_.next()) idPool.push_back(query_.value("ID").toInt());
 
-    std::ranges::sample(idPool, std::back_inserter(sampled), result_.total, RANDOM_ALGORITHM);
+    std::ranges::sample(idPool, std::back_inserter(sampled), result_.total, mt_);
     for (const auto& id : sampled) {
         query_.prepare("SELECT * FROM QuestionData WHERE ID = ?");
         query_.addBindValue(id);

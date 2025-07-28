@@ -8,6 +8,7 @@
 #include <QStackedLayout>
 #include <QTimer>
 #include <vector>
+#include <random>
 
 #include "elements/muteswitch.hpp"
 #include "utilities/fileread.hpp"
@@ -32,6 +33,10 @@ class ManagementWidget final : public QWidget {
         //  Query engine
         QSqlDatabase database_;
         QSqlQuery query_;
+
+        //  Engines
+        std::random_device device_;
+        std::mt19937 mt_;
 
         //  Question Data
         std::expected<void, FileRead::FileReadError> getQuestions();
