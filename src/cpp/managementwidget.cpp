@@ -17,7 +17,10 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfi
     totalQuantity = query_.value(0).toInt();
     result_ = {.total = config_.displayQuantity};
 
-    this->getQuestions();
+    this->getQuestions().or_else([](const FileRead::FileReadError& error) -> std::expected<void, FileRead::FileReadError> {
+        THROW_FILE_CRITICAL(error.code, error.message.toStdString());
+        return std::unexpected(error);
+    });
 
     pageFinished = std::vector(questions_.size(), false);
     for (const auto& [index, data] : std::views::enumerate(questions_)) {
@@ -103,17 +106,21 @@ ManagementWidget::~ManagementWidget() {
     delete muteSwitch_;
 }
 
-void ManagementWidget::getQuestions() {
+std::expected<void, FileRead::FileReadError> ManagementWidget::getQuestions() {
     std::vector<int> idPool, sampled;
     query_.exec("SELECT ID FROM QuestionData");
-    while (query_.next()) idPool.push_back(query_.value(0).toInt());
+    while (query_.next()) idPool.push_back(query_.value("ID").toInt());
 
     std::ranges::sample(idPool, std::back_inserter(sampled), result_.total, RANDOM_ALGORITHM);
     for (const auto& id : sampled) {
         query_.prepare("SELECT * FROM QuestionData WHERE ID = ?");
         query_.addBindValue(id);
         query_.exec();
-        query_.next();
+        if (!query_.next()) {
+            return std::unexpected(FileRead::FileReadError(FileRead::Error::ContentError,
+                                                           "Failed to retrieve question data for ID: " +
+                                                           QString::number(id)));
+        }
 
         const auto questionTitle = query_.value("QuestionTitle").toString();
         const auto options = query_.value("Options").toString();
@@ -121,6 +128,7 @@ void ManagementWidget::getQuestions() {
 
         questions_.emplace_back(questionTitle, options, correctOption);
     }
+    return {};
 }
 
 void ManagementWidget::updatePages() const {

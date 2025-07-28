@@ -10,6 +10,8 @@
 #include <vector>
 
 #include "elements/muteswitch.hpp"
+#include "utilities/fileread.hpp"
+#include "utilities/defines.hpp"
 #include "templatewidget.hpp"
 #include "result.hpp"
 #include "ui_managementwidget.h"
@@ -33,7 +35,7 @@ class ManagementWidget final : public QWidget {
         QSqlQuery query_;
 
         //  Question Data
-        void getQuestions();
+        std::expected<void, FileRead::FileReadError> getQuestions();
         std::vector<QuestionData> questions_;
         std::vector<QuestionWidget*> pages_;
         Result result_;
