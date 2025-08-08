@@ -24,6 +24,9 @@ IntroWidget::IntroWidget(const bool defaultMuted, QWidget* parent) : QWidget(par
     label_->setPixmap({":/BackgroundImages/backgrounds/firstpagebg.png"});
     label_->setGeometry(0,0,1000,700);
     label_->lower();
+
+    chooser_ = new GamemodeChooser(0, this);
+    chooser_->setGeometry(440, 380, 180, 120);
 }
 
 IntroWidget::~IntroWidget() {

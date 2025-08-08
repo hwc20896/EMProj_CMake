@@ -2,8 +2,9 @@
 #ifndef INTROWIDGET_H
 #define INTROWIDGET_H
 #include "managementwidget.hpp"
-#include "elements/muteswitch.hpp"
 #include "ui_introwidget.h"
+#include "elements/gamemodechooser.hpp"
+#include "elements/muteswitch.hpp"
 
 class IntroWidget final : public QWidget {
     Q_OBJECT
@@ -16,13 +17,14 @@ class IntroWidget final : public QWidget {
          */
         void blockStart() const;
         [[nodiscard]] bool getMutedState() const;
-        void setMutedState(const bool muted);
+        void setMutedState(bool muted);
     private:
         Ui::IntroWidget* ui_;
         MuteSwitch* muteSwitch_;
 
         QLabel* label_;
 
+        GamemodeChooser* chooser_;
     signals:
         void toRulePage();
         void start();
