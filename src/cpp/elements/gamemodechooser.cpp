@@ -7,6 +7,8 @@ GamemodeChooser::GamemodeChooser(const int currentMode, QWidget* parent) : QComb
     this->setCurrentIndex(currentMode);
 
     this->setStyleSheet(STYLESHEET);
+
+    this->setFont({"Microsoft JhengHei", 18});
 }
 
 int GamemodeChooser::getCurrentMode() const {
