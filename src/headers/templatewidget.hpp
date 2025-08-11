@@ -32,7 +32,7 @@ struct QuestionData {
 class QuestionWidget final : public QWidget {
     Q_OBJECT
     public:
-        explicit QuestionWidget(QuestionData&& question, int index, const std::mt19937& mt, QWidget* parent = nullptr);
+        explicit QuestionWidget(const QuestionData& question, int index, const std::mt19937& mt, QWidget* parent = nullptr);
         ~QuestionWidget() override;
 
         /**
