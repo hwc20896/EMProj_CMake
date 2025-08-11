@@ -19,15 +19,14 @@ struct QuestionData {
     QStringList options_;
     int correctOption_;
     int questionType_; // 0 所有, 1 憲法, 2 基本法
-    explicit QuestionData(QString questionTitle, QStringList options, const int correctOption, const int questionType = 0)
-        : questionTitle_(std::move(questionTitle)), options_(std::move(options)), correctOption_(correctOption), questionType_(questionType) {}
-    explicit QuestionData(const QString& questionTitle, const QString& optionText, const int correctOption, const int questionType = 0)
-        : QuestionData(questionTitle, QJsonValue::fromJson(optionText.toUtf8()).toVariant().toStringList(), correctOption, questionType) {}
     explicit QuestionData(const int id, QString questionTitle, QStringList options, const int correctOption, const int questionType = 0)
         : id_(id), questionTitle_(std::move(questionTitle)), options_(std::move(options)), correctOption_(correctOption), questionType_(questionType) {}
     explicit QuestionData(const int id, const QString& questionTitle, const QString& optionText, const int correctOption, const int questionType = 0)
         : QuestionData(id, questionTitle, QJsonValue::fromJson(optionText.toUtf8()).toVariant().toStringList(), correctOption, questionType) {}
 
+    [[nodiscard]] std::string getInfo() const {
+        return std::format("ID: {}, Question Type: {}", id_, questionType_);
+    }
 };
 
 class QuestionWidget final : public QWidget {

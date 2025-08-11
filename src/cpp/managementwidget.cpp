@@ -22,8 +22,10 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfi
     });
 
     pageFinished = std::vector(questions_.size(), false);
+    LOG("Pending questions:");
     for (const auto& [index, data] : std::views::enumerate(questions_)) {
-        const auto widget = new QuestionWidget(std::move(data), index + 1, mt_, this);
+        const auto widget = new QuestionWidget(data, index + 1, mt_, this);
+        LOG("[" << index+1 << "] " << data.getInfo());
         stackLayout_->addWidget(widget);
         pages_.push_back(widget);
 
