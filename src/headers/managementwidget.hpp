@@ -39,7 +39,7 @@ class ManagementWidget final : public QWidget {
         std::mt19937 mt_;
 
         //  Question Data
-        std::expected<void, FileRead::FileReadError> getQuestions();
+        std::expected<void, FileRead::FileReadError> getQuestions(int gamemode = 0);
         std::vector<QuestionData> questions_;
         std::vector<QuestionWidget*> pages_;
         Result result_;

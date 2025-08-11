@@ -16,7 +16,7 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfi
     totalQuantity = query_.value(0).toInt();
     result_ = {.total = config_.displayQuantity};
 
-    this->getQuestions().or_else([](const FileRead::FileReadError& error) -> std::expected<void, FileRead::FileReadError> {
+    this->getQuestions(gamemode).or_else([](const FileRead::FileReadError& error) -> std::expected<void, FileRead::FileReadError> {
         THROW_FILE_CRITICAL(error.code, error.message.toStdString());
         return std::unexpected(error);
     });
@@ -107,9 +107,30 @@ ManagementWidget::~ManagementWidget() {
     delete muteSwitch_;
 }
 
-std::expected<void, FileRead::FileReadError> ManagementWidget::getQuestions() {
+std::expected<void, FileRead::FileReadError> ManagementWidget::getQuestions(const int gamemode) {
     std::vector<int> idPool, sampled;
-    query_.exec("SELECT ID FROM QuestionData");
+    QString queryStr;
+
+    /*  queryStr conditions:
+     *      mode 0: all questions -> SELECT * FROM QuesetionData;                       22x
+     *      mode 1: only 憲法 -> SELECT * FROM QuestionData WHERE QuestionType = 0;      9x
+     *      mode 2: only 基本法 -> SELECT * FROM QuestionData WHERE QuestionType = 1;    13x
+     *      default = mode 0;
+     */
+    switch (gamemode) {
+        case 1:
+            //  Only 憲法
+            queryStr = "SELECT ID FROM QuestionData WHERE QuestionType = 0";
+            break;
+        case 2:
+            //  Only 基本法
+            queryStr = "SELECT ID FROM QuestionData WHERE QuestionType = 1";
+            break;
+        default:
+            //  Default to mode 0 --> 所有
+            queryStr = "SELECT ID FROM QuestionData";
+    }
+    query_.exec(queryStr);
     while (query_.next()) idPool.push_back(query_.value("ID").toInt());
 
     std::ranges::sample(idPool, std::back_inserter(sampled), result_.total, mt_);
@@ -123,11 +144,13 @@ std::expected<void, FileRead::FileReadError> ManagementWidget::getQuestions() {
                                                            QString::number(id)));
         }
 
+        const auto questionId = query_.value("ID").toInt();
         const auto questionTitle = query_.value("QuestionTitle").toString();
         const auto options = query_.value("Options").toString();
         const auto correctOption = query_.value("CorrectOption").toInt();
+        const auto questionType = query_.value("QuestionType").toInt();
 
-        questions_.emplace_back(questionTitle, options, correctOption);
+        questions_.emplace_back(questionId, questionTitle, options, correctOption, questionType);
     }
     return {};
 }
