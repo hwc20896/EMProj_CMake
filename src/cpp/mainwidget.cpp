@@ -74,6 +74,7 @@ void MainWidget::outroCall(const Result result, const bool currentMuted, const s
         management_ = new ManagementWidget(database_, config_, currentMode_,isMuted);
         management_->setWindowTitle(config_.appName);
         outro_->close();
+        LOG("Game restarting!");
         management_->show();
         management_->setFixedSize(outro_->size());
         connect(management_, &ManagementWidget::finish, this, &MainWidget::outroCall);
