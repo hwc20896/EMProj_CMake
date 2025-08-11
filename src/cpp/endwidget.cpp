@@ -6,7 +6,8 @@
 
 #define NUM(num) QString::number(num)
 
-EndWidget::EndWidget(const Result& result, const bool isMuted, const std::vector<int64_t>& timeStamps, QWidget* parent) : QWidget(parent), ui_(new Ui::EndWidget) {
+EndWidget::EndWidget(const Result& result, const bool isMuted, const int currentMode, const std::vector<int64_t>& timeStamps, QWidget* parent)
+: QWidget(parent), ui_(new Ui::EndWidget) {
     ui_->setupUi(this);
     muteSwitch_ = new MuteSwitch({50,50}, isMuted, this);
     muteSwitch_->setGeometry(410,20,60,60);
@@ -29,7 +30,7 @@ EndWidget::EndWidget(const Result& result, const bool isMuted, const std::vector
     ui_->rankPic->setPixmap({imageUrl});
 
     //  Time
-    auto totalTime = std::accumulate(timeStamps.begin(), timeStamps.end(), 0LL);
+    const auto totalTime = std::accumulate(timeStamps.begin(), timeStamps.end(), 0LL);
     ui_->timeDisplay->setText(QString("總答題時間：%1").arg(timeDisplay(totalTime)));
 
     background_ = new QLabel(this);

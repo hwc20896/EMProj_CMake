@@ -3,8 +3,8 @@
 #include <ranges>
 #include "utilities/fileread.hpp"
 
-ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfig& config, const bool currentMuted, QWidget* parent)
-: QWidget(parent), ui_(new Ui::ManagementWidget), config_(config), database_(database), mt_(device_()) {
+ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfig& config, const int gamemode, const bool currentMuted, QWidget* parent)
+: QWidget(parent), ui_(new Ui::ManagementWidget), database_(database), mt_(device_()), config_(config) {
     ui_->setupUi(this);
     stackLayout_ = new QStackedLayout(this);
 

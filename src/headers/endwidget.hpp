@@ -11,7 +11,7 @@
 class EndWidget final : public QWidget {
     Q_OBJECT
     public:
-        explicit EndWidget(const Result& result, bool isMuted, const std::vector<int64_t>& timeStamps, QWidget* parent = nullptr);
+        explicit EndWidget(const Result& result, bool isMuted, int currentMode, const std::vector<int64_t>& timeStamps, QWidget* parent = nullptr);
         ~EndWidget() override;
         [[nodiscard]] bool getMutedState() const;
 

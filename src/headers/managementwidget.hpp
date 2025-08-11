@@ -20,7 +20,7 @@
 class ManagementWidget final : public QWidget {
     Q_OBJECT
     public:
-        explicit ManagementWidget(const QSqlDatabase& database, const GameConfig& config, bool currentMuted, QWidget* parent = nullptr);
+        explicit ManagementWidget(const QSqlDatabase& database, const GameConfig& config, int gamemode, bool currentMuted, QWidget* parent = nullptr);
         ~ManagementWidget() override;
 
         void setSoundEffectMuted(bool muted) const;
