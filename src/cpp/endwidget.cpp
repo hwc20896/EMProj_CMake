@@ -49,6 +49,10 @@ EndWidget::EndWidget(const Result& result, const bool isMuted, const std::vector
     ui_->toAppInfo->setObjectName("navigator");
 
     this->setStyleSheet(FileRead::getStyleFromURI(":/CSS/src/css/outro.css").value_or(""));
+
+    //  Chooser
+    chooser_ = new GamemodeChooser(currentMode, this);
+    chooser_->setGeometry(310, 580, 180, 80);
 }
 
 EndWidget::~EndWidget() {
@@ -68,4 +72,8 @@ QString EndWidget::timeDisplay(const int64_t time) {
     if (time == 60000LL) return "1分鐘";
     if (time >= 0) return QString("%1秒").arg(QString::number(time / 1000.0, 'g', 3));
     throw std::range_error("Invalid duration");
+}
+
+int EndWidget::getCurrentMode() const {
+    return chooser_->getCurrentMode();
 }

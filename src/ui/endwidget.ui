@@ -75,7 +75,7 @@
   <widget class="QPushButton" name="replay">
    <property name="geometry">
     <rect>
-     <x>440</x>
+     <x>540</x>
      <y>580</y>
      <width>200</width>
      <height>80</height>
@@ -103,7 +103,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>../../drawables/SRank.png</pixmap>
+    <pixmap>C:/Users/Administrator/drawables/SRank.png</pixmap>
    </property>
   </widget>
   <widget class="QLabel" name="timeDisplay">

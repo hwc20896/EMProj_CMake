@@ -1,10 +1,12 @@
 #pragma once
 #ifndef ENDWIDGET_HPP
 #define ENDWIDGET_HPP
-#include "elements/muteswitch.hpp"
+#include <vector>
+
 #include "result.hpp"
 #include "ui_endwidget.h"
-#include <vector>
+#include "elements/muteswitch.hpp"
+#include "elements/gamemodechooser.hpp"
 
 class EndWidget final : public QWidget {
     Q_OBJECT
@@ -19,10 +21,13 @@ class EndWidget final : public QWidget {
          * @return Formatted duration.
          */
         static QString timeDisplay(int64_t time);
+
+        [[nodiscard]] int getCurrentMode() const;
     private:
         Ui::EndWidget* ui_;
         MuteSwitch* muteSwitch_;
         QLabel* background_;
+        GamemodeChooser* chooser_;
     signals:
         void restart(bool isMuted);
         void toAppInfo();

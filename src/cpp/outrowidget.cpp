@@ -21,3 +21,7 @@ OutroWidget::~OutroWidget() {
     delete endWidget_;
     delete appInfoWidget_;
 }
+
+int OutroWidget::getCurrentMode() const {
+    return endWidget_->getCurrentMode();
+}

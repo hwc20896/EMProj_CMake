@@ -11,6 +11,8 @@ class OutroWidget final : public QStackedWidget {
     public:
         explicit OutroWidget(Result result, bool isMuted, const std::vector<int64_t>& timeStamps, QWidget* parent = nullptr);
         ~OutroWidget() override;
+
+        [[nodiscard]] int getCurrentMode() const;
     private:
         EndWidget* endWidget_;
         AppInfoWidget* appInfoWidget_;
