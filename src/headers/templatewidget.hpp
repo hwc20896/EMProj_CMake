@@ -14,6 +14,7 @@
 #define COLOR(target,color) "<font color="#color">"#target"</font>"
 
 struct QuestionData {
+    int id_;
     QString questionTitle_;
     QStringList options_;
     int correctOption_;
@@ -22,6 +23,11 @@ struct QuestionData {
         : questionTitle_(std::move(questionTitle)), options_(std::move(options)), correctOption_(correctOption), questionType_(questionType) {}
     explicit QuestionData(const QString& questionTitle, const QString& optionText, const int correctOption, const int questionType = 0)
         : QuestionData(questionTitle, QJsonValue::fromJson(optionText.toUtf8()).toVariant().toStringList(), correctOption, questionType) {}
+    explicit QuestionData(const int id, QString questionTitle, QStringList options, const int correctOption, const int questionType = 0)
+        : id_(id), questionTitle_(std::move(questionTitle)), options_(std::move(options)), correctOption_(correctOption), questionType_(questionType) {}
+    explicit QuestionData(const int id, const QString& questionTitle, const QString& optionText, const int correctOption, const int questionType = 0)
+        : QuestionData(id, questionTitle, QJsonValue::fromJson(optionText.toUtf8()).toVariant().toStringList(), correctOption, questionType) {}
+
 };
 
 class QuestionWidget final : public QWidget {
