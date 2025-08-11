@@ -18,6 +18,7 @@ class MainWidget final : public QStackedWidget {
         QSqlDatabase database_;
         QSqlQuery query_;
         QJsonDocument json_;
+        int currentMode_;
 
         //  Subwidgets
         IntroWidget* intro_;

@@ -12,6 +12,8 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     intro_ = new IntroWidget(false);
     rule_ = new RuleWidget;
 
+    currentMode_ = 0;
+
     //  Json Configs
     const auto fileConfig = FileRead::readGameConfig("config.json").and_then(
         [this](const GameConfig& config) -> std::expected<GameConfig, FileRead::FileReadError> {

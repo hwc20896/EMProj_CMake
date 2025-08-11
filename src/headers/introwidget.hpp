@@ -18,6 +18,8 @@ class IntroWidget final : public QWidget {
         void blockStart() const;
         [[nodiscard]] bool getMutedState() const;
         void setMutedState(bool muted);
+
+        [[nodiscard]] int getCurrentMode() const;
     private:
         Ui::IntroWidget* ui_;
         MuteSwitch* muteSwitch_;

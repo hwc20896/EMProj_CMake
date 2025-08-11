@@ -37,6 +37,8 @@ IntroWidget::~IntroWidget() {
 void IntroWidget::blockStart() const {
     ui_->startButton->setDisabled(true);
     ui_->startButton->setToolTip("由於配置文件缺失，無法開始游戲。請到下載處Issue頁回報此問題。");
+    chooser_->setDisabled(true);
+    chooser_->setToolTip("由於配置文件缺失，無法選擇游戲模式。請到下載處Issue頁回報此問題。");
 }
 
 bool IntroWidget::getMutedState() const {
@@ -45,4 +47,8 @@ bool IntroWidget::getMutedState() const {
 
 void IntroWidget::setMutedState(const bool muted) {
     muteSwitch_->setMutedState(muted);
+}
+
+int IntroWidget::getCurrentMode() const {
+    return chooser_->getCurrentMode();
 }
