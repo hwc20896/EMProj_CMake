@@ -35,7 +35,7 @@
   <widget class="QPushButton" name="ruleButton">
    <property name="geometry">
     <rect>
-     <x>720</x>
+     <x>750</x>
      <y>20</y>
      <width>200</width>
      <height>70</height>

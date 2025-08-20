@@ -8,7 +8,7 @@ IntroWidget::IntroWidget(const bool defaultMuted, QWidget* parent) : QWidget(par
 
     //  Mute switch
     muteSwitch_ = new MuteSwitch({50,50}, defaultMuted, this);
-    muteSwitch_->setGeometry(580,20,60,60);
+    muteSwitch_->setGeometry(580,20,70,70);
 
     //  Connections
     connect(ui_->ruleButton, &QPushButton::clicked, this, &IntroWidget::toRulePage);
@@ -26,7 +26,7 @@ IntroWidget::IntroWidget(const bool defaultMuted, QWidget* parent) : QWidget(par
     label_->lower();
 
     chooser_ = new GamemodeChooser(0, this);
-    chooser_->setGeometry(440, 380, 180, 120);
+    chooser_->setGeometry(390, 380, 230, 120);
 }
 
 IntroWidget::~IntroWidget() {

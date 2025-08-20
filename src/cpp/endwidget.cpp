@@ -53,7 +53,7 @@ EndWidget::EndWidget(const Result& result, const bool isMuted, const int current
 
     //  Chooser
     chooser_ = new GamemodeChooser(currentMode, this);
-    chooser_->setGeometry(310, 580, 180, 80);
+    chooser_->setGeometry(290, 580, 200, 80);
 }
 
 EndWidget::~EndWidget() {
