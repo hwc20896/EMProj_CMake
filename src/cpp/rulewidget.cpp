@@ -29,6 +29,6 @@ RuleWidget::~RuleWidget() {
     delete ui_;
 }
 
-void RuleWidget::setRuleText(int questionCount, int totalQuestions) const {
-    ui_->ruleText->setText(QString::fromStdString(std::format(ruleText, questionCount, totalQuestions)));
+void RuleWidget::setRuleText(const std::string& blockText, int questionCount, int totalQuestions) const {
+    ui_->ruleText->setText(QString::fromStdString(std::format(ruleText, blockText, questionCount, totalQuestions)));
 }

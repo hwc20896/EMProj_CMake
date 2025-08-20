@@ -15,6 +15,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     currentMode_ = 0;
 
     //  Json Configs
+    std::string blockText;
     const auto fileConfig = FileRead::readGameConfig("config.json").and_then(
         [this](const GameConfig& config) -> std::expected<GameConfig, FileRead::FileReadError> {
             intro_->setMutedState(config.defaultBackgroundMuted);
@@ -22,7 +23,8 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
             return config;
         }
     ).or_else(
-        [this](const FileRead::FileReadError&) -> std::expected<GameConfig, FileRead::FileReadError> {
+        [this, &blockText](const FileRead::FileReadError&) -> std::expected<GameConfig, FileRead::FileReadError> {
+            blockText = BLOCKSTART_TEXT;
             intro_->blockStart();
             ERROR("Unable to read config.json, Start Button disabled.");
             return GameConfig();
@@ -30,7 +32,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
     );
     config_ = fileConfig.value();
 
-    rule_->setRuleText(config_.displayQuantity, this->totalQuantity);
+    rule_->setRuleText(blockText, config_.displayQuantity, this->totalQuantity);
     management_ = nullptr;
 
     this->addWidget(intro_);
