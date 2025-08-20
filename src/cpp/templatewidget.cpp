@@ -49,13 +49,6 @@ QuestionWidget::QuestionWidget(const QuestionData& question, const int index, co
 
     hasAnswered = false;
 
-    //  Sound effects
-    correctSound_ = new QSoundEffect;
-    correctSound_->setSource({"qrc:/SoundEffects/sounds/bingo.wav"});
-
-    incorrectSound_ = new QSoundEffect;
-    incorrectSound_->setSource({"qrc:/SoundEffects/sounds/ohno.wav"});
-
     this->setStyleSheet(FileRead::getStyleFromURI(":/CSS/src/css/questioning.css").value_or(""));
 }
 
@@ -69,11 +62,6 @@ void QuestionWidget::cooldown(const int msec) {
     lp.exec();
 }
 
-void QuestionWidget::setEffectMuted(const bool muted) const {
-    correctSound_->setMuted(muted);
-    incorrectSound_->setMuted(muted);
-}
-
 void QuestionWidget::answerButtonClicked(OptionButton* button) {
     if (!hasAnswered) {
         hasAnswered = true;
@@ -81,17 +69,16 @@ void QuestionWidget::answerButtonClicked(OptionButton* button) {
         button->setSelected();
         emit timeTap();
         cooldown(800);
-        const bool isCorrect = button->text() == correctText;
-        if (isCorrect) {
+        if (button->text() == correctText) {
             button->setCorrect(true);
-            correctSound_->play();
+            emit playCorrect();
         } else {
             button->setCorrect(false);
-            incorrectSound_->play();
+            emit playIncorrect();
             cooldown(500);
             bindToButton[correctText]->setCorrect(true);
         }
         cooldown(700);
-        emit score(isCorrect);
+        emit enableNextPage();
     }
 }

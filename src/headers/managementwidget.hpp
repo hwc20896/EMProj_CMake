@@ -63,6 +63,9 @@ class ManagementWidget final : public QWidget {
         bool currentMuted_ = false;
         QAudioOutput* audioOutput_;
         QMediaPlayer* player_;
+
+        //  Sound Effects
+        QSoundEffect* correctSound, * incorrectSound;
     signals:
         void finish(Result result, bool currentMuted, const std::vector<int64_t>& timestamps);
 };

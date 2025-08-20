@@ -21,6 +21,13 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfi
         return std::unexpected(error);
     });
 
+    //  Sound Effects
+    correctSound = new QSoundEffect;
+    correctSound->setSource({"qrc:/SoundEffects/sounds/bingo.wav"});
+
+    incorrectSound = new QSoundEffect;
+    incorrectSound->setSource({"qrc:/SoundEffects/sounds/ohno.wav"});
+
     pageFinished = std::vector(questions_.size(), false);
     LOG("Pending questions:");
     for (const auto& [index, data] : std::views::enumerate(questions_)) {
@@ -35,10 +42,19 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfi
             timeStamps.push_back(std::chrono::duration_cast<std::chrono::milliseconds>(end_ - start_).count());
         });
 
-        //  Score recorder
-        connect(widget, &QuestionWidget::score, this, [this, index](const bool isCorrect) {
+        connect(widget, &QuestionWidget::playCorrect, this, [this] {
+            correctSound->play();
+            result_.correct++;
+        });
+
+        connect(widget, &QuestionWidget::playIncorrect, this, [this] {
+            incorrectSound->play();
+            incorrectCount++;
+        });
+
+        //  Next Page Button Controller
+        connect(widget, &QuestionWidget::enableNextPage, this, [this, index] {
             pageFinished[index] = true;
-            isCorrect? result_.correct++ : incorrectCount++;
             ui_->nextQuestion->setEnabled(true);
             this->updatePages();
         });
@@ -169,7 +185,6 @@ void ManagementWidget::setProgress(const int current, const int total) const {
 }
 
 void ManagementWidget::setSoundEffectMuted(const bool muted) const {
-    for (const auto& page : pages_) {
-        page->setEffectMuted(muted);
-    }
+    correctSound->setMuted(muted);
+    incorrectSound->setMuted(muted);
 }

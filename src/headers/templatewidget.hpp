@@ -40,8 +40,6 @@ class QuestionWidget final : public QWidget {
          *   @param msec Milliseconds you want to suspend.
          */
         static void cooldown(int msec);
-
-        void setEffectMuted(bool muted) const;
     private:
         Ui::TemplateWidget* ui_;
 
@@ -57,14 +55,15 @@ class QuestionWidget final : public QWidget {
         //  Answer checker
         void answerButtonClicked(OptionButton* button);
 
-        //  Sound Effects
-        QSoundEffect* correctSound_, * incorrectSound_;
-
         //  Engine
         std::mt19937 mt_;
     signals:
         void timeTap();
-        void score(bool isCorrect);
+        void enableNextPage();
+
+        //  Sound Effect
+        void playCorrect();
+        void playIncorrect();
 };
 
 #endif
