@@ -25,7 +25,7 @@ struct QuestionData {
         : QuestionData(id, questionTitle, QJsonValue::fromJson(optionText.toUtf8()).toVariant().toStringList(), correctOption, questionType) {}
 
     [[nodiscard]] std::string getInfo() const {
-        return std::format("ID: {}, Question Type: {}", id_, questionType_);
+        return std::format("ID: {:02}, Question Type: {}", id_, questionType_);
     }
 };
 
