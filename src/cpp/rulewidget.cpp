@@ -2,6 +2,8 @@
 #include "templatewidget.hpp"
 #include "utilities/fileread.hpp"
 
+#include "ui_rulewidget.h"
+
 RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidget) {
     ui_->setupUi(this);
 

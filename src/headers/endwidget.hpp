@@ -4,9 +4,16 @@
 #include <vector>
 
 #include "result.hpp"
-#include "ui_endwidget.h"
 #include "elements/muteswitch.hpp"
 #include "elements/gamemodechooser.hpp"
+
+#include <QWidget>
+#include <QLabel>
+
+//  PIMPL pattern
+namespace Ui {
+    class EndWidget;
+}
 
 class EndWidget final : public QWidget {
     Q_OBJECT

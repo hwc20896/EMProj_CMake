@@ -7,9 +7,14 @@
 #include <random>
 #include <utility>
 #include <QSoundEffect>
+#include <QWidget>
 
-#include "ui_template.h"
 #include "elements/optionbutton.hpp"
+
+//  PIMPL pattern
+namespace Ui {
+    class TemplateWidget;
+}
 
 #define COLOR(target,color) "<font color="#color">"#target"</font>"
 

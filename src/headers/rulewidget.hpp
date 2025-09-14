@@ -1,9 +1,13 @@
 #pragma once
 #ifndef RULEWIDGET_HPP
 #define RULEWIDGET_HPP
-#include "ui_rulewidget.h"
+#include <QWidget>
 #include <QSoundEffect>
-#include <format>
+
+//  PIMPL pattern
+namespace Ui {
+    class RuleWidget;
+}
 
 class RuleWidget final : public QWidget {
     Q_OBJECT

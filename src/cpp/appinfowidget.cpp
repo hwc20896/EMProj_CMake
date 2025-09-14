@@ -2,6 +2,8 @@
 #include "templatewidget.hpp"
 #include "utilities/fileread.hpp"
 
+#include "ui_appinfowidget.h"
+
 AppInfoWidget::AppInfoWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::AppInfoWidget) {
     ui_->setupUi(this);
 

@@ -2,6 +2,7 @@
 
 #include <QPixmap>
 #include "utilities/fileread.hpp"
+#include "ui_introwidget.h"
 
 IntroWidget::IntroWidget(const bool defaultMuted, QWidget* parent) : QWidget(parent), ui_(new Ui::IntroWidget) {
     ui_->setupUi(this);

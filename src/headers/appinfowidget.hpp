@@ -1,7 +1,12 @@
 #pragma once
 #ifndef APPINFOWIDGET_HPP
 #define APPINFOWIDGET_HPP
-#include "ui_appinfowidget.h"
+#include <QWidget>
+
+//  PIMPL pattern
+namespace Ui {
+    class AppInfoWidget;
+}
 
 class AppInfoWidget final : public QWidget {
     Q_OBJECT

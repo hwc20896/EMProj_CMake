@@ -2,9 +2,16 @@
 #ifndef INTROWIDGET_H
 #define INTROWIDGET_H
 #include "managementwidget.hpp"
-#include "ui_introwidget.h"
+#include <QWidget>
+#include <QLabel>
+
 #include "elements/gamemodechooser.hpp"
 #include "elements/muteswitch.hpp"
+
+//  PIMPL pattern
+namespace Ui {
+    class IntroWidget;
+}
 
 class IntroWidget final : public QWidget {
     Q_OBJECT

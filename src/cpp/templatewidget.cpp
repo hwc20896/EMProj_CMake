@@ -6,6 +6,8 @@
 #include "utilities/fileread.hpp"
 #include "utilities/defines.hpp"
 
+#include "ui_template.h"
+
 QuestionWidget::QuestionWidget(const QuestionData& question, const int index, const std::mt19937& mt, QWidget* parent)
 : QWidget(parent), ui_(new Ui::TemplateWidget), question_(question), mt_(mt) {
     ui_->setupUi(this);
