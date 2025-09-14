@@ -128,7 +128,7 @@ std::expected<void, FileRead::FileReadError> ManagementWidget::getQuestions(cons
     QString queryStr;
 
     /*  queryStr conditions:
-     *      mode 0: all questions -> SELECT * FROM QuesetionData;                       22x
+     *      mode 0: all questions -> SELECT * FROM QuestionData;                        22x
      *      mode 1: only 憲法 -> SELECT * FROM QuestionData WHERE QuestionType = 0;      9x
      *      mode 2: only 基本法 -> SELECT * FROM QuestionData WHERE QuestionType = 1;    13x
      *      default = mode 0;
