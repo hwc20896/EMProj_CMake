@@ -1,5 +1,5 @@
-#include "mainwidget.hpp"
-#include "outrowidget.hpp"
+#include "widget_containers/mainwidget.hpp"
+#include "widget_containers/outrowidget.hpp"
 #include "utilities/defines.hpp"
 
 MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStackedWidget(parent), database_(database){

@@ -1,4 +1,4 @@
-#include "introwidget.hpp"
+#include "widgets/introwidget.hpp"
 
 #include <QPixmap>
 #include "utilities/fileread.hpp"

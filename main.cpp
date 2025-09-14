@@ -1,4 +1,4 @@
-#include "mainwidget.hpp"
+#include "widget_containers/mainwidget.hpp"
 #include <QApplication>
 #include <QSqlDatabase>
 

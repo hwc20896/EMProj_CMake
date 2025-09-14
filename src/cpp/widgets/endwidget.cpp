@@ -1,6 +1,6 @@
-#include "endwidget.hpp"
+#include "widgets/endwidget.hpp"
 
-#include "templatewidget.hpp"
+#include "widgets/templatewidget.hpp"
 #include <numeric>
 #include "utilities/fileread.hpp"
 

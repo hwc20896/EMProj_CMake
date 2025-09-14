@@ -1,7 +1,7 @@
 #pragma once
 #ifndef INTROWIDGET_H
 #define INTROWIDGET_H
-#include "managementwidget.hpp"
+#include "widget_containers/managementwidget.hpp"
 #include <QWidget>
 #include <QLabel>
 

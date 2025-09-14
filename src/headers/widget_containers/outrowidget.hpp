@@ -2,8 +2,8 @@
 #ifndef OUTROWIDGET_HPP
 #define OUTROWIDGET_HPP
 #include <QStackedWidget>
-#include "endwidget.hpp"
-#include "appinfowidget.hpp"
+#include "widgets/endwidget.hpp"
+#include "widgets/appinfowidget.hpp"
 #include <vector>
 
 class OutroWidget final : public QStackedWidget {

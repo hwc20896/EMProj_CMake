@@ -1,4 +1,4 @@
-#include "outrowidget.hpp"
+#include "widget_containers/outrowidget.hpp"
 
 OutroWidget::OutroWidget(const Result result, const bool isMuted, const int currentMode,  const std::vector<int64_t>& timeStamps, QWidget* parent)
 : QStackedWidget(parent), endWidget_(new EndWidget(result, isMuted, currentMode, timeStamps)), appInfoWidget_(new AppInfoWidget){

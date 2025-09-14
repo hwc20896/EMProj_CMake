@@ -1,5 +1,5 @@
-#include "appinfowidget.hpp"
-#include "templatewidget.hpp"
+#include "widgets/appinfowidget.hpp"
+#include "widgets/templatewidget.hpp"
 #include "utilities/fileread.hpp"
 
 #include "ui_appinfowidget.h"

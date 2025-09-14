@@ -1,4 +1,4 @@
-#include "managementwidget.hpp"
+#include "widget_containers/managementwidget.hpp"
 
 #include <ranges>
 #include "utilities/fileread.hpp"

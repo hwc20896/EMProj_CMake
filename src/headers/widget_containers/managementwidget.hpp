@@ -13,8 +13,8 @@
 #include "elements/muteswitch.hpp"
 #include "utilities/fileread.hpp"
 #include "utilities/defines.hpp"
-#include "templatewidget.hpp"
-#include "result.hpp"
+#include "widgets/templatewidget.hpp"
+#include "utilities/result.hpp"
 #include "ui_managementwidget.h"
 
 class ManagementWidget final : public QWidget {

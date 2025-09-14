@@ -1,5 +1,5 @@
-#include "rulewidget.hpp"
-#include "templatewidget.hpp"
+#include "widgets/rulewidget.hpp"
+#include "widgets/templatewidget.hpp"
 #include "utilities/fileread.hpp"
 
 #include "ui_rulewidget.h"

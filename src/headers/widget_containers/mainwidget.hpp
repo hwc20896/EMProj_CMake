@@ -4,8 +4,8 @@
 #include <QFile>
 #include <QStackedWidget>
 
-#include "introwidget.hpp"
-#include "rulewidget.hpp"
+#include "widgets/introwidget.hpp"
+#include "widgets/rulewidget.hpp"
 #include "managementwidget.hpp"
 #include "utilities/fileread.hpp"
 

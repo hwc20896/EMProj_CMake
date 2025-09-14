@@ -3,7 +3,7 @@
 #define ENDWIDGET_HPP
 #include <vector>
 
-#include "result.hpp"
+#include "utilities/result.hpp"
 #include "elements/muteswitch.hpp"
 #include "elements/gamemodechooser.hpp"
 

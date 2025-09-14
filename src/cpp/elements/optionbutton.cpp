@@ -1,5 +1,5 @@
 #include "elements/optionbutton.hpp"
-#include "templatewidget.hpp"
+#include "widgets/templatewidget.hpp"
 
 #define REFRESH_STYLE this->setStyle({})
 

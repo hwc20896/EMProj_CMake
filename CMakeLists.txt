@@ -11,25 +11,24 @@ qt_add_executable(EMProj_CMake
     main.cpp
 
     # CPPs
-    src/cpp/mainwidget.cpp
-    src/cpp/introwidget.cpp
-    src/cpp/rulewidget.cpp
-    src/cpp/managementwidget.cpp
-    src/cpp/templatewidget.cpp
-    src/cpp/outrowidget.cpp
-    src/cpp/appinfowidget.cpp
-    src/cpp/endwidget.cpp
+    src/cpp/widget_containers/mainwidget.cpp
+    src/cpp/widgets/introwidget.cpp
+    src/cpp/widgets/rulewidget.cpp
+    src/cpp/widget_containers/managementwidget.cpp
+    src/cpp/widgets/templatewidget.cpp
+    src/cpp/widget_containers/outrowidget.cpp
+    src/cpp/widgets/appinfowidget.cpp
+    src/cpp/widgets/endwidget.cpp
 
     # Headers
-    src/headers/mainwidget.hpp
-    src/headers/introwidget.hpp
-    src/headers/rulewidget.hpp
-    src/headers/managementwidget.hpp
-    src/headers/templatewidget.hpp
-    src/headers/outrowidget.hpp
-    src/headers/appinfowidget.hpp
-    src/headers/endwidget.hpp
-    src/headers/result.hpp
+    src/headers/widget_containers/mainwidget.hpp
+    src/headers/widgets/introwidget.hpp
+    src/headers/widgets/rulewidget.hpp
+    src/headers/widget_containers/managementwidget.hpp
+    src/headers/widgets/templatewidget.hpp
+    src/headers/widget_containers/outrowidget.hpp
+    src/headers/widgets/appinfowidget.hpp
+    src/headers/widgets/endwidget.hpp
 
     # UIs
     src/ui/introwidget.ui
@@ -46,6 +45,7 @@ qt_add_executable(EMProj_CMake
     src/cpp/utilities/fileread.cpp
     src/headers/utilities/fileread.hpp
     src/headers/utilities/defines.hpp
+    src/headers/utilities/result.hpp
 
     # Element pairs
         # Mute Switch
