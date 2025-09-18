@@ -1,12 +1,16 @@
 #include "widget_containers/mainwidget.hpp"
 #include "widget_containers/outrowidget.hpp"
 #include "utilities/defines.hpp"
+#include "utilities/database.hpp"
 
-MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStackedWidget(parent), database_(database){
-    query_ = QSqlQuery(database_);
-    query_.exec("SELECT COUNT(*) FROM QuestionData");
-    query_.next();
-    totalQuantity = query_.value(0).toInt();
+MainWidget::MainWidget(QWidget* parent) : QStackedWidget(parent) {
+    try {
+        totalQuantity = Data::database.getTotalQuestionCount();
+    }
+    catch (const sqlite::errors::error&) {
+        ERROR("It seems that the database file is missing or corrupted. The application will now exit.");
+        std::exit(-1);
+    }
 
     //  Initializers
     intro_ = new IntroWidget(false);
@@ -49,7 +53,7 @@ MainWidget::MainWidget(const QSqlDatabase& database, QWidget* parent) : QStacked
 
     connect(intro_, &IntroWidget::start, this, [this] {
         currentMode_ = intro_->getCurrentMode();
-        management_ = new ManagementWidget(database_, config_, currentMode_, intro_->getMutedState());
+        management_ = new ManagementWidget(config_, currentMode_, intro_->getMutedState());
         management_->setWindowTitle(config_.appName);
         management_->setSoundEffectMuted(config_.defaultEffectMuted);
         this->close();
@@ -73,7 +77,7 @@ void MainWidget::outroCall(const Result result, const bool currentMuted, const s
 
     connect(outro_, &OutroWidget::replay, this, [this, outro_] (const bool isMuted) {
         currentMode_ = outro_->getCurrentMode();
-        management_ = new ManagementWidget(database_, config_, currentMode_,isMuted);
+        management_ = new ManagementWidget(config_, currentMode_,isMuted);
         management_->setWindowTitle(config_.appName);
         outro_->close();
         LOG("Game restarting!");

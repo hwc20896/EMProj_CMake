@@ -4,7 +4,6 @@
 #include <chrono>
 #include <QAudioOutput>
 #include <QMediaPlayer>
-#include <QSqlQuery>
 #include <QStackedLayout>
 #include <QTimer>
 #include <vector>
@@ -20,7 +19,7 @@
 class ManagementWidget final : public QWidget {
     Q_OBJECT
     public:
-        explicit ManagementWidget(const QSqlDatabase& database, const GameConfig& config, int gamemode, bool currentMuted, QWidget* parent = nullptr);
+        explicit ManagementWidget(GameConfig config, int gamemode, bool currentMuted, QWidget* parent = nullptr);
         ~ManagementWidget() override;
 
         void setSoundEffectMuted(bool muted) const;
@@ -30,16 +29,11 @@ class ManagementWidget final : public QWidget {
         QStackedLayout* stackLayout_;
         QLabel* backgroundImage_;
 
-        //  Query engine
-        QSqlDatabase database_;
-        QSqlQuery query_;
-
         //  Engines
         std::random_device device_;
         std::mt19937 mt_;
 
         //  Question Data
-        std::expected<void, FileRead::FileReadError> getQuestions(int gamemode = 0);
         std::vector<QuestionData> questions_;
         std::vector<QuestionWidget*> pages_;
         Result result_;

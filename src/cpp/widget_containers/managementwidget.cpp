@@ -1,25 +1,20 @@
 #include "widget_containers/managementwidget.hpp"
 
 #include <ranges>
+#include <utility>
 #include "utilities/fileread.hpp"
+#include "utilities/database.hpp"
 
-ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfig& config, const int gamemode, const bool currentMuted, QWidget* parent)
-: QWidget(parent), ui_(new Ui::ManagementWidget), database_(database), mt_(device_()), config_(config) {
+ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const bool currentMuted, QWidget* parent)
+: QWidget(parent), ui_(new Ui::ManagementWidget), mt_(device_()), config_(std::move(config)) {
     ui_->setupUi(this);
     stackLayout_ = new QStackedLayout(this);
 
     //  Get Question Data
-    if (!database_.isOpen()) database_.open();
-    query_ = QSqlQuery(database);
-    query_.exec("SELECT COUNT(*) FROM QuestionData");
-    query_.next();
-    totalQuantity = query_.value(0).toInt();
+    totalQuantity = Data::database.getTotalQuestionCount();
     result_ = {.total = config_.displayQuantity};
 
-    this->getQuestions(gamemode).or_else([](const FileRead::FileReadError& error) -> std::expected<void, FileRead::FileReadError> {
-        THROW_FILE_CRITICAL(error.code, error.message.toStdString());
-        return std::unexpected(error);
-    });
+    this->questions_ = Data::database.getQuestions(gamemode, config_.displayQuantity);
 
     //  Sound Effects
     correctSound = new QSoundEffect;
@@ -115,60 +110,11 @@ ManagementWidget::ManagementWidget(const QSqlDatabase& database, const GameConfi
 }
 
 ManagementWidget::~ManagementWidget() {
-    database_.close();
     for (const auto& page : pages_) {
         delete page;
     }
     delete ui_;
     delete muteSwitch_;
-}
-
-std::expected<void, FileRead::FileReadError> ManagementWidget::getQuestions(const int gamemode) {
-    std::vector<int> idPool, sampled;
-    QString queryStr;
-
-    /*  queryStr conditions:
-     *      mode 0: all questions -> SELECT * FROM QuestionData;                        22x
-     *      mode 1: only 憲法 -> SELECT * FROM QuestionData WHERE QuestionType = 0;      9x
-     *      mode 2: only 基本法 -> SELECT * FROM QuestionData WHERE QuestionType = 1;    13x
-     *      default = mode 0;
-     */
-    switch (gamemode) {
-        case 1:
-            //  Only 憲法
-            queryStr = "SELECT ID FROM QuestionData WHERE QuestionType = 0";
-            break;
-        case 2:
-            //  Only 基本法
-            queryStr = "SELECT ID FROM QuestionData WHERE QuestionType = 1";
-            break;
-        default:
-            //  Default to mode 0 --> 所有
-            queryStr = "SELECT ID FROM QuestionData";
-    }
-    query_.exec(queryStr);
-    while (query_.next()) idPool.push_back(query_.value("ID").toInt());
-
-    std::ranges::sample(idPool, std::back_inserter(sampled), result_.total, mt_);
-    for (const auto& id : sampled) {
-        query_.prepare("SELECT * FROM QuestionData WHERE ID = ?");
-        query_.addBindValue(id);
-        query_.exec();
-        if (!query_.next()) {
-            return std::unexpected(FileRead::FileReadError(FileRead::Error::ContentError,
-                                                           "Failed to retrieve question data for ID: " +
-                                                           QString::number(id)));
-        }
-
-        const auto questionId = query_.value("ID").toInt();
-        const auto questionTitle = query_.value("QuestionTitle").toString();
-        const auto options = query_.value("Options").toString();
-        const auto correctOption = query_.value("CorrectOption").toInt();
-        const auto questionType = query_.value("QuestionType").toInt();
-
-        questions_.emplace_back(questionId, questionTitle, options, correctOption, questionType);
-    }
-    return {};
 }
 
 void ManagementWidget::updatePages() const {

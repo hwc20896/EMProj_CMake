@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 3.22)
 project(EMProj_CMake LANGUAGES CXX)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Multimedia Sql)
+find_package(SQLite3 REQUIRED)
 
 set(CMAKE_CXX_STANDARD 23)
+
+include_directories($ENV{VCPKG_ROOT}/installed/x64-mingw-dynamic/include)
 
 qt_standard_project_setup()
 
@@ -46,6 +49,9 @@ qt_add_executable(EMProj_CMake
     src/headers/utilities/fileread.hpp
     src/headers/utilities/defines.hpp
     src/headers/utilities/result.hpp
+    src/headers/utilities/database.hpp
+    src/cpp/utilities/database.cpp
+    src/headers/utilities/questiondata.hpp
 
     # Element pairs
         # Mute Switch
@@ -73,6 +79,7 @@ target_link_libraries(EMProj_CMake
         Qt::Widgets
         Qt::Multimedia
         Qt::Sql
+        SQLite::SQLite3
 )
 
 target_include_directories(EMProj_CMake
