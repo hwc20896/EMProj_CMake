@@ -4,17 +4,11 @@
 #include <QFile>
 #include <expected>
 
-#include <QMessageBox>
-#include <QApplication>
-#include <QJsonObject>
-
 struct GameConfig {
-    int displayQuantity;
-    QString appName;
-    bool defaultBackgroundMuted;
-    bool defaultEffectMuted;
-    explicit GameConfig(const int displayQuantity = 0, QString appName = "EMProj_CMake", const bool defaultBackgroundMuted = false, const bool defaultEffectMuted = false)
-        : displayQuantity(displayQuantity), appName(std::move(appName)), defaultBackgroundMuted(defaultBackgroundMuted), defaultEffectMuted(defaultEffectMuted) {}
+    int displayQuantity = 0;
+    QString appName = "EMProj_CMake";
+    bool defaultBackgroundMuted = false;
+    bool defaultEffectMuted = false;
 };
 
 namespace FileRead {
