@@ -1,6 +1,8 @@
 #include "utilities/fileread.hpp"
 #include "utilities/defines.hpp"
 
+#include <QJsonValue>
+
 std::expected<QString, FileRead::FileReadError> FileRead::getStyleFromURI(const QString& uri) {
     QFile file(uri);
     if (!file.exists()) {
