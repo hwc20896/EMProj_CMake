@@ -32,8 +32,11 @@ EndWidget::EndWidget(const Result& result, const bool isMuted, const int current
     ui_->rankPic->setPixmap({imageUrl});
 
     //  Time
+    namespace chrono = std::chrono;
     const auto totalTime = std::accumulate(timeStamps.begin(), timeStamps.end(), 0LL);
-    ui_->timeDisplay->setText(QString("總答題時間：%1").arg(timeDisplay(totalTime)));
+    ui_->timeDisplay->setText(QString("總答題時間：%1").arg(
+        std::format("{:%M:%S}", chrono::duration_cast<chrono::seconds>(chrono::milliseconds(totalTime)))
+    ));
 
     background_ = new QLabel(this);
     background_->setGeometry(0,0,1000,700);
@@ -65,16 +68,6 @@ EndWidget::~EndWidget() {
 
 bool EndWidget::getMutedState() const {
     return muteSwitch_->getMutedState();
-}
-
-QString EndWidget::timeDisplay(const int64_t time) {
-    if (time > 60000LL) {
-        const double seconds = (time % 60000LL) / 1000.0;
-        return QString("%1分%2秒").arg(time / 60000LL).arg(QString::number(seconds, 'g', 3));
-    }
-    if (time == 60000LL) return "1分鐘";
-    if (time >= 0) return QString("%1秒").arg(QString::number(time / 1000.0, 'g', 3));
-    throw std::range_error("Invalid duration");
 }
 
 int EndWidget::getCurrentMode() const {

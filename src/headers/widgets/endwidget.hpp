@@ -22,13 +22,6 @@ class EndWidget final : public QWidget {
         ~EndWidget() override;
         [[nodiscard]] bool getMutedState() const;
 
-        /**
-         * @brief Converts the time to time format (mm:ss).
-         * @param time Duration to be formatted.
-         * @return Formatted duration.
-         */
-        static QString timeDisplay(int64_t time);
-
         [[nodiscard]] int getCurrentMode() const;
     private:
         Ui::EndWidget* ui_;
