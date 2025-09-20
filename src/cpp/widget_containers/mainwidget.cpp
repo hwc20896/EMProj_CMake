@@ -5,7 +5,9 @@
 
 MainWidget::MainWidget(QWidget* parent) : QStackedWidget(parent) {
     try {
-        totalQuantity = Data::database.getTotalQuestionCount();
+        //  Dummy query to check if the database is accessible correctly (i.e. not empty or corrupted)
+        [[maybe_unused]]
+        int totalQuantity = Data::database.getQuestionCount();
     }
     catch (const sqlite::errors::error&) {
         ERROR("It seems that the database file is missing or corrupted. The application will now exit.");
