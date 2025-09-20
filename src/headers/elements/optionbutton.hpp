@@ -15,7 +15,7 @@ class OptionButton final : public QPushButton {
     signals:
         void clicked(OptionButton* button);
     private:
-        const char* STYLESHEET = R"(
+        static constexpr auto STYLESHEET = R"(
             QPushButton#option{
                 background-color: #f0f0f0;
                 color: black;
