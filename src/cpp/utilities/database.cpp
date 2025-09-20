@@ -2,21 +2,27 @@
 
 #include <string>
 
-int Data::Database::getTotalQuestionCount() {
+int Data::Database::getQuestionCount(const int gamemode) {
     int count = 0;
-    db_ << "SELECT COUNT(*) FROM QuestionData;" >> count;
+
+    /*  queryStr conditions:
+     *      mode 0: all questions -> SELECT COUNT(*) FROM QuestionData;                        22x
+     *      mode 1: only 憲法 -> SELECT COUNT(*) FROM QuestionData WHERE QuestionType = 0;      9x
+     *      mode 2: only 基本法 -> SELECT COUNT(*) FROM QuestionData WHERE QuestionType = 1;    13x
+     *      default = mode 0;
+     */
+    std::string queryStr = "SELECT COUNT(*) FROM QuestionData";
+    if (gamemode == 1) queryStr += " WHERE QuestionType = 0";
+    else if (gamemode == 2) queryStr += " WHERE QuestionType = 1";
+
+    db_ << queryStr >> count;
     return count;
 }
 
 std::vector<QuestionData> Data::Database::getQuestions(const int gamemode, const int count) {
     std::vector<QuestionData> questions;
 
-    /*  queryStr conditions:
-     *      mode 0: all questions -> SELECT * FROM QuestionData;                        22x
-     *      mode 1: only 憲法 -> SELECT * FROM QuestionData WHERE QuestionType = 0;      9x
-     *      mode 2: only 基本法 -> SELECT * FROM QuestionData WHERE QuestionType = 1;    13x
-     *      default = mode 0;
-     */
+    //  See getQuestionCount() for queryStr conditions
     std::string queryStr = "SELECT * FROM QuestionData";
     if (gamemode == 1) queryStr += " WHERE QuestionType = 0";
     else if (gamemode == 2) queryStr += " WHERE QuestionType = 1";

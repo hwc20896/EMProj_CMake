@@ -11,7 +11,9 @@ namespace Data {
             explicit Database() = default;
             ~Database() = default;
 
-            int getTotalQuestionCount();
+            [[nodiscard]]
+            int getQuestionCount(int gamemode = 0);
+
             std::vector<QuestionData> getQuestions(int gamemode, int count);
         private:
             sqlite::database db_{"data.db"};
