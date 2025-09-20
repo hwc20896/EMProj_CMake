@@ -24,7 +24,6 @@ class MainWidget final : public QStackedWidget {
 
         //  App information
         GameConfig config_;
-        int totalQuantity;
 
         //  Main
         ManagementWidget* management_;

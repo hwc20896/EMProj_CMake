@@ -11,7 +11,6 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
     stackLayout_ = new QStackedLayout(this);
 
     //  Get Question Data
-    totalQuantity = Data::database.getTotalQuestionCount();
     result_ = {.total = config_.displayQuantity};
 
     this->questions_ = Data::database.getQuestions(gamemode, config_.displayQuantity);

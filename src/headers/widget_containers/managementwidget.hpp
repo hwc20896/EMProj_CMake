@@ -47,7 +47,6 @@ class ManagementWidget final : public QWidget {
 
         //  Configs
         GameConfig config_;
-        int totalQuantity;
 
         //  Timers
         std::vector<int64_t> timeStamps;
