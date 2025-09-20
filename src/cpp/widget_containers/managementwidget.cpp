@@ -22,7 +22,6 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
     incorrectSound = new QSoundEffect;
     incorrectSound->setSource({"qrc:/SoundEffects/sounds/ohno.wav"});
 
-    pageFinished = std::vector(questions_.size(), false);
     LOG("Pending questions:");
     for (const auto& [index, data] : std::views::enumerate(questions_)) {
         const auto widget = new QuestionWidget(data, index + 1, mt_, this);
@@ -47,8 +46,8 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
         });
 
         //  Next Page Button Controller
-        connect(widget, &QuestionWidget::enableNextPage, this, [this, index] {
-            pageFinished[index] = true;
+        connect(widget, &QuestionWidget::enableNextPage, this, [this] {
+            currentIndex++;
             ui_->nextQuestion->setEnabled(true);
             this->updatePages();
         });
@@ -60,7 +59,7 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
     connect(stackLayout_, &QStackedLayout::currentChanged, this, [this] (const int index) {
         ui_->prevQuestion->setVisible(index != 0);
         ui_->nextQuestion->setText(index < result_.total-1? "下一頁 →": "完成");
-        ui_->nextQuestion->setEnabled(pageFinished[index]);
+        ui_->nextQuestion->setEnabled(index < currentIndex);
     });
     connect(ui_->prevQuestion, &QPushButton::clicked, this, [this] {stackLayout_->setCurrentIndex(stackLayout_->currentIndex() - 1);});
     connect(ui_->nextQuestion, &QPushButton::clicked, this, [this] {

@@ -40,7 +40,7 @@ class ManagementWidget final : public QWidget {
         int incorrectCount = 0;
 
         //  Navigation use
-        std::vector<bool> pageFinished;
+        int currentIndex = 0;
         void updatePages() const;
         void setScore(int correct, int incorrect) const;
         void setProgress(int current, int total) const;
