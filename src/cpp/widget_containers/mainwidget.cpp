@@ -36,7 +36,7 @@ MainWidget::MainWidget(QWidget* parent) : QStackedWidget(parent) {
     );
     config_ = fileConfig.value();
 
-    rule_->setRuleText(blockText, config_.displayQuantity, this->totalQuantity);
+    rule_->setRuleText(blockText, config_.displayQuantity);
     management_ = nullptr;
 
     this->addWidget(intro_);

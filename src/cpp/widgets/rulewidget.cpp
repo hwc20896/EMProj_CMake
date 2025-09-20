@@ -1,6 +1,7 @@
 #include "widgets/rulewidget.hpp"
 #include "widgets/templatewidget.hpp"
 #include "utilities/fileread.hpp"
+#include "utilities/database.hpp"
 
 #include "ui_rulewidget.h"
 
@@ -31,6 +32,13 @@ RuleWidget::~RuleWidget() {
     delete ui_;
 }
 
-void RuleWidget::setRuleText(const std::string& blockText, int questionCount, int totalQuestions) const {
-    ui_->ruleText->setText(QString::fromStdString(std::format(ruleText, blockText, questionCount, totalQuestions)));
+void RuleWidget::setRuleText(const std::string& blockText, const int displayQuantity) const {
+    const auto basisLawCount     = Data::database.getQuestionCount(1),
+               constitutionCount = Data::database.getQuestionCount(2);
+
+    ui_->ruleText->setText(
+        QString::fromStdString(
+            std::format(ruleText, blockText, displayQuantity, basisLawCount, constitutionCount)
+        )
+    );
 }
