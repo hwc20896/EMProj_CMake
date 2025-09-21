@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 project(EMProj_CMake LANGUAGES CXX)
 
-find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Multimedia Sql)
+find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Multimedia)
 find_package(SQLite3 REQUIRED)
 
 set(CMAKE_CXX_STANDARD 23)
@@ -78,7 +78,6 @@ target_link_libraries(EMProj_CMake
         Qt::Core
         Qt::Widgets
         Qt::Multimedia
-        Qt::Sql
         SQLite::SQLite3
 )
 
