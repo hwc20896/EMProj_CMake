@@ -10,50 +10,48 @@ include_directories($ENV{VCPKG_ROOT}/installed/x64-mingw-dynamic/include)
 
 qt_standard_project_setup()
 
-qt_add_executable(EMProj_CMake
-    main.cpp
+set(FILES main.cpp
+        # CPPs
+        src/cpp/widget_containers/mainwidget.cpp
+        src/cpp/widgets/introwidget.cpp
+        src/cpp/widgets/rulewidget.cpp
+        src/cpp/widget_containers/managementwidget.cpp
+        src/cpp/widgets/templatewidget.cpp
+        src/cpp/widget_containers/outrowidget.cpp
+        src/cpp/widgets/appinfowidget.cpp
+        src/cpp/widgets/endwidget.cpp
 
-    # CPPs
-    src/cpp/widget_containers/mainwidget.cpp
-    src/cpp/widgets/introwidget.cpp
-    src/cpp/widgets/rulewidget.cpp
-    src/cpp/widget_containers/managementwidget.cpp
-    src/cpp/widgets/templatewidget.cpp
-    src/cpp/widget_containers/outrowidget.cpp
-    src/cpp/widgets/appinfowidget.cpp
-    src/cpp/widgets/endwidget.cpp
+        # Headers
+        src/headers/widget_containers/mainwidget.hpp
+        src/headers/widgets/introwidget.hpp
+        src/headers/widgets/rulewidget.hpp
+        src/headers/widget_containers/managementwidget.hpp
+        src/headers/widgets/templatewidget.hpp
+        src/headers/widget_containers/outrowidget.hpp
+        src/headers/widgets/appinfowidget.hpp
+        src/headers/widgets/endwidget.hpp
 
-    # Headers
-    src/headers/widget_containers/mainwidget.hpp
-    src/headers/widgets/introwidget.hpp
-    src/headers/widgets/rulewidget.hpp
-    src/headers/widget_containers/managementwidget.hpp
-    src/headers/widgets/templatewidget.hpp
-    src/headers/widget_containers/outrowidget.hpp
-    src/headers/widgets/appinfowidget.hpp
-    src/headers/widgets/endwidget.hpp
+        # UIs
+        src/ui/introwidget.ui
+        src/ui/rulewidget.ui
+        src/ui/managementwidget.ui
+        src/ui/template.ui
+        src/ui/appinfowidget.ui
+        src/ui/endwidget.ui
 
-    # UIs
-    src/ui/introwidget.ui
-    src/ui/rulewidget.ui
-    src/ui/managementwidget.ui
-    src/ui/template.ui
-    src/ui/appinfowidget.ui
-    src/ui/endwidget.ui
+        # Resources
+        resources.qrc
 
-    # Resources
-    resources.qrc
+        # Utility files
+        src/cpp/utilities/fileread.cpp
+        src/headers/utilities/fileread.hpp
+        src/headers/utilities/defines.hpp
+        src/headers/utilities/result.hpp
+        src/headers/utilities/database.hpp
+        src/cpp/utilities/database.cpp
+        src/headers/utilities/questiondata.hpp
 
-    # Utility files
-    src/cpp/utilities/fileread.cpp
-    src/headers/utilities/fileread.hpp
-    src/headers/utilities/defines.hpp
-    src/headers/utilities/result.hpp
-    src/headers/utilities/database.hpp
-    src/cpp/utilities/database.cpp
-    src/headers/utilities/questiondata.hpp
-
-    # Element pairs
+        # Element pairs
         # Mute Switch
         src/headers/elements/muteswitch.hpp
         src/cpp/elements/muteswitch.cpp
@@ -66,6 +64,12 @@ qt_add_executable(EMProj_CMake
         src/headers/elements/gamemodechooser.hpp
         src/cpp/elements/gamemodechooser.cpp
 )
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    qt_add_executable(EMProj_CMake WIN32 ${FILES})
+else()
+    qt_add_executable(EMProj_CMake ${FILES})
+endif()
 
 set_target_properties(EMProj_CMake PROPERTIES
     AUTOUIC ON
