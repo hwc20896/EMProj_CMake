@@ -16,7 +16,11 @@
 #include "utilities/defines.hpp"
 #include "widgets/templatewidget.hpp"
 #include "utilities/result.hpp"
-#include "ui_managementwidget.h"
+
+//  PIMPL pattern
+namespace Ui {
+    class ManagementWidget;
+}
 
 class ManagementWidget final : public QWidget {
     Q_OBJECT

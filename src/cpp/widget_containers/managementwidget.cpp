@@ -5,6 +5,7 @@
 #include <ranges>
 #include <utility>
 
+#include "ui_managementwidget.h"
 
 ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const bool currentMuted, QWidget* parent)
 : QWidget(parent), ui_(new Ui::ManagementWidget), mt_(device_()), config_(std::move(config)) {
