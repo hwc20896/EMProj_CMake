@@ -2,12 +2,8 @@
 #ifndef TEMPLATEWIDGET_HPP
 #define TEMPLATEWIDGET_HPP
 #include <map>
-#include <QJsonArray>
-#include <QStringList>
 #include <random>
 #include <utility>
-#include <QSoundEffect>
-#include <QWidget>
 
 #include "elements/optionbutton.hpp"
 #include "utilities/questiondata.hpp"

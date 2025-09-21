@@ -1,9 +1,8 @@
 #include "widgets/endwidget.hpp"
-
 #include "widgets/templatewidget.hpp"
-#include <numeric>
 #include "utilities/fileread.hpp"
 
+#include <numeric>
 #include "ui_endwidget.h"
 
 #define NUM(num) QString::number(num)

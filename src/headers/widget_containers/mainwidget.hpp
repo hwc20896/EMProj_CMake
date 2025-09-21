@@ -1,7 +1,6 @@
 #pragma once
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
-#include <QFile>
 #include <QStackedWidget>
 
 #include "widgets/introwidget.hpp"

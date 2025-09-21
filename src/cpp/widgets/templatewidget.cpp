@@ -1,11 +1,10 @@
 #include "widgets/templatewidget.hpp"
-#include <ranges>
-#include <QEventLoop>
-#include <QTimer>
-#include <QDebug>
 #include "utilities/fileread.hpp"
 #include "utilities/defines.hpp"
 
+#include <ranges>
+#include <QTimer>
+#include <QDebug>
 #include "ui_template.h"
 
 QuestionWidget::QuestionWidget(const QuestionData& question, const int index, const std::mt19937& mt, QWidget* parent)

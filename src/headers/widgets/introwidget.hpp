@@ -2,7 +2,6 @@
 #ifndef INTROWIDGET_H
 #define INTROWIDGET_H
 #include "widget_containers/managementwidget.hpp"
-#include <QWidget>
 #include <QLabel>
 
 #include "elements/gamemodechooser.hpp"

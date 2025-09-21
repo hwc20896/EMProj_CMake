@@ -1,13 +1,15 @@
 #pragma once
 #ifndef MANAGEMENTWIDGET_HPP
 #define MANAGEMENTWIDGET_HPP
-#include <chrono>
 #include <QAudioOutput>
 #include <QMediaPlayer>
+#include <QSoundEffect>
 #include <QStackedLayout>
 #include <QTimer>
+#include <QLabel>
 #include <vector>
 #include <random>
+#include <chrono>
 
 #include "elements/muteswitch.hpp"
 #include "utilities/fileread.hpp"

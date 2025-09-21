@@ -1,14 +1,12 @@
 #pragma once
 #ifndef ENDWIDGET_HPP
 #define ENDWIDGET_HPP
+#include <QLabel>
 #include <vector>
 
 #include "utilities/result.hpp"
 #include "elements/muteswitch.hpp"
 #include "elements/gamemodechooser.hpp"
-
-#include <QWidget>
-#include <QLabel>
 
 //  PIMPL pattern
 namespace Ui {
