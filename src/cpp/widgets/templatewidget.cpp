@@ -12,7 +12,7 @@ QuestionWidget::QuestionWidget(const QuestionData& question, const int index, co
     ui_->setupUi(this);
 
     correctText = question_.options_[question_.correctOption_];
-    std::ranges::shuffle(question_.options_, mt_);
+    if (question.optionType_ != 1) std::ranges::shuffle(question_.options_, mt_);
 
     //  Title
     ui_->questionTitle->setText(QString("%1: %2").arg(QString::number(index), question_.questionTitle_));
