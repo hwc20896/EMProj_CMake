@@ -20,5 +20,7 @@ QPushButton#icon:hover{
 }
 
 QLabel#result{
-    background-color: rgba(211,211,211,60%)
+    background-color: rgba(211,211,211,60%);
+    border: 1px solid black;
+    border-radius: 5px;
 }
