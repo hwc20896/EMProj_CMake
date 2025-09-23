@@ -41,7 +41,7 @@ QuestionWidget::QuestionWidget(const QuestionData& question, const int index, co
     }
 
     for (const auto& [text, location] : std::views::zip(question_.options_, optionLocations)) {
-        const auto button = new OptionButton(text, this);
+        const auto button = new OptionButton(text, question_.optionType_, this);
         button->setGeometry(location);
         connect(button, &OptionButton::clicked, this, [this, button] { answerButtonClicked(button); });
         bindToButton.emplace(text, button);

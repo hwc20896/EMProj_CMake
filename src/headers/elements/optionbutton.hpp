@@ -6,7 +6,7 @@
 class OptionButton final : public QPushButton {
     Q_OBJECT
     public:
-        explicit OptionButton(const QString& optionText, QWidget* parent = nullptr);
+        explicit OptionButton(const QString& optionText, int mode = 0, QWidget* parent = nullptr);
 
         //  States
         void setHasAnswered(); // Prevent further interaction
@@ -18,9 +18,13 @@ class OptionButton final : public QPushButton {
         static constexpr auto STYLESHEET = R"(
             QPushButton#option{
                 background-color: #f0f0f0;
-                color: black;
+                color: %1;
                 border: 1px solid black;
                 border-radius: 5px;
+            }
+
+            QPushButton#option[has_answered="true"]{
+                color: black;
             }
 
             QPushButton#option:hover[has_answered="false"]{
