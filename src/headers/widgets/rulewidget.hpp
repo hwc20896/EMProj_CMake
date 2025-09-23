@@ -17,7 +17,10 @@ class RuleWidget final : public QWidget {
         ~RuleWidget() override;
     private:
         Ui::RuleWidget* ui_;
+
+#ifndef NO_SOUND_EFFECT_PREVIEW
         QSoundEffect* corrSound_, * incorrSound_;
+#endif
 
         //  Rule text
         static constexpr auto ruleText = R"(（遊戲以程序檔(.exe)呈現）

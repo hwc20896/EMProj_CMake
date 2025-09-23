@@ -67,6 +67,7 @@ set(FILES main.cpp
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     qt_add_executable(EMProj_CMake WIN32 ${FILES})
+    target_compile_definitions(EMProj_CMake PRIVATE NO_SOUND_EFFECT_PREVIEW)
 else()
     qt_add_executable(EMProj_CMake ${FILES})
 endif()
