@@ -28,8 +28,8 @@ std::vector<QuestionData> Data::Database::getQuestions(const int gamemode, const
     else if (gamemode == 2) queryStr += " WHERE QuestionType = 1";
     queryStr += " order by random() limit ?";
 
-    db_ << queryStr << count >> [&](const int id, const std::string& questionTitle, const std::string& options, const int correctOption, const int questionType) {
-        questions.emplace_back(id, QString::fromStdString(questionTitle), QString::fromStdString(options), correctOption, questionType);
+    db_ << queryStr << count >> [&](const int id, const std::string& questionTitle, const std::string& options, const int correctOption, const int questionType, const int optionType) {
+        questions.emplace_back(id, QString::fromStdString(questionTitle), QString::fromStdString(options), correctOption, questionType, optionType);
     };
     return questions;
 }
