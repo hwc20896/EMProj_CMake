@@ -1,5 +1,6 @@
 ## 關於
-這是一個基於 Qt 的桌面應用程式，旨在幫助用戶學習和測試對《中華人民共和國憲法》和《澳門特別行政區基本法》的了解。
+這是一個基於 Qt 的桌面應用程式，旨在幫助用戶學習和測試對《中華人民共和國憲法》和《澳門特別行政區基本法》的了解。  
+初代版本的儲存庫在<https://github.com/hwc20896/Moral-Education-Project---Game-Design>。
 
 > [!CAUTION]
 > 此程序不兼容於 Windows 7 及以下版本。
@@ -21,7 +22,7 @@
 基本法題庫共 9 題，憲法題庫共 13 題，每輪將隨機抽出 4 題進行遊戲。
 
 > [!NOTE]
-> 在v1及以前，系統會抽出 8 題進行遊戲。
+> 在[v1](https://github.com/hwc20896/EMProj_CMake/releases/tag/v1)及以前，系統會抽出 8 題進行遊戲。
 
 > [!TIP]
 > 背景音樂預設為關閉狀態，玩家可在上方的「聲音按鈕」以啓用。
@@ -38,4 +39,4 @@
    ```
 4. 使用一個IDE（例如CLion）打開這個項目。
 5. 配置CMake，確保CMake能找到Qt 6.9.0（如`PATH=D:\QT\6.9.0\mingw_64\bin`），  
-   並在CMake選項中添加`-DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake`（可選，視乎CMake是否報錯）。
+   並在CMake選項中添加`-DCMAKE_TOOLCHAIN_FILE=${你的vcpkg路徑}/scripts/buildsystems/vcpkg.cmake`（可選，視乎CMake是否報錯）。
