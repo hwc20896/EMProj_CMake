@@ -28,7 +28,7 @@ class ManagementWidget final : public QWidget {
         explicit ManagementWidget(GameConfig config, int gamemode, bool currentMuted, QWidget* parent = nullptr);
         ~ManagementWidget() override;
 
-        void setSoundEffectMuted(bool muted) const;
+        static void setSoundEffectMuted(bool muted);
     private:
         Ui::ManagementWidget* ui_;
         MuteSwitch* muteSwitch_;
@@ -59,12 +59,7 @@ class ManagementWidget final : public QWidget {
         std::chrono::time_point<std::chrono::system_clock> start_, end_;
 
         //  Background music
-        bool currentMuted_ = false;
         QAudioOutput* audioOutput_;
-        QMediaPlayer* player_;
-
-        //  Sound Effects
-        QSoundEffect* correctSound, * incorrectSound;
     signals:
         void finish(Result result, bool currentMuted, const std::vector<int64_t>& timestamps);
 };

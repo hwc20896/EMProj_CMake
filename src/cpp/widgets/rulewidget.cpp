@@ -5,20 +5,17 @@
 
 #include "ui_rulewidget.h"
 
+#ifndef NO_SOUND_EFFECT_PREVIEW
+#include "backends/audios.hpp"
+using EMProj_CMake_Backend::audio_;
+#endif
+
 RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidget) {
     ui_->setupUi(this);
 
 #ifndef NO_SOUND_EFFECT_PREVIEW
-    corrSound_ = new QSoundEffect(this);
-    corrSound_->setSource({"qrc:/SoundEffects/sounds/bingo.wav"});
-    corrSound_->setVolume(0.5f);
-
-    incorrSound_ = new QSoundEffect(this);
-    incorrSound_->setSource({"qrc:/SoundEffects/sounds/ohno.wav"});
-    incorrSound_->setVolume(0.5f);
-
-    connect(ui_->corrSoundPreview, &QPushButton::clicked, this, [this]{corrSound_->play();});
-    connect(ui_->incorrSoundPreview, &QPushButton::clicked, this, [this]{incorrSound_->play();});
+    connect(ui_->corrSoundPreview, &QPushButton::clicked, this, [this]{audio_.playCorrect();});
+    connect(ui_->incorrSoundPreview, &QPushButton::clicked, this, [this]{audio_.playIncorrect();});
 #else
     ui_->corrSoundPreview->hide();
     ui_->incorrSoundPreview->hide();

@@ -6,6 +6,9 @@
 #include <utility>
 
 #include "ui_managementwidget.h"
+#include "backends/audios.hpp"
+
+using EMProj_CMake_Backend::audio_;
 
 ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const bool currentMuted, QWidget* parent)
 : QWidget(parent), ui_(new Ui::ManagementWidget), mt_(device_()), config_(std::move(config)) {
@@ -16,13 +19,6 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
     result_ = {.total = config_.displayQuantity};
 
     this->questions_ = Data::database.getQuestions(gamemode, config_.displayQuantity);
-
-    //  Sound Effects
-    correctSound = new QSoundEffect;
-    correctSound->setSource({"qrc:/SoundEffects/sounds/bingo.wav"});
-
-    incorrectSound = new QSoundEffect;
-    incorrectSound->setSource({"qrc:/SoundEffects/sounds/ohno.wav"});
 
     LOG("Pending questions:");
     for (const auto& [index, data] : std::views::enumerate(questions_)) {
@@ -38,12 +34,12 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
         });
 
         connect(widget, &QuestionWidget::playCorrect, this, [this] {
-            correctSound->play();
+            audio_.playCorrect();
             result_.correct++;
         });
 
         connect(widget, &QuestionWidget::playIncorrect, this, [this] {
-            incorrectSound->play();
+            audio_.playIncorrect();
             incorrectCount++;
         });
 
@@ -75,24 +71,11 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
     start_ = std::chrono::high_resolution_clock::now();
 
     //  BGM
-    audioOutput_ = new QAudioOutput(this);
-    audioOutput_->setVolume(0.15f);
-    audioOutput_->setMuted(currentMuted);
-
-    player_ = new QMediaPlayer(this);
-    player_->setAudioOutput(audioOutput_);
-    player_->setSource({"qrc:/BGM/sounds/OMFG_Pizza.mp3"});
-    player_->setLoops(QMediaPlayer::Infinite);
-    player_->play();
+    audio_.playBackgroundMusic();
 
     //  Mute switch
-    currentMuted_ = currentMuted;
-    muteSwitch_ = new MuteSwitch({50,50}, currentMuted_, this);
+    muteSwitch_ = new MuteSwitch({50,50}, currentMuted, this);
     muteSwitch_->setGeometry(570,10,60,60);
-    connect(muteSwitch_, &MuteSwitch::mutedStateChanged, this, [this] (const bool currentState) {
-        currentMuted_ = currentState;
-        audioOutput_->setMuted(currentMuted_);
-    });
 
     //  Question layout
     ui_->optionWidget->setLayout(stackLayout_);
@@ -110,6 +93,7 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
 }
 
 ManagementWidget::~ManagementWidget() {
+    audio_.stopBackgroundMusic();
     for (const auto& page : pages_) {
         delete page;
     }
@@ -130,7 +114,6 @@ void ManagementWidget::setProgress(const int current, const int total) const {
     ui_->progress->setText(QString("進度：%1 / %2 - %3%").arg(QString::number(current), QString::number(total), QString::number(current*100.0/total)));
 }
 
-void ManagementWidget::setSoundEffectMuted(const bool muted) const {
-    correctSound->setMuted(muted);
-    incorrectSound->setMuted(muted);
+void ManagementWidget::setSoundEffectMuted(const bool muted) {
+    audio_.setEffectMuted(muted);
 }

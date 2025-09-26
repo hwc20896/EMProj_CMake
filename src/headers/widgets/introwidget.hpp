@@ -23,7 +23,7 @@ class IntroWidget final : public QWidget {
          */
         void blockStart() const;
         [[nodiscard]] bool getMutedState() const;
-        void setMutedState(bool muted);
+        void setMutedState(bool muted) const;
 
         [[nodiscard]] int getCurrentMode() const;
     private:

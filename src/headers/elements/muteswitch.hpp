@@ -13,8 +13,6 @@ class MuteSwitch final : public QPushButton {
     private:
         QIcon muted_, unmuted_;
         bool isMuted;
-    signals:
-        void mutedStateChanged(bool currentState);
 };
 
 #endif
