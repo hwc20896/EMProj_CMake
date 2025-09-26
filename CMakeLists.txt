@@ -63,6 +63,10 @@ set(FILES main.cpp
         # Gamemode Chooser
         src/headers/elements/gamemodechooser.hpp
         src/cpp/elements/gamemodechooser.cpp
+
+        # Backends
+        src/headers/backends/audios.hpp
+        src/cpp/backends/audios.cpp
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
