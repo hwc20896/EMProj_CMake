@@ -1,12 +1,12 @@
 #include "widget_containers/mainwidget.hpp"
 #include "widget_containers/outrowidget.hpp"
 #include "utilities/defines.hpp"
-#include "utilities/database.hpp"
+#include "backends/database.hpp"
 
 MainWidget::MainWidget(QWidget* parent) : QStackedWidget(parent) {
     try {
         //  Dummy query to check if the database is accessible correctly (i.e. not empty or corrupted)
-        (void) Data::database.getQuestionCount();
+        (void) EMProj_CMake_Backend::database.getQuestionCount();
     }
     catch (const sqlite::errors::error&) {
         ERROR("It seems that the database file is missing or corrupted. The application will now exit.");

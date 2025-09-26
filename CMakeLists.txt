@@ -47,8 +47,8 @@ set(FILES main.cpp
         src/headers/utilities/fileread.hpp
         src/headers/utilities/defines.hpp
         src/headers/utilities/result.hpp
-        src/headers/utilities/database.hpp
-        src/cpp/utilities/database.cpp
+        src/headers/backends/database.hpp
+        src/cpp/backends/database.cpp
         src/headers/utilities/questiondata.hpp
 
         # Element pairs

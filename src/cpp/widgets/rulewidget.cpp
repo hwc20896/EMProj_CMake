@@ -1,9 +1,11 @@
 #include "widgets/rulewidget.hpp"
 #include "widgets/templatewidget.hpp"
 #include "utilities/fileread.hpp"
-#include "utilities/database.hpp"
+#include "backends/database.hpp"
 
 #include "ui_rulewidget.h"
+
+using EMProj_CMake_Backend::database;
 
 #ifndef NO_SOUND_EFFECT_PREVIEW
 #include "backends/audios.hpp"
@@ -39,8 +41,8 @@ RuleWidget::~RuleWidget() {
 }
 
 void RuleWidget::setRuleText(const std::string& blockText, const int displayQuantity) const {
-    const auto basisLawCount     = Data::database.getQuestionCount(1),
-               constitutionCount = Data::database.getQuestionCount(2);
+    const auto basisLawCount     = database.getQuestionCount(1),
+               constitutionCount = database.getQuestionCount(2);
 
     ui_->ruleText->setText(
         QString::fromStdString(

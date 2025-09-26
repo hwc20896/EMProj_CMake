@@ -1,8 +1,8 @@
-#include "utilities/database.hpp"
+#include "backends/database.hpp"
 
 #include <string>
 
-int Data::Database::getQuestionCount(const int gamemode) {
+int EMProj_CMake_Backend::Database::getQuestionCount(const int gamemode) {
     int count = 0;
 
     /*  queryStr conditions:
@@ -19,7 +19,7 @@ int Data::Database::getQuestionCount(const int gamemode) {
     return count;
 }
 
-std::vector<QuestionData> Data::Database::getQuestions(const int gamemode, const int count) {
+std::vector<QuestionData> EMProj_CMake_Backend::Database::getQuestions(const int gamemode, const int count) {
     std::vector<QuestionData> questions;
 
     //  See getQuestionCount() for queryStr conditions

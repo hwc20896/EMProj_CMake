@@ -1,6 +1,6 @@
 #include "widget_containers/managementwidget.hpp"
 #include "utilities/fileread.hpp"
-#include "utilities/database.hpp"
+#include "backends/database.hpp"
 
 #include <ranges>
 #include <utility>
@@ -8,7 +8,7 @@
 #include "ui_managementwidget.h"
 #include "backends/audios.hpp"
 
-using EMProj_CMake_Backend::audio_;
+using EMProj_CMake_Backend::audio_, EMProj_CMake_Backend::database;
 
 ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const bool currentMuted, QWidget* parent)
 : QWidget(parent), ui_(new Ui::ManagementWidget), mt_(device_()), config_(std::move(config)) {
@@ -18,7 +18,7 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
     //  Get Question Data
     result_ = {.total = config_.displayQuantity};
 
-    this->questions_ = Data::database.getQuestions(gamemode, config_.displayQuantity);
+    this->questions_ = database.getQuestions(gamemode, config_.displayQuantity);
 
     LOG("Pending questions:");
     for (const auto& [index, data] : std::views::enumerate(questions_)) {

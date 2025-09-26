@@ -5,7 +5,7 @@
 #include <vector>
 #include "utilities/questiondata.hpp"
 
-namespace Data {
+namespace EMProj_CMake_Backend {
     class Database final {
         public:
             explicit Database() = default;
