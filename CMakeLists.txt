@@ -46,7 +46,6 @@ set(FILES main.cpp
         src/cpp/utilities/fileread.cpp
         src/headers/utilities/fileread.hpp
         src/headers/utilities/defines.hpp
-        src/headers/utilities/result.hpp
         src/headers/backends/database.hpp
         src/cpp/backends/database.cpp
         src/headers/utilities/questiondata.hpp
@@ -67,6 +66,8 @@ set(FILES main.cpp
         # Backends
         src/headers/backends/audios.hpp
         src/cpp/backends/audios.cpp
+        src/headers/backends/questionbackend.hpp
+        src/cpp/backends/questionbackend.cpp
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")

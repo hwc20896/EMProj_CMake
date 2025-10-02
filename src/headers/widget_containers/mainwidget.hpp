@@ -27,7 +27,7 @@ class MainWidget final : public QStackedWidget {
         //  Main
         ManagementWidget* management_;
     private slots:
-        void outroCall(Result result, bool currentMuted, const std::vector<int64_t>& timestamps);
+        void outroCall(const std::tuple<int, int>& result, bool currentMuted, int64_t totalTime);
     private:
         static constexpr auto BLOCKSTART_TEXT = "（由於缺失配置文件，此規則無效）";
 };

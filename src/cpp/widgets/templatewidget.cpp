@@ -1,11 +1,14 @@
 #include "widgets/templatewidget.hpp"
 #include "utilities/fileread.hpp"
 #include "utilities/defines.hpp"
+#include "backends/questionbackend.hpp"
 
 #include <ranges>
 #include <QTimer>
 #include <QDebug>
 #include "ui_template.h"
+
+using EMProj_CMake_Backend::Scorer;
 
 QuestionWidget::QuestionWidget(const QuestionData& question, const int index, const std::mt19937& mt, QWidget* parent)
 : QWidget(parent), ui_(new Ui::TemplateWidget), question_(question), mt_(mt) {
@@ -43,7 +46,12 @@ QuestionWidget::QuestionWidget(const QuestionData& question, const int index, co
     for (const auto& [text, location] : std::views::zip(question_.options_, optionLocations)) {
         const auto button = new OptionButton(text, question_.optionType_, this);
         button->setGeometry(location);
-        connect(button, &OptionButton::clicked, this, [this, button] { answerButtonClicked(button); });
+        connect(button, &OptionButton::clicked, this, [this, button] {
+            if (hasAnswered) return;
+            hasAnswered = true;
+            std::ranges::for_each(options_, [](OptionButton* o){o->setHasAnswered();});
+            emit answerButtonClicked(button);
+        });
         bindToButton.emplace(text, button);
         options_.push_back(button);
     }
@@ -57,29 +65,14 @@ QuestionWidget::~QuestionWidget() {
     delete ui_;
 }
 
-void QuestionWidget::cooldown(const int msec) {
-    QEventLoop lp;
-    QTimer::singleShot(msec, &lp, &QEventLoop::quit);
-    lp.exec();
+void QuestionWidget::setCorrect() const {
+    bindToButton.at(correctText)->setCorrect(true);
+    Scorer::cooldown(700);
 }
 
-void QuestionWidget::answerButtonClicked(OptionButton* button) {
-    if (!hasAnswered) {
-        hasAnswered = true;
-        for (const auto& i: options_) i->setHasAnswered();
-        button->setSelected();
-        emit timeTap();
-        cooldown(800);
-        if (button->text() == correctText) {
-            button->setCorrect(true);
-            emit playCorrect();
-        } else {
-            button->setCorrect(false);
-            emit playIncorrect();
-            cooldown(500);
-            bindToButton[correctText]->setCorrect(true);
-        }
-        cooldown(700);
-        emit enableNextPage();
-    }
+void QuestionWidget::setIncorrect(OptionButton* clickedButton) const {
+    clickedButton->setCorrect(false);
+    Scorer::cooldown(500);
+    bindToButton.at(correctText)->setCorrect(true);
+    Scorer::cooldown(700);
 }

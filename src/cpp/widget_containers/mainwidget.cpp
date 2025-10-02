@@ -70,8 +70,8 @@ MainWidget::~MainWidget() {
     delete rule_;
 }
 
-void MainWidget::outroCall(const Result result, const bool currentMuted, const std::vector<int64_t>& timestamps) {
-    const auto outro_ = new OutroWidget(result, currentMuted, currentMode_, timestamps);
+void MainWidget::outroCall(const std::tuple<int, int>& result, const bool currentMuted, const int64_t totalTime) {
+    const auto outro_ = new OutroWidget(result, currentMuted, currentMode_, totalTime);
     outro_->setWindowTitle(config_.appName);
     outro_->resize(management_->size());
     management_->close();

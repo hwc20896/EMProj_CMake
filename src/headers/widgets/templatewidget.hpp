@@ -1,7 +1,7 @@
 #pragma once
 #ifndef TEMPLATEWIDGET_HPP
 #define TEMPLATEWIDGET_HPP
-#include <map>
+#include <unordered_map>
 #include <random>
 #include <utility>
 
@@ -21,11 +21,14 @@ class QuestionWidget final : public QWidget {
         explicit QuestionWidget(const QuestionData& question, int index, const std::mt19937& mt, QWidget* parent = nullptr);
         ~QuestionWidget() override;
 
-        /**
-         *   @brief Suspend (msec) milliseconds, on another thread.
-         *   @param msec Milliseconds you want to suspend.
+        /**  @brief Highlight the correct answer.
          */
-        static void cooldown(int msec);
+        void setCorrect() const;
+
+        /**  @brief Highlight the correct answer and mark the clicked button as incorrect.
+         *   @param clickedButton The button that was clicked by the user.
+         */
+        void setIncorrect(OptionButton* clickedButton) const;
     private:
         Ui::TemplateWidget* ui_;
 
@@ -35,21 +38,14 @@ class QuestionWidget final : public QWidget {
         bool hasAnswered;
 
         //  Button binder
-        std::map<QString, OptionButton*> bindToButton;
+        std::unordered_map<QString, OptionButton*> bindToButton;
         std::vector<OptionButton*> options_;
-
-        //  Answer checker
-        void answerButtonClicked(OptionButton* button);
 
         //  Engine
         std::mt19937 mt_;
     signals:
-        void timeTap();
-        void enableNextPage();
-
-        //  Sound Effect
-        void playCorrect();
-        void playIncorrect();
+        //  Answer checker
+        void answerButtonClicked(OptionButton* button);
 };
 
 #endif

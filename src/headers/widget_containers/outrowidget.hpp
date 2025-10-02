@@ -9,7 +9,7 @@
 class OutroWidget final : public QStackedWidget {
     Q_OBJECT
     public:
-        explicit OutroWidget(Result result, bool isMuted, int currentMode, const std::vector<int64_t>& timeStamps, QWidget* parent = nullptr);
+        explicit OutroWidget(const std::tuple<int, int>& result, bool isMuted, int currentMode, int64_t totalTime, QWidget* parent = nullptr);
         ~OutroWidget() override;
 
         [[nodiscard]] int getCurrentMode() const;

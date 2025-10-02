@@ -4,71 +4,72 @@
 
 #include <ranges>
 #include <utility>
+#include <future>
 
 #include "ui_managementwidget.h"
 #include "backends/audios.hpp"
+#include "backends/questionbackend.hpp"
 
-using EMProj_CMake_Backend::audio_, EMProj_CMake_Backend::database;
+using EMProj_CMake_Backend::audio_, EMProj_CMake_Backend::scorer_;
 
 ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const bool currentMuted, QWidget* parent)
 : QWidget(parent), ui_(new Ui::ManagementWidget), mt_(device_()), config_(std::move(config)) {
     ui_->setupUi(this);
     stackLayout_ = new QStackedLayout(this);
 
+    scorer_.loadQuestion(gamemode, config_.displayQuantity);
+
     //  Get Question Data
-    result_ = {.total = config_.displayQuantity};
-
-    this->questions_ = database.getQuestions(gamemode, config_.displayQuantity);
-
     LOG("Pending questions:");
-    for (const auto& [index, data] : std::views::enumerate(questions_)) {
-        const auto widget = new QuestionWidget(data, index + 1, mt_, this);
-        LOG(std::format("[{}]: {}", index + 1, data.getInfo()));
-        stackLayout_->addWidget(widget);
+    for (const auto i: std::views::iota(0, config_.displayQuantity)) {
+        const auto widget = new QuestionWidget(scorer_[i], i + 1, mt_, this);
+        LOG(std::format("[{}]: {}", i + 1, scorer_[i].getInfo()));
         pages_.push_back(widget);
+        stackLayout_->addWidget(widget);
 
-        //  Time recorder for total time and time per question use
-        connect(widget, &QuestionWidget::timeTap, this, [this] {
-            end_ = std::chrono::high_resolution_clock::now();
-            timeStamps.push_back(std::chrono::duration_cast<std::chrono::milliseconds>(end_ - start_).count());
-        });
-
-        connect(widget, &QuestionWidget::playCorrect, this, [this] {
-            audio_.playCorrect();
-            result_.correct++;
-        });
-
-        connect(widget, &QuestionWidget::playIncorrect, this, [this] {
-            audio_.playIncorrect();
-            incorrectCount++;
-        });
-
-        //  Next Page Button Controller
-        connect(widget, &QuestionWidget::enableNextPage, this, [this] {
-            currentIndex++;
+        connect(widget, &QuestionWidget::answerButtonClicked, this, [this, widget, i](OptionButton* button) {
+            if (scorer_.checkQuestion(button->text(), i)) {
+                widget->setCorrect();
+            } else {
+                widget->setIncorrect(button);
+            }
             ui_->nextQuestion->setEnabled(true);
-            this->updatePages();
+            updatePages();
         });
     }
 
-    //   Navigations
+    //  Navigation buttons
     stackLayout_->setCurrentIndex(0);
-    this->updatePages();
-    connect(stackLayout_, &QStackedLayout::currentChanged, this, [this] (const int index) {
-        ui_->prevQuestion->setVisible(index != 0);
-        ui_->nextQuestion->setText(index < result_.total-1? "下一頁 →": "完成");
-        ui_->nextQuestion->setEnabled(index < currentIndex);
-    });
-    connect(ui_->prevQuestion, &QPushButton::clicked, this, [this] {stackLayout_->setCurrentIndex(stackLayout_->currentIndex() - 1);});
-    connect(ui_->nextQuestion, &QPushButton::clicked, this, [this] {
-        if (const auto current = stackLayout_->currentIndex(); current < result_.total - 1) {
-            stackLayout_->setCurrentIndex(current + 1);
-            start_ = std::chrono::high_resolution_clock::now();
-        }
-        else emit finish(result_, muteSwitch_->getMutedState(), timeStamps);
-    });
     ui_->prevQuestion->hide();
-    start_ = std::chrono::high_resolution_clock::now();
+    ui_->nextQuestion->setEnabled(false);
+    this->updatePages();
+    connect(stackLayout_, &QStackedLayout::currentChanged, this, [this](const int index) {
+        ui_->prevQuestion->setVisible(index != 0);
+        if (index == config_.displayQuantity - 1) {
+            ui_->nextQuestion->setText("完成");
+            ui_->nextQuestion->setEnabled(scorer_.getAnsweredCount() == config_.displayQuantity);
+        } else {
+            ui_->nextQuestion->setText("下一題 →");
+            ui_->nextQuestion->setEnabled(scorer_.getAnsweredCount() > index);
+        }
+    });
+    connect(ui_->prevQuestion, &QPushButton::clicked, this, [this] {
+        if (const auto currentIndex = stackLayout_->currentIndex(); currentIndex > 0) {
+            stackLayout_->setCurrentIndex(currentIndex);
+        }
+    });
+    connect(ui_->nextQuestion, &QPushButton::clicked, this, [this] {
+        if (const auto currentIndex = stackLayout_->currentIndex();
+            currentIndex < config_.displayQuantity - 1)
+        {
+            scorer_.startTimer();
+            stackLayout_->setCurrentIndex(currentIndex + 1);
+        } else {
+            //  Finish
+            emit finish(scorer_.getScore(), muteSwitch_->getMutedState(), scorer_.getTotalTime());
+        }
+    });
+    scorer_.startTimer();
 
     //  BGM
     audio_.playBackgroundMusic();
@@ -102,12 +103,12 @@ ManagementWidget::~ManagementWidget() {
 }
 
 void ManagementWidget::updatePages() const {
-    setScore(result_.correct, incorrectCount);
-    setProgress(result_.correct + incorrectCount, result_.total);
+    setScore(scorer_.getScore());
+    setProgress(scorer_.getAnsweredCount(), config_.displayQuantity);
 }
 
-void ManagementWidget::setScore(const int correct, const int incorrect) const {
-    ui_->corrCount->setText(QString(COLOR(錯誤數 %1,"#ff0000")" | " COLOR(%2 正確數,"#00dd12")).arg(QString::number(incorrect), QString::number(correct)));
+void ManagementWidget::setScore(const std::tuple<int, int>& score) const {
+    ui_->corrCount->setText(QString(COLOR(錯誤數 %1,"#ff0000")" | " COLOR(%2 正確數,"#00dd12")).arg(QString::number(std::get<1>(score)), QString::number(std::get<0>(score))));
 }
 
 void ManagementWidget::setProgress(const int current, const int total) const {

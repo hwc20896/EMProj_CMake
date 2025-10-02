@@ -3,8 +3,8 @@
 #define ENDWIDGET_HPP
 #include <QLabel>
 #include <vector>
+#include <tuple>
 
-#include "utilities/result.hpp"
 #include "elements/muteswitch.hpp"
 #include "elements/gamemodechooser.hpp"
 
@@ -16,7 +16,7 @@ namespace Ui {
 class EndWidget final : public QWidget {
     Q_OBJECT
     public:
-        explicit EndWidget(const Result& result, bool isMuted, int currentMode, const std::vector<int64_t>& timeStamps, QWidget* parent = nullptr);
+        explicit EndWidget(const std::tuple<int,int>& result, bool isMuted, int currentMode, int64_t totalTime, QWidget* parent = nullptr);
         ~EndWidget() override;
         [[nodiscard]] bool getMutedState() const;
 

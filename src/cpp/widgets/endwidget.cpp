@@ -7,14 +7,15 @@
 
 #define NUM(num) QString::number(num)
 
-EndWidget::EndWidget(const Result& result, const bool isMuted, const int currentMode, const std::vector<int64_t>& timeStamps, QWidget* parent)
+EndWidget::EndWidget(const std::tuple<int, int>& result, const bool isMuted, const int currentMode, const int64_t totalTime, QWidget* parent)
 : QWidget(parent), ui_(new Ui::EndWidget) {
     ui_->setupUi(this);
     muteSwitch_ = new MuteSwitch({50,50}, isMuted, this);
     muteSwitch_->setGeometry(410,20,60,60);
 
-    const auto percentage = result.getPercentage();
-    ui_->result->setText(QString("結果：%1 / %2: %3%").arg(NUM(result.correct), NUM(result.total), NUM(percentage)));
+    const auto [correct, incorrect] = result;
+    const auto percentage = static_cast<double>(correct)/(correct + incorrect) * 100;
+    ui_->result->setText(QString("結果：%1 / %2: %3%").arg(NUM(correct), NUM(correct + incorrect), NUM(percentage)));
     QString imageUrl;
 
     /*  80% ~ 100% -> S
@@ -31,10 +32,9 @@ EndWidget::EndWidget(const Result& result, const bool isMuted, const int current
     ui_->rankPic->setPixmap({imageUrl});
 
     //  Time
-    namespace chrono = std::chrono;
-    const auto totalTime = std::accumulate(timeStamps.begin(), timeStamps.end(), 0LL);
+    using namespace std::chrono;
     ui_->timeDisplay->setText(QString("總答題時間：%1").arg(
-        std::format("{:%M:%S}", chrono::duration_cast<chrono::seconds>(chrono::milliseconds(totalTime)))
+        std::format("{:%M:%S}", duration_cast<seconds>(milliseconds(totalTime)))
     ));
 
     background_ = new QLabel(this);

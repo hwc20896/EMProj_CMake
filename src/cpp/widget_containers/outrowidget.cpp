@@ -1,7 +1,7 @@
 #include "widget_containers/outrowidget.hpp"
 
-OutroWidget::OutroWidget(const Result result, const bool isMuted, const int currentMode,  const std::vector<int64_t>& timeStamps, QWidget* parent)
-: QStackedWidget(parent), endWidget_(new EndWidget(result, isMuted, currentMode, timeStamps)), appInfoWidget_(new AppInfoWidget){
+OutroWidget::OutroWidget(const std::tuple<int, int>& result, const bool isMuted, const int currentMode,  const int64_t totalTime, QWidget* parent)
+: QStackedWidget(parent), endWidget_(new EndWidget(result, isMuted, currentMode, totalTime)), appInfoWidget_(new AppInfoWidget){
     this->addWidget(endWidget_);
     this->addWidget(appInfoWidget_);
     this->setCurrentWidget(endWidget_);
