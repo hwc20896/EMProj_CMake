@@ -2,25 +2,18 @@
 
 EMProj_CMake_Backend::Audios::Audios() : player_(new QMediaPlayer()) {
     //  Background Music
-    audioOutput_ = new QAudioOutput();
-    player_->setAudioOutput(audioOutput_);
+    audioOutput_ = std::make_unique<QAudioOutput>();
+    player_->setAudioOutput(audioOutput_.get());
     player_->setSource({"qrc:/BGM/sounds/OMFG_Pizza.mp3"});
     audioOutput_->setVolume(0.15f);
     player_->setLoops(QMediaPlayer::Infinite);
 
     //  Sound Effects
-    correctSound_ = new QSoundEffect();
+    correctSound_ = std::make_unique<QSoundEffect>();
     correctSound_->setSource({"qrc:/SoundEffects/sounds/bingo.wav"});
 
-    incorrectSound_ = new QSoundEffect();
+    incorrectSound_ = std::make_unique<QSoundEffect>();
     incorrectSound_->setSource({"qrc:/SoundEffects/sounds/ohno.wav"});
-}
-
-EMProj_CMake_Backend::Audios::~Audios() {
-    delete audioOutput_;
-    delete player_;
-    delete correctSound_;
-    delete incorrectSound_;
 }
 
 void EMProj_CMake_Backend::Audios::setBackgroundMuted(const bool muted) {
