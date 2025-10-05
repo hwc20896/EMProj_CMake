@@ -50,6 +50,7 @@ QuestionWidget::QuestionWidget(const QuestionData& question, const int index, co
             if (hasAnswered) return;
             hasAnswered = true;
             std::ranges::for_each(options_, [](OptionButton* o){o->setHasAnswered();});
+            button->setSelected();
             emit answerButtonClicked(button);
         });
         bindToButton.emplace(text, button);
