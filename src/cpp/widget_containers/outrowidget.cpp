@@ -2,6 +2,7 @@
 
 OutroWidget::OutroWidget(const std::tuple<int, int>& result, const bool isMuted, const int currentMode,  const int64_t totalTime, QWidget* parent)
 : QStackedWidget(parent), endWidget_(new EndWidget(result, isMuted, currentMode, totalTime)), appInfoWidget_(new AppInfoWidget){
+    this->setFixedSize(1000,700);
     this->addWidget(endWidget_);
     this->addWidget(appInfoWidget_);
     this->setCurrentWidget(endWidget_);

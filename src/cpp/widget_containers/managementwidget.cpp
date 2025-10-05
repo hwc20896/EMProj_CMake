@@ -14,6 +14,7 @@ using EMProj_CMake_Backend::audio_, EMProj_CMake_Backend::scorer_;
 
 ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const bool currentMuted, QWidget* parent)
 : QWidget(parent), ui_(new Ui::ManagementWidget), mt_(device_()), config_(std::move(config)) {
+    this->setFixedSize(1000,700);
     ui_->setupUi(this);
     stackLayout_ = new QStackedLayout(this);
 
