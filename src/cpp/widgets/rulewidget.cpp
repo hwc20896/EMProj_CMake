@@ -2,6 +2,7 @@
 #include "widgets/templatewidget.hpp"
 #include "utilities/fileread.hpp"
 #include "backends/database.hpp"
+#include <tuple>
 
 #include "ui_rulewidget.h"
 
@@ -43,6 +44,7 @@ RuleWidget::~RuleWidget() {
 void RuleWidget::setRuleText(const std::string& blockText, const int displayQuantity) const {
     const auto basisLawCount     = database.getQuestionCount(1),
                constitutionCount = database.getQuestionCount(2);
+    const auto data = database.getQuestionCount();
 
     ui_->ruleText->setText(
         QString::fromStdString(

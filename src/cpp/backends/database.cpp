@@ -2,6 +2,11 @@
 
 #include <string>
 
+void EMProj_CMake_Backend::Database::testDatabase() {
+    [[maybe_unused]] int count;
+    db_ << "select count(id) from QuestionData" >> count;
+}
+
 int EMProj_CMake_Backend::Database::getQuestionCount(const int gamemode) {
     int count = 0;
 
@@ -17,6 +22,14 @@ int EMProj_CMake_Backend::Database::getQuestionCount(const int gamemode) {
 
     db_ << queryStr >> count;
     return count;
+}
+
+std::vector<int> EMProj_CMake_Backend::Database::getQuestionCount() {
+    std::vector<int> result;
+    db_ << "select QuestionType, count(id) from QuestionData group by QuestionType" >> [&](const int, const int count) {
+        result.push_back(count);
+    };
+    return result;
 }
 
 std::vector<QuestionData> EMProj_CMake_Backend::Database::getQuestions(const int gamemode, const int count) {

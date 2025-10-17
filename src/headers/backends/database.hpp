@@ -11,13 +11,18 @@ namespace EMProj_CMake_Backend {
             explicit Database() = default;
             ~Database() = default;
 
+            void testDatabase();
+
             /**
              * @brief Get the number of questions in the database for a specific gamemode.
              * @param gamemode The gamemode to get the question count for. 0 for all, 1 for 基本法, 2 for 憲法.
              * @return The number of questions in the database for the specified gamemode.
              */
             [[nodiscard]]
-            int getQuestionCount(int gamemode = 0);
+            int getQuestionCount(int gamemode);
+
+            [[nodiscard]]
+            std::vector<int> getQuestionCount();
 
             /**
              * @brief Get a list of questions from the database.
