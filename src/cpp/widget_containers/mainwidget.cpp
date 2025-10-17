@@ -6,7 +6,8 @@
 MainWidget::MainWidget(QWidget* parent) : QStackedWidget(parent) {
     try {
         //  Dummy query to check if the database is accessible correctly (i.e. not empty or corrupted)
-        EMProj_CMake_Backend::database.testDatabase();
+        using EMProj_CMake_Backend::Database;
+        Database::instance().testDatabase();
     }
     catch (const sqlite::errors::error&) {
         ERROR("It seems that the database file is missing or corrupted. The application will now exit.");

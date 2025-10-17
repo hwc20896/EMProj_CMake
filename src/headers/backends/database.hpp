@@ -4,13 +4,12 @@
 #include <sqlite_modern_cpp.h>
 #include <vector>
 #include "utilities/questiondata.hpp"
+#include "utilities/defines.hpp"
 
 namespace EMProj_CMake_Backend {
     class Database final {
+        SINGLETON(Database)
         public:
-            explicit Database() = default;
-            ~Database() = default;
-
             void testDatabase();
 
             /**
@@ -35,7 +34,6 @@ namespace EMProj_CMake_Backend {
         private:
             sqlite::database db_{"data.db"};
     };
-    inline Database database;
 }
 
 #endif

@@ -4,13 +4,12 @@
 #include <QSoundEffect>
 #include <QMediaPlayer>
 #include <memory>
+#include "utilities/defines.hpp"
 
 namespace EMProj_CMake_Backend {
     class Audios final {
+        SINGLETON_WITHOUT_CONSTRUCTOR(Audios)
         public:
-            Audios();
-            ~Audios() = default;
-
             //  Background Music
 
             /**
@@ -74,6 +73,4 @@ namespace EMProj_CMake_Backend {
             std::unique_ptr<QSoundEffect> incorrectSound_;
             bool isEffectMuted_ = false;
     };
-
-    inline Audios audio_;
 }

@@ -5,6 +5,7 @@
 #include <QEventLoop>
 #include <QTimer>
 using namespace std::chrono;
+using EMProj_CMake_Backend::Audios, EMProj_CMake_Backend::Database;
 
 //  class TimeCounter
 void EMProj_CMake_Backend::TimeCounter::resetAll() {
@@ -35,7 +36,7 @@ void EMProj_CMake_Backend::Scorer::loadQuestion(const int gamemode, const int qu
     incorrectCount_ = 0;
     totalCount_ = quantity;
 
-    questionPool_ = database.getQuestions(gamemode, quantity);
+    questionPool_ = Database::instance().getQuestions(gamemode, quantity);
 }
 
 const QuestionData& EMProj_CMake_Backend::Scorer::operator[](const int index) const {
@@ -58,11 +59,11 @@ bool EMProj_CMake_Backend::Scorer::checkQuestion(const QString& answer, const in
 
     if (isCorrect) {
         correctCount_++;
-        audio_.playCorrect();
+        Audios::instance().playCorrect();
 
     } else {
         incorrectCount_++;
-        audio_.playIncorrect();
+        Audios::instance().playIncorrect();
     }
 
     return isCorrect;

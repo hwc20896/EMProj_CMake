@@ -32,4 +32,32 @@
     QMessageBox::critical(nullptr, "錯誤", msg); \
     qApp->exit(1)
 
+#define SINGLETON(cls)\
+    public:\
+        static cls& instance(){\
+            static cls insl;\
+            return insl;\
+        }\
+        \
+        cls(const cls&) = delete;\
+        cls(cls&&) = delete;\
+        cls& operator=(const cls&) = delete;\
+        cls& operator=(cls&&) = delete;\
+    private:\
+        cls() = default;
+
+#define SINGLETON_WITHOUT_CONSTRUCTOR(cls)\
+    public:\
+        static cls& instance(){\
+            static cls insl;\
+                return insl;\
+            }\
+        \
+        cls(const cls&) = delete;\
+        cls(cls&&) = delete;\
+        cls& operator=(const cls&) = delete;\
+        cls& operator=(cls&&) = delete;\
+    private:\
+        cls();
+
 #endif

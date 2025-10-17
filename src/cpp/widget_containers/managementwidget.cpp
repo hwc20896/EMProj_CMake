@@ -10,7 +10,7 @@
 #include "backends/audios.hpp"
 #include "backends/questionbackend.hpp"
 
-using EMProj_CMake_Backend::audio_, EMProj_CMake_Backend::scorer_;
+using EMProj_CMake_Backend::Audios, EMProj_CMake_Backend::Scorer;
 
 ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const bool currentMuted, QWidget* parent)
 : QWidget(parent), ui_(new Ui::ManagementWidget), mt_(device_()), config_(std::move(config)) {
@@ -18,18 +18,18 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
     ui_->setupUi(this);
     stackLayout_ = new QStackedLayout(this);
 
-    scorer_.loadQuestion(gamemode, config_.displayQuantity);
+    Scorer::instance().loadQuestion(gamemode, config_.displayQuantity);
 
     //  Get Question Data
     LOG("Pending questions:");
     for (const auto i: std::views::iota(0, config_.displayQuantity)) {
-        const auto widget = new QuestionWidget(scorer_[i], i + 1, mt_, this);
-        LOG(std::format("[{}]: {}", i + 1, scorer_[i].getInfo()));
+        const auto widget = new QuestionWidget(Scorer::instance()[i], i + 1, mt_, this);
+        LOG(std::format("[{}]: {}", i + 1, Scorer::instance()[i].getInfo()));
         pages_.push_back(widget);
         stackLayout_->addWidget(widget);
 
         connect(widget, &QuestionWidget::answerButtonClicked, this, [this, widget, i](OptionButton* button) {
-            if (scorer_.checkQuestion(button->text(), i)) {
+            if (Scorer::instance().checkQuestion(button->text(), i)) {
                 widget->setCorrect();
             } else {
                 widget->setIncorrect(button);
@@ -48,10 +48,10 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
         ui_->prevQuestion->setVisible(index != 0);
         if (index == config_.displayQuantity - 1) {
             ui_->nextQuestion->setText("完成");
-            ui_->nextQuestion->setEnabled(scorer_.getAnsweredCount() == config_.displayQuantity);
+            ui_->nextQuestion->setEnabled(Scorer::instance().getAnsweredCount() == config_.displayQuantity);
         } else {
             ui_->nextQuestion->setText("下一題 →");
-            ui_->nextQuestion->setEnabled(scorer_.getAnsweredCount() > index);
+            ui_->nextQuestion->setEnabled(Scorer::instance().getAnsweredCount() > index);
         }
     });
     connect(ui_->prevQuestion, &QPushButton::clicked, this, [this] {
@@ -63,17 +63,17 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
         if (const auto currentIndex = stackLayout_->currentIndex();
             currentIndex < config_.displayQuantity - 1)
         {
-            scorer_.startTimer();
+            Scorer::instance().startTimer();
             stackLayout_->setCurrentIndex(currentIndex + 1);
         } else {
             //  Finish
-            emit finish(scorer_.getScore(), muteSwitch_->getMutedState(), scorer_.getTotalTime());
+            emit finish(Scorer::instance().getScore(), muteSwitch_->getMutedState(), Scorer::instance().getTotalTime());
         }
     });
-    scorer_.startTimer();
+    Scorer::instance().startTimer();
 
     //  BGM
-    audio_.playBackgroundMusic();
+    Audios::instance().playBackgroundMusic();
 
     //  Mute switch
     muteSwitch_ = new MuteSwitch({50,50}, currentMuted, this);
@@ -95,7 +95,7 @@ ManagementWidget::ManagementWidget(GameConfig config, const int gamemode, const 
 }
 
 ManagementWidget::~ManagementWidget() {
-    audio_.stopBackgroundMusic();
+    Audios::instance().stopBackgroundMusic();
     for (const auto& page : pages_) {
         delete page;
     }
@@ -104,8 +104,8 @@ ManagementWidget::~ManagementWidget() {
 }
 
 void ManagementWidget::updatePages() const {
-    setScore(scorer_.getScore());
-    setProgress(scorer_.getAnsweredCount(), config_.displayQuantity);
+    setScore(Scorer::instance().getScore());
+    setProgress(Scorer::instance().getAnsweredCount(), config_.displayQuantity);
 }
 
 void ManagementWidget::setScore(const std::tuple<int, int>& score) const {
@@ -117,5 +117,5 @@ void ManagementWidget::setProgress(const int current, const int total) const {
 }
 
 void ManagementWidget::setSoundEffectMuted(const bool muted) {
-    audio_.setEffectMuted(muted);
+    Audios::instance().setEffectMuted(muted);
 }

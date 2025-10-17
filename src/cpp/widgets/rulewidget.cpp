@@ -6,19 +6,19 @@
 
 #include "ui_rulewidget.h"
 
-using EMProj_CMake_Backend::database;
+using EMProj_CMake_Backend::Database;
 
 #ifndef NO_SOUND_EFFECT_PREVIEW
 #include "backends/audios.hpp"
-using EMProj_CMake_Backend::audio_;
+using EMProj_CMake_Backend::Audios;
 #endif
 
 RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidget) {
     ui_->setupUi(this);
 
 #ifndef NO_SOUND_EFFECT_PREVIEW
-    connect(ui_->corrSoundPreview, &QPushButton::clicked, this, [this]{audio_.playCorrect();});
-    connect(ui_->incorrSoundPreview, &QPushButton::clicked, this, [this]{audio_.playIncorrect();});
+    connect(ui_->corrSoundPreview, &QPushButton::clicked, this, [this]{Audios::instance().playCorrect();});
+    connect(ui_->incorrSoundPreview, &QPushButton::clicked, this, [this]{Audios::instance().playIncorrect();});
 #else
     ui_->corrSoundPreview->hide();
     ui_->incorrSoundPreview->hide();
@@ -42,7 +42,7 @@ RuleWidget::~RuleWidget() {
 }
 
 void RuleWidget::setRuleText(const std::string& blockText, const int displayQuantity) const {
-    const auto data = database.getQuestionCount();
+    const auto data = Database::instance().getQuestionCount();
     const auto [constitutionCount, basisLawCount] = std::make_tuple(data[0], data[1]);
 
     ui_->ruleText->setText(

@@ -5,6 +5,7 @@
 #include <tuple>
 
 #include "utilities/questiondata.hpp"
+#include "utilities/defines.hpp"
 
 namespace EMProj_CMake_Backend {
     class TimeCounter final {
@@ -39,10 +40,8 @@ namespace EMProj_CMake_Backend {
     };
 
     class Scorer final {
+        SINGLETON(Scorer)
         public:
-            Scorer() = default;
-            ~Scorer() = default;
-
             void loadQuestion(int gamemode, int quantity);
 
             [[nodiscard]]
@@ -76,6 +75,4 @@ namespace EMProj_CMake_Backend {
 
             TimeCounter counter_{};
     };
-
-    inline Scorer scorer_;
 }
