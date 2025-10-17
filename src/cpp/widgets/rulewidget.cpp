@@ -42,9 +42,8 @@ RuleWidget::~RuleWidget() {
 }
 
 void RuleWidget::setRuleText(const std::string& blockText, const int displayQuantity) const {
-    const auto basisLawCount     = database.getQuestionCount(1),
-               constitutionCount = database.getQuestionCount(2);
     const auto data = database.getQuestionCount();
+    const auto [constitutionCount, basisLawCount] = std::make_tuple(data[0], data[1]);
 
     ui_->ruleText->setText(
         QString::fromStdString(
