@@ -2,11 +2,8 @@ cmake_minimum_required(VERSION 3.22)
 project(EMProj_CMake LANGUAGES CXX)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets Multimedia)
-find_package(SQLite3 REQUIRED)
 
 set(CMAKE_CXX_STANDARD 23)
-
-include_directories($ENV{VCPKG_ROOT}/installed/x64-mingw-dynamic/include)
 
 qt_standard_project_setup()
 
@@ -88,7 +85,7 @@ target_link_libraries(EMProj_CMake
         Qt::Core
         Qt::Widgets
         Qt::Multimedia
-        SQLite::SQLite3
+        ${CMAKE_BINARY_DIR}/duckdb.lib
 )
 
 target_include_directories(EMProj_CMake

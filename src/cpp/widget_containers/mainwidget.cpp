@@ -7,10 +7,11 @@ MainWidget::MainWidget(QWidget* parent) : QStackedWidget(parent) {
     try {
         //  Dummy query to check if the database is accessible correctly (i.e. not empty or corrupted)
         using EMProj_CMake_Backend::Database;
-        Database::instance().testDatabase();
+        (void) Database::instance();
     }
-    catch (const sqlite::errors::error&) {
-        ERROR("It seems that the database file is missing or corrupted. The application will now exit.");
+    catch (const std::runtime_error& err) {
+        ERROR("It seems that the excel file is missing or corrupted. The application will now exit.");
+        ERROR("Error: " << err.what());
         std::exit(-1);
     }
 
