@@ -24,3 +24,8 @@ QPushButton#icon{
 QPushButton#icon:hover{
     background-color: lightgray;
 }
+
+QLabel#ruleText {
+    background-color: rgba(255, 255, 255, 0.45);
+    padding-left: 10px;
+}

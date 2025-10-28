@@ -41,7 +41,7 @@ RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidge
     backgroundImage->setGeometry(0,0,1000,700);
     backgroundImage->lower();
 
-    this->setStyleSheet(backgroundStyleSheet);
+    this->setStyleSheet(FileRead::getStyleFromURI(":/CSS/src/css/intro.css").value_or(""));
 }
 
 RuleWidget::~RuleWidget() {
