@@ -3,6 +3,7 @@
 #define RULEWIDGET_HPP
 #include <QWidget>
 #include <QSoundEffect>
+#include <QLabel>
 
 //  PIMPL pattern
 namespace Ui {
@@ -31,6 +32,15 @@ class RuleWidget final : public QWidget {
 55% ~ 80%   -> A
 30% ~ 55%   -> B
 0% ~  30%   -> C
+        )";
+
+        QLabel* backgroundImage;
+
+        static constexpr auto backgroundStyleSheet = R"(
+QLabel#ruleText {
+    background-color: rgba(255, 255, 255, 0.45);
+    padding-left: 10px;
+}
         )";
     signals:
         void returnToIntro();

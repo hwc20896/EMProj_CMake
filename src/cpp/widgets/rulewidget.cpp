@@ -35,6 +35,13 @@ RuleWidget::RuleWidget(QWidget* parent) : QWidget(parent), ui_(new Ui::RuleWidge
 #endif
     ui_->returnButton->setObjectName("navigator");
     this->setStyleSheet(FileRead::getStyleFromURI(":/CSS/src/css/intro.css").value_or(""));
+
+    backgroundImage = new QLabel(this);
+    backgroundImage->setPixmap({":/BackgroundImages/backgrounds/qnabg.png"});
+    backgroundImage->setGeometry(0,0,1000,700);
+    backgroundImage->lower();
+
+    this->setStyleSheet(backgroundStyleSheet);
 }
 
 RuleWidget::~RuleWidget() {
