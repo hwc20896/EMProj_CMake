@@ -1,6 +1,5 @@
 #pragma once
-#ifndef MUTESWITCH_HPP
-#define MUTESWITCH_HPP
+
 #include <QPushButton>
 #include <QIcon>
 
@@ -15,4 +14,3 @@ class MuteSwitch final : public QPushButton {
         bool isMuted;
 };
 
-#endif

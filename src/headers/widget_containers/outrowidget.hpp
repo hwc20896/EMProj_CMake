@@ -1,10 +1,8 @@
 #pragma once
-#ifndef OUTROWIDGET_HPP
-#define OUTROWIDGET_HPP
+
 #include <QStackedWidget>
 #include "widgets/endwidget.hpp"
 #include "widgets/appinfowidget.hpp"
-#include <vector>
 
 class OutroWidget final : public QStackedWidget {
     Q_OBJECT
@@ -19,5 +17,3 @@ class OutroWidget final : public QStackedWidget {
     signals:
         void replay(bool isMuted);
 };
-
-#endif

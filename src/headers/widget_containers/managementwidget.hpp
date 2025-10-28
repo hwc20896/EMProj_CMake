@@ -1,8 +1,5 @@
 #pragma once
-#ifndef MANAGEMENTWIDGET_HPP
-#define MANAGEMENTWIDGET_HPP
-#include <QAudioOutput>
-#include <QMediaPlayer>
+
 #include <QSoundEffect>
 #include <QStackedLayout>
 #include <QTimer>
@@ -14,7 +11,6 @@
 
 #include "elements/muteswitch.hpp"
 #include "utilities/fileread.hpp"
-#include "utilities/defines.hpp"
 #include "widgets/templatewidget.hpp"
 
 //  PIMPL pattern
@@ -52,5 +48,3 @@ class ManagementWidget final : public QWidget {
     signals:
         void finish(const std::tuple<int, int>& result, bool currentMuted, int64_t totalTime);
 };
-
-#endif

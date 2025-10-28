@@ -1,6 +1,5 @@
 #pragma once
-#ifndef OPTIONBUTTON_HPP
-#define OPTIONBUTTON_HPP
+
 #include <QPushButton>
 
 class OptionButton final : public QPushButton {
@@ -49,5 +48,3 @@ class OptionButton final : public QPushButton {
             }
         )";
 };
-
-#endif

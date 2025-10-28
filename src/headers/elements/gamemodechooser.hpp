@@ -1,6 +1,5 @@
 #pragma once
-#ifndef GAMEMODECHOOSER_HPP
-#define GAMEMODECHOOSER_HPP
+
 #include <QComboBox>
 
 class GamemodeChooser final : public QComboBox {
@@ -37,4 +36,3 @@ QComboBox::drop-down{
         )";
 };
 
-#endif

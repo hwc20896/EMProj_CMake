@@ -1,6 +1,5 @@
 #pragma once
-#ifndef FILEREAD_HPP
-#define FILEREAD_HPP
+
 #include <QFile>
 #include <expected>
 
@@ -38,5 +37,3 @@ namespace FileRead {
      */
     std::expected<GameConfig, FileReadError> readGameConfig(const QString& uri);
 }
-
-#endif

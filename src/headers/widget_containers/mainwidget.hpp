@@ -1,6 +1,5 @@
 #pragma once
-#ifndef MAINWIDGET_H
-#define MAINWIDGET_H
+
 #include <QStackedWidget>
 
 #include "widgets/introwidget.hpp"
@@ -31,5 +30,3 @@ class MainWidget final : public QStackedWidget {
     private:
         static constexpr auto BLOCKSTART_TEXT = "（由於缺失配置文件，此規則無效）";
 };
-
-#endif

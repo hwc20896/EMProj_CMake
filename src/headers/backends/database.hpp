@@ -1,6 +1,4 @@
 #pragma once
-#ifndef DATABASE_HPP
-#define DATABASE_HPP
 
 #include <vector>
 #include "utilities/questiondata.hpp"
@@ -32,5 +30,3 @@ namespace EMProj_CMake_Backend {
     };
 
 }
-
-#endif

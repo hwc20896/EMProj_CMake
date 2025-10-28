@@ -1,6 +1,5 @@
 #pragma once
-#ifndef DEFINES_HPP
-#define DEFINES_HPP
+
 #include <format>
 #include <iostream>
 
@@ -60,4 +59,3 @@
     private:\
         cls();
 
-#endif
