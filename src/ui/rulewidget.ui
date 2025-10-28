@@ -29,7 +29,7 @@
     </font>
    </property>
    <property name="text">
-    <string>游戲規則</string>
+    <string>遊戲規則</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignmentFlag::AlignCenter</set>
