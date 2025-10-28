@@ -40,21 +40,14 @@ void EMProj_CMake_Backend::Scorer::loadQuestion(const int gamemode, const int qu
 }
 
 const QuestionData& EMProj_CMake_Backend::Scorer::operator[](const int index) const {
-    if (index < 0 || index >= questionPool_.size()) {
-        throw std::out_of_range("Index out of range in QuestionBackend::operator[]");
-    }
-    return questionPool_[index];
+    return questionPool_.at(index);
 }
 
 bool EMProj_CMake_Backend::Scorer::checkQuestion(const QString& answer, const int index) {
-    if (index < 0 || index >= static_cast<int>(questionPool_.size())) {
-        throw std::out_of_range("Index out of range in QuestionBackend::checkQuestion");
-    }
-
+    const auto& question = questionPool_.at(index);
     counter_.stop();
 
     cooldown(800);
-    const auto& question = questionPool_[index];
     const bool isCorrect = answer == question.options_[question.correctOption_];
 
     if (isCorrect) {
